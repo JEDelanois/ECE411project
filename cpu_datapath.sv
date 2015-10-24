@@ -60,7 +60,17 @@ latch_id_ex ID_EX_Latch
 
 
 execution_module EX_module
-();
+(
+	.curr_ir_in(IR_EX),
+	.sr1_out(SR1_EX),
+	.sr2_out(SR2_EX),
+	.curr_pc_in(PC_EX),
+	.control_word_in(CW_EX),
+	.alu_out(),
+	.curr_ir_out(),
+	.curr_pc_out(),
+	.control_word_out()
+);
 
 latch_ex_mem EX_MEM_Latch
 (
