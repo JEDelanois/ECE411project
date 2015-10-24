@@ -15,7 +15,17 @@ latch_if_id IF_ID_Latch
 
 
 instruction_decode ID_Logic
-();
+(
+		.clk(),
+		.IR(),
+		.data_in(),
+		.mem_control(),
+		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
+		.sr1(),
+		.sr2(),
+		.IR_post(),
+		.control_word()
+);
 
 latch_id_ex ID_EX_Latch
 (
