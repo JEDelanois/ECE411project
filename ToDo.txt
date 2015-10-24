@@ -1,0 +1,4 @@
+Note about modules:
+-muxes and sext vary in length based on width
+-zext is fixed length on 8 bits
+
