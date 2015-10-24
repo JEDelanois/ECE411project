@@ -1,17 +1,18 @@
 module cpu_datapath
 (
 		input clk,
-		output lc3b_word pc_out,
-		output lc3b_word mem_rdata,
+		output lc3b_word mem_address1,
+		output lc3b_word mem_rdata1,
 		output logic mem_read1
 );
 
-lc3b_word IF_IR, IF_EX_PC; // IF/ID wires
+lc3b_word pc_out, IF_IR, IF_EX_PC; // IF/ID wires
 lc3b_word ID_SR1, ID_SR2, ID_CW, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, CW_EX; // ID/EX wires
 lc3b_word EX_IR, EX_PC, EX_ALU, EX_CW, MEM_IR, MEM_PC, MEM_ALU, MEM_CW; // EX/MEM wires
 lc3b_word IR_MEM, PC_MEM, ALU_MEM, CW_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_CW, WB_MDR; // MEM/WB wires
 
 assign mem_read1 = clk;
+assign mem_address1 = pc_out;
 
 instruction_fetch IF_Logic
 (
@@ -28,7 +29,7 @@ latch_if_id IF_ID_Latch
 (
 		.clk(clk),
 		.load_latch(clk),
-		.IR_in(mem_rdata),
+		.IR_in(mem_rdata1),
 		.PC_in(pc_out),
 		.IR_out(IF_IR),
 		.PC_out(IF_EX_PC)
