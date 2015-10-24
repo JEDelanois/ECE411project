@@ -6,7 +6,15 @@ module cpu_datapath
 
 
 instruction_fetch IF_Logic
-();
+(
+	.clk,
+	.load_pc,
+	.pcmux_sel,
+	.br_add_out,
+	.sr1_out,
+	.mem_wdata,
+	.pc_out
+);
 
 latch_if_id IF_ID_Latch
 (
