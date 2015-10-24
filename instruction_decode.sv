@@ -20,7 +20,7 @@ assign IR_post = IR;
 gen_control Control_Generator
 (
 	.opcode(IR[15:12]),
-	.control_word(control_word)
+	.ctrl(control_word)
 );
 
 /* Register File and corresponding muxes */
