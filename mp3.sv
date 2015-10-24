@@ -25,7 +25,10 @@ cache LC3b_Cache
 
 cpu LC3b_CPU
 (
-		.clk(clk)
+		.clk(clk),
+		.pc_out(),
+		.mem_rdata(),
+		.mem_read1()
 );
 
 
