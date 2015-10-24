@@ -7,7 +7,7 @@ module writeback_module
 	input [15:0] MDR,
 	input [15:0] currIR,
 	input [15:0] currPC,
-	input [15:0] lc3b_control,
+	input lc3b_control controlWord,
 	input [15:0] genCC_WB,
 	
 	output logic [15:0] currALUout,
