@@ -55,7 +55,7 @@ typedef struct packed
 	logic destMux_sl;
 	logic IdEx_load;
 	logic [2:0] alumux_sel;
-	logic [3:0] aluop;
+	lc3b_aluop aluop;
 	logic ExMem_load;
 	logic memAdd2mux_sel;
 	logic mem_rdatamux_sel;
@@ -66,6 +66,7 @@ typedef struct packed
 	logic cc_load;
 	logic [2:0] regFilemux_sel;
 	logic regFile_load;
+	logic [3:0] opcode;
 	
 } lc3b_control;
 
