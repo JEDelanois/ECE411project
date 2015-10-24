@@ -68,7 +68,6 @@ typedef struct packed
 	logic regFile_load;
 	logic [3:0] opcode;
 	
-	
 } lc3b_control;
 
 endpackage : lc3b_types

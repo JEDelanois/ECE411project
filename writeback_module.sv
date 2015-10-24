@@ -41,11 +41,11 @@ logic [2:0] ccin,ccout;
 );
 
 
-//DANGLE select
+
 mux2 adjMUX
 (
 	/* port declaration */
-	.sel(),
+	.sel(controlWord.adjmux_sel),
 	.a(adj9out), 
 	.b(adj11out),
 	.f(adjMUXout)
@@ -74,7 +74,7 @@ gencc gencc
 register #(.width(3)) cc
 (
     .clk,
-    .load(),
+    .load(controlWord.cc_load),
     .in(ccin),
     .out(ccout)
 );
