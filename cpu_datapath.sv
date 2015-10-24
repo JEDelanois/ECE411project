@@ -81,7 +81,7 @@ execution_module EX_module
 latch_ex_mem EX_MEM_Latch
 (
 		.clk(clk),
-		.latch_load(clk),
+		.load_latch(clk),
 		.IR_in(EX_IR),
 		.PC_in(EX_PC),
 		.ALU_in(EX_ALU),
@@ -99,7 +99,7 @@ memory_module Mem_Module
 latch_wb WB_latch
 (
 		.clk(clk),
-		.latch_load(clk),
+		.load_latch(clk),
 		.IR_in(IR_MEM),
 		.PC_in(PC_MEM),
 		.ALU_in(ALU_MEM),
