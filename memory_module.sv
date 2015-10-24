@@ -8,6 +8,8 @@ module memory_module
 	input [15:0] mem_rdata,
 	
 	output [15:0] mem_addr2,
+	output logic mem_read2,
+	output logic mem_write2,
 	output [15:0] currALUout,
 	output [15:0] MDR,
 	output [15:0] currIRout,
@@ -20,6 +22,10 @@ assign currIRout = currIR;
 assign currPCout = currPC;
 assign controlWordout = controlWord;
 
+
+/* Temporary assignments until control figured out */
+assign mem_read2 = 0;
+assign mem_write2 = 0;
 
 //DANGLE select
 mux2 mem_addr2Mux
