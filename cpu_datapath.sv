@@ -10,13 +10,14 @@ instruction_fetch IF_Logic
 
 latch_if_id IF_ID_Latch
 (
-		.clk(clk)
+		.clk(clk),
+		
 );
 
 
 instruction_decode ID_Logic
 (
-		.clk(),
+		.clk(clk),
 		.IR(),
 		.data_in(),
 		.mem_control(),
