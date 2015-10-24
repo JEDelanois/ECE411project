@@ -14,6 +14,7 @@ typedef logic [4:0] lc3b_imm5;
 typedef logic [10:0] lc3b_offset11;
 typedef logic [3:0] lc3b_imm4;
 
+typedef logic [11:0] lc3b_IRbits;
 typedef logic [19:0] lc3b_control;
 
 typedef enum bit [3:0] {
