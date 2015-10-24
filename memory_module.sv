@@ -31,7 +31,7 @@ assign mem_write2 = 0;
 mux2 mem_addr2Mux
 (
 	/* port declaration */
-	.sel(1'b1),
+	.sel(controlWord.memAdd2mux_sel),
 	.a(currALU), 
 	.b(),
 	.f(mem_addr2)
@@ -39,11 +39,11 @@ mux2 mem_addr2Mux
 
 
 
-//DANGLE select
+
 mux2 mem_rdataMux
 (
 	/* port declaration */
-	.sel(),
+	.sel(controlWord.mem_rdatamux_sel),
 	.a(currALU), 
 	.b(mem_rdata),
 	.f(MDR)
