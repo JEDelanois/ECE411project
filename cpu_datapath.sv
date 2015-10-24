@@ -5,7 +5,8 @@ module cpu_datapath
 
 lc3b_word mem_rdata, pc_out, IF_IR, IF_EX_PC; // IF/ID wires
 lc3b_word ID_SR1, ID_SR2, ID_CW, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, CW_EX; // ID/EX wires
-lc3b_word EX_IR; // EX/MEM wires
+lc3b_word EX_IR, EX_PC, EX_ALU, EX_CW, MEM_IR, MEM_PC, MEM_ALU, MEM_CW; // EX/MEM wires
+lc3b_word IR_MEM, PC_MEM, ALU_MEM, CW_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_CW, WB_MDR; // MEM/WB wires
 
 instruction_fetch IF_Logic
 (
@@ -66,24 +67,24 @@ execution_module EX_module
 	.sr2_out(SR2_EX),
 	.curr_pc_in(PC_EX),
 	.control_word_in(CW_EX),
-	.alu_out(),
-	.curr_ir_out(),
-	.curr_pc_out(),
-	.control_word_out()
+	.alu_out(EX_ALU),
+	.curr_ir_out(EX_IR),
+	.curr_pc_out(EX_PC),
+	.control_word_out(EX_CW)
 );
 
 latch_ex_mem EX_MEM_Latch
 (
 		.clk(clk),
 		.latch_load(clk),
-		.IR_in(),
-		.PC_in(),
-		.ALU_in(),
-		.CW_in(),
-		.IR_out(),
-		.PC_out(),
-		.ALU_out(),
-		.CW_out()
+		.IR_in(EX_IR),
+		.PC_in(EX_PC),
+		.ALU_in(EX_ALU),
+		.CW_in(EX_CW),
+		.IR_out(MEM_IR),
+		.PC_out(MEM_PC),
+		.ALU_out(MEM_ALU),
+		.CW_out(MEM_CW)
 );
 
 
@@ -94,16 +95,16 @@ latch_wb WB_latch
 (
 		.clk(clk),
 		.latch_load(clk),
-		.IR_in(),
-		.PC_in(),
-		.ALU_in(),
-		.CW_in(),
-		.MDR_in(),
-		.IR_out(),
-		.PC_out(),
-		.ALU_out(),
-		.CW_out(),
-		.MDR_out()
+		.IR_in(IR_MEM),
+		.PC_in(PC_MEM),
+		.ALU_in(ALU_MEM),
+		.CW_in(CW_MEM),
+		.MDR_in(MDR_MEM),
+		.IR_out(WB_IR),
+		.PC_out(WB_PC),
+		.ALU_out(WB_ALU),
+		.CW_out(WB_CW),
+		.MDR_out(WB_MDR)
 );
 
 writeback_module WB_Module
