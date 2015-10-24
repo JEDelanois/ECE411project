@@ -1,7 +1,0 @@
-import lc3b_types::*;
-
-module latch_id_ex
-();
-
-
-endmodule : latch_id_ex
