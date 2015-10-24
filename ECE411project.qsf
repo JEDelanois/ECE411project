@@ -54,4 +54,13 @@ set_global_assignment -name SYSTEMVERILOG_FILE cpu_control.sv
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE instruction_fetch.sv
+set_global_assignment -name SYSTEMVERILOG_FILE latch_if_id.sv
+set_global_assignment -name SYSTEMVERILOG_FILE instruction_decode.sv
+set_global_assignment -name SYSTEMVERILOG_FILE latch_id_ex.sv
+set_global_assignment -name SYSTEMVERILOG_FILE execution_module.sv
+set_global_assignment -name SYSTEMVERILOG_FILE latch_ex_mem.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory_module.sv
+set_global_assignment -name SYSTEMVERILOG_FILE latch_wb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE writeback_module.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

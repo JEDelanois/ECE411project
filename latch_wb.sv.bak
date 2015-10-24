@@ -1,0 +1,7 @@
+import lc3b_types::*;
+
+module latch_wb
+();
+
+
+endmodule : latch_wb
