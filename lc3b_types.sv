@@ -48,25 +48,25 @@ typedef enum bit [3:0] {
 
 typedef struct packed
 {
-	locgic [1:0] PCmux_sel;
-	locgic mem1_read;
-	locgic IfId_load;
-	locgic sr1mux_sel;
-	locgic destMux_sl;
-	locgic IdEx_load;
-	locgic [2:0] alumux_sel;
-	locgic [3:0] aluop;
-	locgic ExMem_load;
-	locgic memAdd2mux_sel;
-	locgic mem_rdatamux_sel;
-	locgic MemWb_load;
-	locgic mem2_read;
-	locgic mem2_write;
-	locgic adjmux_sel;
-	locgic cc_load;
-	locgic [2:0] regFilemux_sel;
-	locgic regFile_load;
-
+	logic [1:0] PCmux_sel;
+	logic mem1_read;
+	logic IfId_load;
+	logic sr1mux_sel;
+	logic destMux_sl;
+	logic IdEx_load;
+	logic [2:0] alumux_sel;
+	lc3b_aluop aluop;
+	logic ExMem_load;
+	logic memAdd2mux_sel;
+	logic mem_rdatamux_sel;
+	logic MemWb_load;
+	logic mem2_read;
+	logic mem2_write;
+	logic adjmux_sel;
+	logic cc_load;
+	logic [2:0] regFilemux_sel;
+	logic regFile_load;
+	logic [3:0] opcode;
 	
 	
 } lc3b_control;
