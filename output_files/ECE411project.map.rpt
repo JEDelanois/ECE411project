@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ECE411project
-Fri Oct 23 20:54:41 2015
+Fri Oct 23 22:04:53 2015
 Quartus II 32-bit Version 13.1.4 Build 182 03/12/2014 SJ Full Version
 
 
@@ -41,7 +41,7 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Oct 23 20:54:41 2015       ;
+; Analysis & Synthesis Status        ; Successful - Fri Oct 23 22:04:53 2015       ;
 ; Quartus II 32-bit Version          ; 13.1.4 Build 182 03/12/2014 SJ Full Version ;
 ; Revision Name                      ; ECE411project                               ;
 ; Top-level Entity Name              ; mp3                                         ;
@@ -170,20 +170,19 @@ applicable agreement for further details.
 +----------------------------------+-----------------+------------------------------+-----------------------------------------------------------+---------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                              ; Library ;
 +----------------------------------+-----------------+------------------------------+-----------------------------------------------------------+---------+
+; writeback_module.sv              ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/writeback_module.sv   ;         ;
 ; mp3.sv                           ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/mp3.sv                ;         ;
-; cache.sv                         ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/cache.sv              ;         ;
-; cpu.sv                           ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/cpu.sv                ;         ;
-; cpu_datapath.sv                  ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/cpu_datapath.sv       ;         ;
-; cpu_control.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/cpu_control.sv        ;         ;
-; instruction_fetch.sv             ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/instruction_fetch.sv  ;         ;
-; latch_if_id.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/latch_if_id.sv        ;         ;
-; instruction_decode.sv            ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/instruction_decode.sv ;         ;
-; latch_id_ex.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/latch_id_ex.sv        ;         ;
-; execution_module.sv              ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/execution_module.sv   ;         ;
-; latch_ex_mem.sv                  ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/latch_ex_mem.sv       ;         ;
 ; memory_module.sv                 ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/memory_module.sv      ;         ;
 ; latch_wb.sv                      ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/latch_wb.sv           ;         ;
-; writeback_module.sv              ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/writeback_module.sv   ;         ;
+; latch_if_id.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/latch_if_id.sv        ;         ;
+; latch_id_ex.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/latch_id_ex.sv        ;         ;
+; latch_ex_mem.sv                  ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/latch_ex_mem.sv       ;         ;
+; instruction_fetch.sv             ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/instruction_fetch.sv  ;         ;
+; instruction_decode.sv            ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/instruction_decode.sv ;         ;
+; execution_module.sv              ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/execution_module.sv   ;         ;
+; cpu_datapath.sv                  ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/cpu_datapath.sv       ;         ;
+; cpu_control.sv                   ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/cpu_control.sv        ;         ;
+; cpu.sv                           ; yes             ; User SystemVerilog HDL File  ; /home/thomasn2/ece411/ECE411project/cpu.sv                ;         ;
 +----------------------------------+-----------------+------------------------------+-----------------------------------------------------------+---------+
 
 
@@ -241,60 +240,84 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.1.4 Build 182 03/12/2014 SJ Full Version
-    Info: Processing started: Fri Oct 23 20:54:38 2015
+    Info: Processing started: Fri Oct 23 22:04:48 2015
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ECE411project -c ECE411project
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
-Info (12021): Found 1 design units, including 0 entities, in source file lc3b_types.sv
-    Info (12022): Found design unit 1: lc3b_types (SystemVerilog)
-Warning (10275): Verilog HDL Module Instantiation warning at mp3.sv(25): ignored dangling comma in List of Port Connections
+Info (12021): Found 1 design units, including 1 entities, in source file zextshift.sv
+    Info (12023): Found entity 1: zextshift
+Info (12021): Found 1 design units, including 1 entities, in source file zext.sv
+    Info (12023): Found entity 1: zext
+Info (12021): Found 1 design units, including 1 entities, in source file writeback_module.sv
+    Info (12023): Found entity 1: writeback_module
+Info (12021): Found 1 design units, including 1 entities, in source file sext.sv
+    Info (12023): Found entity 1: sext
+Info (12021): Found 1 design units, including 1 entities, in source file register.sv
+    Info (12023): Found entity 1: register
+Info (12021): Found 1 design units, including 1 entities, in source file regfile.sv
+    Info (12023): Found entity 1: regfile
+Info (12021): Found 1 design units, including 1 entities, in source file plus2.sv
+    Info (12023): Found entity 1: plus2
+Info (12021): Found 1 design units, including 1 entities, in source file mux4.sv
+    Info (12023): Found entity 1: mux4
+Info (12021): Found 1 design units, including 1 entities, in source file mux2.sv
+    Info (12023): Found entity 1: mux2
 Info (12021): Found 1 design units, including 1 entities, in source file mp3.sv
     Info (12023): Found entity 1: mp3
-Info (12021): Found 1 design units, including 1 entities, in source file cache.sv
-    Info (12023): Found entity 1: cache
-Info (12021): Found 1 design units, including 1 entities, in source file cpu.sv
-    Info (12023): Found entity 1: cpu
+Info (12021): Found 1 design units, including 1 entities, in source file memory_module.sv
+    Info (12023): Found entity 1: memory_module
+Info (12021): Found 1 design units, including 0 entities, in source file lc3b_types.sv
+    Info (12022): Found design unit 1: lc3b_types (SystemVerilog)
+Info (12021): Found 1 design units, including 1 entities, in source file latch_wb.sv
+    Info (12023): Found entity 1: latch_wb
+Info (12021): Found 1 design units, including 1 entities, in source file latch_if_id.sv
+    Info (12023): Found entity 1: latch_if_id
+Info (12021): Found 1 design units, including 1 entities, in source file latch_id_ex.sv
+    Info (12023): Found entity 1: latch_id_ex
+Info (12021): Found 1 design units, including 1 entities, in source file latch_ex_mem.sv
+    Info (12023): Found entity 1: latch_ex_mem
+Info (12021): Found 1 design units, including 1 entities, in source file ir.sv
+    Info (12023): Found entity 1: ir
+Info (12021): Found 1 design units, including 1 entities, in source file instruction_fetch.sv
+    Info (12023): Found entity 1: instruction_fetch
+Info (12021): Found 1 design units, including 1 entities, in source file instruction_decode.sv
+    Info (12023): Found entity 1: instruction_decode
+Info (12021): Found 1 design units, including 1 entities, in source file gencc.sv
+    Info (12023): Found entity 1: gencc
+Info (12021): Found 1 design units, including 1 entities, in source file execution_module.sv
+    Info (12023): Found entity 1: execution_module
 Info (12021): Found 1 design units, including 1 entities, in source file cpu_datapath.sv
     Info (12023): Found entity 1: cpu_datapath
 Info (12021): Found 1 design units, including 1 entities, in source file cpu_control.sv
     Info (12023): Found entity 1: cpu_control
-Info (12021): Found 1 design units, including 1 entities, in source file instruction_fetch.sv
-    Info (12023): Found entity 1: instruction_fetch
-Info (12021): Found 1 design units, including 1 entities, in source file latch_if_id.sv
-    Info (12023): Found entity 1: latch_if_id
-Info (12021): Found 1 design units, including 1 entities, in source file instruction_decode.sv
-    Info (12023): Found entity 1: instruction_decode
-Info (12021): Found 1 design units, including 1 entities, in source file latch_id_ex.sv
-    Info (12023): Found entity 1: latch_id_ex
-Info (12021): Found 1 design units, including 1 entities, in source file execution_module.sv
-    Info (12023): Found entity 1: execution_module
-Info (12021): Found 1 design units, including 1 entities, in source file latch_ex_mem.sv
-    Info (12023): Found entity 1: latch_ex_mem
-Info (12021): Found 1 design units, including 1 entities, in source file memory_module.sv
-    Info (12023): Found entity 1: memory_module
-Info (12021): Found 1 design units, including 1 entities, in source file latch_wb.sv
-    Info (12023): Found entity 1: latch_wb
-Info (12021): Found 1 design units, including 1 entities, in source file writeback_module.sv
-    Info (12023): Found entity 1: writeback_module
+Info (12021): Found 1 design units, including 1 entities, in source file cpu.sv
+    Info (12023): Found entity 1: cpu
+Info (12021): Found 1 design units, including 1 entities, in source file cccomp.sv
+    Info (12023): Found entity 1: cccomp
+Info (12021): Found 1 design units, including 1 entities, in source file cache.sv
+    Info (12023): Found entity 1: cache
+Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
+    Info (12023): Found entity 1: alu
+Info (12021): Found 1 design units, including 1 entities, in source file adj.sv
+    Info (12023): Found entity 1: adj
+Info (12021): Found 1 design units, including 1 entities, in source file adder.sv
+    Info (12023): Found entity 1: adder
+Info (12021): Found 1 design units, including 1 entities, in source file magic_memory_dp.sv
+    Info (12023): Found entity 1: magic_memory_dp
 Info (12127): Elaborating entity "mp3" for the top level hierarchy
 Warning (10034): Output port "pmem_address" at mp3.sv(9) has no driver
 Warning (10034): Output port "pmem_wdata" at mp3.sv(11) has no driver
 Warning (10034): Output port "pmem_read" at mp3.sv(8) has no driver
 Warning (10034): Output port "pmem_write" at mp3.sv(8) has no driver
-Info (12128): Elaborating entity "cache" for hierarchy "cache:LC3b_Cache"
 Info (12128): Elaborating entity "cpu" for hierarchy "cpu:LC3b_CPU"
 Info (12128): Elaborating entity "cpu_datapath" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath"
 Info (12128): Elaborating entity "instruction_fetch" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|instruction_fetch:IF_Logic"
 Info (12128): Elaborating entity "latch_if_id" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|latch_if_id:IF_ID_Latch"
-Warning (12158): Entity "latch_if_id" contains only dangling pins
 Info (12128): Elaborating entity "instruction_decode" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|instruction_decode:ID_Logic"
 Info (12128): Elaborating entity "latch_id_ex" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|latch_id_ex:ID_EX_Latch"
-Warning (12158): Entity "latch_id_ex" contains only dangling pins
 Info (12128): Elaborating entity "execution_module" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|execution_module:EX_module"
 Info (12128): Elaborating entity "latch_ex_mem" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|latch_ex_mem:EX_MEM_Latch"
-Warning (12158): Entity "latch_ex_mem" contains only dangling pins
 Info (12128): Elaborating entity "memory_module" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|memory_module:Mem_Module"
 Info (12128): Elaborating entity "latch_wb" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|latch_wb:WB_latch"
-Warning (12158): Entity "latch_wb" contains only dangling pins
 Info (12128): Elaborating entity "writeback_module" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|writeback_module:WB_Module"
 Info (12128): Elaborating entity "cpu_control" for hierarchy "cpu:LC3b_CPU|cpu_control:LC3b_Control"
 Warning (13024): Output pins are stuck at VCC or GND
@@ -580,10 +603,10 @@ Warning (21074): Design contains 130 input pin(s) that do not drive logic
 Info (21057): Implemented 276 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 130 input pins
     Info (21059): Implemented 146 output pins
-Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 287 warnings
+Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 282 warnings
     Info: Peak virtual memory: 402 megabytes
-    Info: Processing ended: Fri Oct 23 20:54:41 2015
-    Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Processing ended: Fri Oct 23 22:04:53 2015
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:02
 
 

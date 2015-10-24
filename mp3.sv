@@ -10,20 +10,40 @@ module mp3
 		output [127:0] pmem_wdata
 );
 
-
+/*
 cache LC3b_Cache
 (
 		.clk(clk),
-		/*
 		.pmem_resp(pmem_resp),
 		.pmem_rdata(pmem_rdata),
 		.pmem_read(pmem_read),
 		.pmem_write(pmem_write),
 		.pmem_address(pmem_address),
 		.pmem_wdata(pmem_wdata)
-		*/
 );
 
+
+magic_memory_dp
+(
+		.clk(),
+
+      .read_a(),
+      .write_a(),
+      .wmask_a(),
+      .address_a(),
+      .wdata_a(),
+      .resp_a(),
+      .rdata_a(),
+
+      .read_b(),
+      .write_b(),
+      .wmask_b(),
+      .address_b(),
+      .wdata_b(),
+      .resp_b(),
+      .rdata_b()
+);
+*/
 cpu LC3b_CPU
 (
 		.clk(clk)

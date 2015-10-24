@@ -1,0 +1,19 @@
+# do ECE411project_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying /software/altera/13.1/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied /software/altera/13.1/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -sv -work work +incdir+/home/thomasn2/ece411/ECE411project {/home/thomasn2/ece411/ECE411project/writeback_module.sv}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# ** Error: /home/thomasn2/ece411/ECE411project/writeback_module.sv(1): Could not find the package (lc3b_types).  Design read will continue, but expect a cascade of errors after this failure.  Furthermore if you experience a vopt-7 error immediately before this error then please check the package names or the library search paths on the command line.
+# ** Error: /software/altera/13.1/modelsim_ase/linuxaloem/vlog failed.
+# Error in macro ./ECE411project_run_msim_rtl_verilog.do line 8
+# /software/altera/13.1/modelsim_ase/linuxaloem/vlog failed.
+#     while executing
+# "vlog -sv -work work +incdir+/home/thomasn2/ece411/ECE411project {/home/thomasn2/ece411/ECE411project/writeback_module.sv}"
