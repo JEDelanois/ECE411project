@@ -32,6 +32,10 @@ assign imm4 = curr_ir_in [3:0];
 assign imm5 = curr_ir_in [4:0];
 assign offset6 = curr_ir_in [5:0];
 
+assign curr_ir_out = curr_ir_in;
+assign curr_pc_out = curr_pc_in;
+assign control_word_out = control_word_in;
+
 /*
  * Sign extend imm4
  */
