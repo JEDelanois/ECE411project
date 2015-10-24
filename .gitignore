@@ -1,0 +1,21 @@
+# Ignore everything
+*
+
+# track .gitignore
+!.gitignore
+
+# track .sv
+!*.sv
+
+# track testcode
+!testcode/
+
+# track assembler
+!LC3bAssembler
+
+# track txt files
+!ToDo.txt
+!modelsim_do_example.txt
+
+# track shell commands
+!*.sh
