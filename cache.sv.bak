@@ -1,0 +1,6 @@
+import lc3b_types::*;
+
+module cache
+();
+
+endmodule : cache
