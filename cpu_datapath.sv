@@ -109,4 +109,27 @@ latch_wb WB_latch
 writeback_module WB_Module
 ();
 
+magic_memory_dp magic_memory_dp
+(
+    .clk,
+
+    /* Port A */
+    .read_a,
+    .write_a,
+    .wmask_a,
+    .address_a,
+    .wdata_a,
+    .resp_a,
+    .rdata_a,
+
+    /* Port B */
+    .read_b,
+    .write_b,
+    .wmask_b,
+    .address_b,
+    .wdata_b,
+    .resp_b,
+    .rdata_b
+);
+
 endmodule : cpu_datapath
