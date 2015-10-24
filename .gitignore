@@ -1,6 +1,9 @@
 # Ignore everything
 *
 
+# track qpf
+!*.qpf
+
 # track .gitignore
 !.gitignore
 
