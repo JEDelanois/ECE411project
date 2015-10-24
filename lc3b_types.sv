@@ -14,7 +14,7 @@ typedef logic [4:0] lc3b_imm5;
 typedef logic [10:0] lc3b_offset11;
 typedef logic [3:0] lc3b_imm4;
 
-typedef logic [19:0] lc3b_control;
+
 
 typedef enum bit [3:0] {
     op_add  = 4'b0001,
@@ -44,5 +44,31 @@ typedef enum bit [3:0] {
     alu_srl,
     alu_sra
 } lc3b_aluop;
+
+
+typedef struct packed
+{
+	logic [1:0] PCmux_sel;
+	logic mem1_read;
+	logic IfId_load;
+	logic sr1mux_sel;
+	logic destMux_sl;
+	logic IdEx_load;
+	logic [2:0] alumux_sel;
+	lc3b_aluop aluop;
+	logic ExMem_load;
+	logic memAdd2mux_sel;
+	logic mem_rdatamux_sel;
+	logic MemWb_load;
+	logic mem2_read;
+	logic mem2_write;
+	logic adjmux_sel;
+	logic cc_load;
+	logic [2:0] regFilemux_sel;
+	logic regFile_load;
+	logic [3:0] opcode;
+	
+	
+} lc3b_control;
 
 endpackage : lc3b_types

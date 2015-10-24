@@ -9,8 +9,27 @@ module gen_control
 always_comb
 	begin
 		/* Default signal assignments*/
-		//ctrl.opcode = opcode
+		ctrl.opcode = opcode;
+		ctrl.PCmux_sel = 2'b00;
+		ctrl.mem1_read = 1'b0;
+		ctrl.IfId_load = 1'b0;
+		ctrl.sr1mux_sel = 1'b0;
+		ctrl.destMux_sl = 1'b0;
+		ctrl.IdEx_load = 1'b0;
+		ctrl.alumux_sel = 3'b000;
+		ctrl.aluop = alu_add;
+		ctrl.ExMem_load = 1'b0;
+		ctrl.memAdd2mux_sel = 1'b0;
+		ctrl.mem_rdatamux_sel = 1'b0;
+		ctrl.MemWb_load = 1'b0;
+		ctrl.mem2_read = 1'b0;
+		ctrl.mem2_write = 1'b0;
+		ctrl.adjmux_sel = 1'b0;
+		ctrl.cc_load = 1'b0;
+		ctrl.regFilemux_sel = 3'b000;
+		ctrl.regFile_load = 1'b0;
 		
+		/* Apply unique values per instruction*/
 		case(opcode)
 			op_add: begin //TODO
 			
