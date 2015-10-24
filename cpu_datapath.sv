@@ -64,7 +64,16 @@ execution_module EX_module
 
 latch_ex_mem EX_MEM_Latch
 (
-		.clk(clk)
+		.clk(clk),
+		.latch_load(clk),
+		.IR_in(),
+		.PC_in(),
+		.ALU_in(),
+		.CW_in(),
+		.IR_out(),
+		.PC_out(),
+		.ALU_out(),
+		.CW_out()
 );
 
 
@@ -73,7 +82,18 @@ memory_module Mem_Module
 
 latch_wb WB_latch
 (
-		.clk(clk)
+		.clk(clk),
+		.latch_load(clk),
+		.IR_in(),
+		.PC_in(),
+		.ALU_in(),
+		.CW_in(),
+		.MDR_in(),
+		.IR_out(),
+		.PC_out(),
+		.ALU_out(),
+		.CW_out(),
+		.MDR_out()
 );
 
 writeback_module WB_Module
