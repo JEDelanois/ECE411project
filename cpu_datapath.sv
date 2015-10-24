@@ -94,7 +94,20 @@ latch_ex_mem EX_MEM_Latch
 
 
 memory_module Mem_Module
-();
+(
+		.clk(clk),
+		.currALU(MEM_ALU),
+		.currIR(MEM_IR),
+		.currPC(MEM_PC),
+		.controlWord(MEM_CW),
+		.mem_rdata(),
+		.mem_addr2(),
+		.currALUout(ALU_MEM),
+		.MDR(MDR_MEM),
+		.currIRout(IR_MEM),
+		.currPCout(PC_MEM),
+		.controlWordout(CW_MEM)
+);
 
 latch_wb WB_latch
 (
@@ -113,6 +126,19 @@ latch_wb WB_latch
 );
 
 writeback_module WB_Module
-();
+(
+		.clk(clk),
+		.currALU(WB_ALU),
+		.MDR(WB_MDR),
+		.currIR(WB_IR),
+		.currPC(WB_PC),
+		.controlWord(WB_CW),
+		.genCC_WB(),
+		
+		.currALUout(),
+		.MDRout(),
+		.br_adder_out(),
+		.branch_enable()
+);
 
 endmodule : cpu_datapath
