@@ -20,32 +20,15 @@ cache LC3b_Cache
 		.pmem_wdata(pmem_wdata)
 );
 
-
-magic_memory_dp Checkpoint_1_memory
-(
-		.clk(),
-
-      .read_a(),
-      .write_a(),
-      .wmask_a(),
-      .address_a(),
-      .wdata_a(),
-      .resp_a(),
-      .rdata_a(),
-
-      .read_b(),
-      .write_b(),
-      .wmask_b(),
-      .address_b(),
-      .wdata_b(),
-      .resp_b(),
-      .rdata_b()
-);
 */
+
 
 cpu LC3b_CPU
 (
-		.clk(clk)
+		.clk(clk),
+		.pc_out(),
+		.mem_rdata(),
+		.mem_read1()
 );
 
 

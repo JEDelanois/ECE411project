@@ -1,6 +1,6 @@
 module latch_wb
 (
-	input logic clk, latch_load,
+	input logic clk, load_latch,
 	input lc3b_word IR_in, PC_in, ALU_in, CW_in, MDR_in,
 	output lc3b_word IR_out, PC_out, ALU_out, CW_out, MDR_out
 );

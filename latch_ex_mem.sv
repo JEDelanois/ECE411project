@@ -1,6 +1,6 @@
 module latch_ex_mem
 (
-	input logic clk, latch_load,
+	input logic clk, load_latch,
 	input lc3b_word IR_in, PC_in, ALU_in, CW_in,
 	output lc3b_word IR_out, PC_out, ALU_out, CW_out
 );

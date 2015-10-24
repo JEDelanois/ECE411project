@@ -1,18 +1,24 @@
-SEGMENT  CodeSegment:
+ORIGIN 4x0000
 
-   LDR  R1, R0, NEGTWO  ; R1 <= -2
-   LDR  R2, R0, TWO     ; R2 <= 2
-   LDR  R4, R0, ONE     ; R4 <= 1
+SEGMENT
 
-LOOP:
-   BRnzp LOOP
+	ADD R0, R1, 10
+	JMP R0		;;This should jump across the add instructions
+	ADD R5, R5, -1
+	ADD R4, R4, 0
+	ADD R3, R3, 1
 
 
+	LDR R7, R7, VARIABLE	;;Loads address 1 into R7 to be used by ret
+	RET
 
-ONE:    DATA2 4x0001
-TWO:    DATA2 4x0002
-NEGTWO: DATA2 4xFFFE
-TEMP1:  DATA2 4x0001
-GOOD:   DATA2 4x600D
-BADD:   DATA2 4xBADD
+HALT:
+	BRnzp HALT		;;End program and loop infinitely
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Constants used in the program;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+VARIABLE: 	DATA2 4x0002	;;The number
+NEG_ONE: 	DATA2 4xFFFF	;;Negative 1 to be put into R0
+CLEAR:		DATA2 4x0000	;;Zero used to clear registers
