@@ -8,14 +8,14 @@ module instruction_decode
 		input logic mem_control,
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
 		output lc3b_word sr1, sr2,
-		output lc3b_IRbits IR_post,
+		output lc3b_word IR_post,
 		output lc3b_control control_word
 );
 
 lc3b_reg src_a, dest;
 lc3b_word regfile_mux_out;
 
-assign IR_post = IR[11:0];
+assign IR_post = IR;
 
 gen_control Control_Generator
 (
