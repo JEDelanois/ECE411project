@@ -1,16 +1,24 @@
 module mp3
 (
 		input clk,
+
+		/*
 		input pmem_resp,
 		input [127:0] pmem_rdata,
 		output pmem_read, pmem_write,
 		output [15:0] pmem_address,
 		output [127:0] pmem_wdata,
+		*/
 
 		/* Memory signals*/
-		output lc3b_word mem_address1,
-		output lc3b_word mem_rdata1,
+		output lc3b_word mem_addr1,
 		output logic mem_read1
+		output lc3b_word mem_rdata1,
+		output lc3b_word mem_addr2,
+		output logic mem_read2,
+		output logic mem_write2,
+		output lc3b_word mem_rdata2,
+		output lc3b_word mem_wdata2
 );
 
 /*
@@ -31,9 +39,14 @@ cache LC3b_Cache
 cpu LC3b_CPU
 (
 		.clk,
-		.mem_address1,
+		.mem_addr1,
+		.mem_read1,
 		.mem_rdata1,
-		.mem_read11
+		.mem_addr2,
+		.mem_read2,
+		.mem_write2,
+		.mem_rdata2,
+		.mem_wdata2
 );
 
 
