@@ -45,7 +45,10 @@ magic_memory_dp Checkpoint_1_memory
 
 cpu LC3b_CPU
 (
-		.clk(clk)
+		.clk(clk),
+		.pc_out(),
+		.mem_rdata(),
+		.mem_read1()
 );
 
 
