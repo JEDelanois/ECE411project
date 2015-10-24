@@ -2,3 +2,10 @@ Note about modules:
 -muxes and sext vary in length based on width
 -zext is fixed length on 8 bits
 
+
+Note about magic memory:
+-Loading in a program when uncommented doesn't work
+
+
+Note about lc3b_types:
+Modelsim cannot find lc3b_types for an unknown reason.

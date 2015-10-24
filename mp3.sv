@@ -1,5 +1,3 @@
-import lc3b_types::*;
-
 module mp3
 (
 		input clk,
@@ -23,7 +21,7 @@ cache LC3b_Cache
 );
 
 
-magic_memory_dp
+magic_memory_dp Checkpoint_1_memory
 (
 		.clk(),
 
@@ -44,6 +42,7 @@ magic_memory_dp
       .rdata_b()
 );
 */
+
 cpu LC3b_CPU
 (
 		.clk(clk)

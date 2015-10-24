@@ -1,5 +1,5 @@
 Analysis & Synthesis report for ECE411project
-Fri Oct 23 22:04:53 2015
+Fri Oct 23 23:28:31 2015
 Quartus II 32-bit Version 13.1.4 Build 182 03/12/2014 SJ Full Version
 
 
@@ -41,7 +41,7 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Oct 23 22:04:53 2015       ;
+; Analysis & Synthesis Status        ; Successful - Fri Oct 23 23:28:31 2015       ;
 ; Quartus II 32-bit Version          ; 13.1.4 Build 182 03/12/2014 SJ Full Version ;
 ; Revision Name                      ; ECE411project                               ;
 ; Top-level Entity Name              ; mp3                                         ;
@@ -240,7 +240,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.1.4 Build 182 03/12/2014 SJ Full Version
-    Info: Processing started: Fri Oct 23 22:04:48 2015
+    Info: Processing started: Fri Oct 23 23:28:28 2015
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ECE411project -c ECE411project
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file zextshift.sv
@@ -304,10 +304,10 @@ Info (12021): Found 1 design units, including 1 entities, in source file adder.s
 Info (12021): Found 1 design units, including 1 entities, in source file magic_memory_dp.sv
     Info (12023): Found entity 1: magic_memory_dp
 Info (12127): Elaborating entity "mp3" for the top level hierarchy
-Warning (10034): Output port "pmem_address" at mp3.sv(9) has no driver
-Warning (10034): Output port "pmem_wdata" at mp3.sv(11) has no driver
-Warning (10034): Output port "pmem_read" at mp3.sv(8) has no driver
-Warning (10034): Output port "pmem_write" at mp3.sv(8) has no driver
+Warning (10034): Output port "pmem_address" at mp3.sv(7) has no driver
+Warning (10034): Output port "pmem_wdata" at mp3.sv(9) has no driver
+Warning (10034): Output port "pmem_read" at mp3.sv(6) has no driver
+Warning (10034): Output port "pmem_write" at mp3.sv(6) has no driver
 Info (12128): Elaborating entity "cpu" for hierarchy "cpu:LC3b_CPU"
 Info (12128): Elaborating entity "cpu_datapath" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath"
 Info (12128): Elaborating entity "instruction_fetch" for hierarchy "cpu:LC3b_CPU|cpu_datapath:LC3b_Datapath|instruction_fetch:IF_Logic"
@@ -604,9 +604,9 @@ Info (21057): Implemented 276 device resources after synthesis - the final resou
     Info (21058): Implemented 130 input pins
     Info (21059): Implemented 146 output pins
 Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 282 warnings
-    Info: Peak virtual memory: 402 megabytes
-    Info: Processing ended: Fri Oct 23 22:04:53 2015
-    Info: Elapsed time: 00:00:05
+    Info: Peak virtual memory: 411 megabytes
+    Info: Processing ended: Fri Oct 23 23:28:31 2015
+    Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:02
 
 
