@@ -1,3 +1,5 @@
+import lc3b_types::*;
+
 module execution_module
 (
 	input lc3b_word curr_ir_in,

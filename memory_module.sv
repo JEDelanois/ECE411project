@@ -1,3 +1,5 @@
+import lc3b_types::*;
+
 module memory_module
 (
 	input clk,

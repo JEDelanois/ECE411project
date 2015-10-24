@@ -1,3 +1,5 @@
+import lc3b_types::*;
+
 module latch_wb
 (
 	input logic clk, load_latch,
