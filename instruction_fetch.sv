@@ -1,5 +1,3 @@
-import lc3b_types::*;
-
 module instruction_fetch
 ();
 

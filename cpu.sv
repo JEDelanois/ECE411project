@@ -1,5 +1,3 @@
-import lc3b_types::*;
-
 module cpu
 (
 	input clk
