@@ -3,23 +3,27 @@ module cpu_datapath
 		input clk
 );
 
-
+lc3b_word mem_rdata, pc_out;
 
 instruction_fetch IF_Logic
 (
-	.clk,
-	.load_pc,
-	.pcmux_sel,
-	.br_add_out,
-	.sr1_out,
-	.mem_wdata,
-	.pc_out
+	.clk(),
+	.load_pc(),
+	.pcmux_sel(),
+	.br_add_out(),
+	.sr1_out(),
+	.mem_rdata(mem_rdata),
+	.pc_out(pc_out)
 );
 
 latch_if_id IF_ID_Latch
 (
 		.clk(clk),
-		
+		.load_latch(),
+		.IR_in(mem_rdata),
+		.PC_in(pc_out),
+		.IR_out(),
+		.PC_out()
 );
 
 
