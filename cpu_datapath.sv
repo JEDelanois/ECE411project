@@ -29,6 +29,8 @@ lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 assign mem_read1 = clk;
 assign mem_addr1 = pc_out;
 assign mem_wdata = SR2_MEM;
+assign mem_read2 = MEM_CW.mem2_read;
+assign mem_write2 = MEM_CW.mem2_write;
 
 instruction_fetch IF_Logic
 (
@@ -122,8 +124,6 @@ memory_module Mem_Module
 		.controlWord(MEM_CW),
 		.mem_rdata(mem_rdata2),
 		.mem_addr2(mem_addr2),
-		.mem_read2(mem_read2),																				//These two signals need to me connected to memory
-		.mem_write2(mem_write2),
 		.currALUout(ALU_MEM),
 		.MDR(MDR_MEM),
 		.currIRout(IR_MEM),
