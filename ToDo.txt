@@ -10,20 +10,3 @@ Note about magic memory:
 Note about lc3b_types:
 Modelsim cannot find lc3b_types for an unknown reason.
 
-Various warnings that I got in modelsim
- ** Warning: (vsim-3015) /home/pandoh2/ece411/mp3/ECE411project/cpu_datapath.sv(57): [PCDPC] - Port size (30 or 30) does not match connection size (16) for port 'control_word'. The port definition is at: /home/pandoh2/ece411/mp3/ECE411project/instruction_decode.sv(12).
-#         Region: /mp3_tb/dut/LC3b_CPU/ID_Logic
-# ** Warning: (vsim-3015) /home/pandoh2/ece411/mp3/ECE411project/cpu_datapath.sv(87): [PCDPC] - Port size (30 or 30) does not match connection size (16) for port 'control_word_in'. The port definition is at: /home/pandoh2/ece411/mp3/ECE411project/execution_module.sv(9).
-#         Region: /mp3_tb/dut/LC3b_CPU/EX_module
-# ** Warning: (vsim-3015) /home/pandoh2/ece411/mp3/ECE411project/cpu_datapath.sv(87): [PCDPC] - Port size (30 or 30) does not match connection size (16) for port 'control_word_out'. The port definition is at: /home/pandoh2/ece411/mp3/ECE411project/execution_module.sv(13).
-#         Region: /mp3_tb/dut/LC3b_CPU/EX_module
-# ** Warning: (vsim-3015) /home/pandoh2/ece411/mp3/ECE411project/cpu_datapath.sv(120): [PCDPC] - Port size (30 or 30) does not match connection size (16) for port 'controlWord'. The port definition is at: /home/pandoh2/ece411/mp3/ECE411project/memory_module.sv(9).
-#         Region: /mp3_tb/dut/LC3b_CPU/Mem_Module
-# ** Warning: (vsim-3015) /home/pandoh2/ece411/mp3/ECE411project/cpu_datapath.sv(120): [PCDPC] - Port size (30 or 30) does not match connection size (16) for port 'controlWordout'. The port definition is at: /home/pandoh2/ece411/mp3/ECE411project/memory_module.sv(19).
-#         Region: /mp3_tb/dut/LC3b_CPU/Mem_Module
-# ** Warning: (vsim-3015) /home/pandoh2/ece411/mp3/ECE411project/cpu_datapath.sv(154): [PCDPC] - Port size (30 or 30) does not match connection size (16) for port 'controlWord'. The port definition is at: /home/pandoh2/ece411/mp3/ECE411project/writeback_module.sv(10).
-#         Region: /mp3_tb/dut/LC3b_CPU/WB_Module
-
-# ** Warning: (vsim-7) Failed to open readmem file "memory.lst" in read mode.
-# No such file or directory. (errno = ENOENT)    : /home/pandoh2/ece411/mp3/ECE411project/magic_memory_dp.sv(40)
-#    Time: 0 ps  Iteration: 0  Instance: /mp3_tb/magic_memory_dp
