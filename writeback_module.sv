@@ -17,12 +17,12 @@ module writeback_module
 
 );
 
+logic compare;
 
 assign currALUout = currALU;
 assign MDRout = MDR;
 assign branch_enable = compare&&(currIR[15:12] == 4'b0000);
 
-logic compare;
  lc3b_word adj9out;
  lc3b_word adj11out;
  lc3b_word adjMUXout;
