@@ -76,7 +76,7 @@ sext #(.width(6)) sext6
 
 mux8 #(16) alumuux
 (
-	.sel(alumux_sel),
+	.sel(control_word_in.alumux_sel),
 	.a(adj6_out),
 	.b(sext5_out),
 	.c(sext4_out),
@@ -93,7 +93,7 @@ mux8 #(16) alumuux
  */
 alu ALU
 (
-	.aluop,
+	.aluop(control_word_in.aluop),
 	.a(sr1_out),
 	.b(alumux_out),
 	.f(alu_out)
