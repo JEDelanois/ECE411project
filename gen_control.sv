@@ -34,7 +34,7 @@ always_comb
 		/* Apply unique values per instruction*/
 		case(opcode)
 			op_add: begin //TODO
-				if(IRbits[0])
+				if(IRbits[5] == 0)
 					ctrl.alumux_sel = 3'b100;
 				else
 					ctrl.alumux_sel = 3'b001;
@@ -42,7 +42,7 @@ always_comb
 				ctrl.cc_load = 1'b1;
 			end
 			op_and: begin //TODO
-				if(IRbits[0])
+				if(IRbits[5] == 0)
 					ctrl.alumux_sel = 3'b100;
 				else
 					ctrl.alumux_sel = 3'b001;
