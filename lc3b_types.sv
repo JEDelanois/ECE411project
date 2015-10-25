@@ -52,7 +52,7 @@ typedef struct packed
 	logic mem1_read;
 	logic IfId_load;
 	logic sr1mux_sel;
-	logic destMux_sl;
+	logic destmux_sel;
 	logic IdEx_load;
 	logic [2:0] alumux_sel;
 	lc3b_aluop aluop;

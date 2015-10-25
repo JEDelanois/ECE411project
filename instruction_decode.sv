@@ -27,7 +27,7 @@ gen_control Control_Generator
 regfile LC3b_RegFile
 (
 		.clk(clk),
-		.load(/*Comes from control of the wb stage*/),
+		.load(/*Comes from control of the wb stage*/mem_control),
 		.in(regfile_mux_out),
 		.src_a(src_a), 
 		.src_b(IR[2:0]), 
@@ -38,7 +38,7 @@ regfile LC3b_RegFile
 
 mux2 #(3) sr1_mux
 (
-		.sel(/* Corresponding bits from the control word */),
+		.sel(control_word.sr1mux_sel),
 		.a(IR[8:6]),
 		.b(IR[11:9]), /* DOUBLE CHECK THIS IS CORRECT */
 		.f(src_a)
@@ -46,7 +46,7 @@ mux2 #(3) sr1_mux
 
 mux2 #(3) dest_mux
 (
-		.sel(/* Corresponding bits from the control word*/),
+		.sel(control_word.destmux_sel),
 		.a(IR[11:9]),
 		.b(3'b111),
 		.f(dest)
@@ -54,7 +54,7 @@ mux2 #(3) dest_mux
 
 mux8 regfile_load_mux
 (
-		.sel(/*Comes from control of the wb stage*/),
+		.sel(/*Comes from control of the wb stage*/ 3'b000),
 		.a(data_in),
 		.b(),
 		.c(),

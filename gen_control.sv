@@ -14,7 +14,7 @@ always_comb
 		ctrl.mem1_read = 1'b0;
 		ctrl.IfId_load = 1'b0;
 		ctrl.sr1mux_sel = 1'b0;
-		ctrl.destMux_sl = 1'b0;
+		ctrl.destmux_sel = 1'b0;
 		ctrl.IdEx_load = 1'b0;
 		ctrl.alumux_sel = 3'b000;
 		ctrl.aluop = alu_add;
