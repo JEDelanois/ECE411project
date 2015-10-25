@@ -51,12 +51,11 @@ instruction_decode ID_Logic
 		.data_in(final_MDR),
 		.mem_control(WB_CW.regFile_load),	/* mem_control is the control to decide when to load regfile, from the writeback section */
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
-		.genCC_WB(genCC_WB),
 		.sr1(ID_SR1),
 		.sr2(ID_SR2),
 		.IR_post(ID_IR),
 		.control_word(ID_CW),
-		.genCC_WB()
+		.genCC_WB(genCC_WB)
 );
 
 latch_id_ex ID_EX_Latch

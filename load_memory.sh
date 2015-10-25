@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Settings
-DEFAULT_TARGET=./memory.lst
+DEFAULT_TARGET=simulation/modelsim/memory.lst
 ASSEMBLER=./LC3bAssembler
-ADDRESSABILITY=16
+ADDRESSABILITY=1
 
 # Command line parameters
 ASM_FILE=$1
