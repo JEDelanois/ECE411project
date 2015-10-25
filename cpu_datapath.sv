@@ -13,11 +13,18 @@ module cpu_datapath
 		output lc3b_word mem_wdata2
 );
 
-lc3b_word pc_out, IF_IR, IF_EX_PC; // IF/ID wires
-lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX; // ID/EX wires
-lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU ; // EX/MEM wires
-lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,branch_enable,ALUin; // MEM/WB wires
-lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW; //Control Word typing for register wires
+// IF/ID wires
+lc3b_word pc_out, IF_IR, IF_EX_PC;
+// ID/EX wires
+lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX;
+// EX/MEM wires
+lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU;
+// MEM/WB wires
+lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,ALUin;
+logic branch_enable;
+lc3b_word br_adder_out;
+//Control Word typing for register wires
+lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 
 assign mem_read1 = clk;
 assign mem_addr1 = pc_out;
@@ -130,13 +137,13 @@ latch_wb WB_latch
 		.IR_in(IR_MEM),
 		.PC_in(PC_MEM),
 		.ALU_in(ALU_MEM),
-		.CW_in(CW_MEM),
 		.MDR_in(MDR_MEM),
+		.CW_in(CW_MEM),
 		.IR_out(WB_IR),
 		.PC_out(WB_PC),
 		.ALU_out(WB_ALU),
-		.CW_out(WB_CW),
-		.MDR_out(WB_MDR)
+		.MDR_out(WB_MDR),
+		.CW_out(WB_CW)
 );
 
 writeback_module WB_Module
