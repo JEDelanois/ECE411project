@@ -70,6 +70,7 @@ always_comb
 				ctrl.mem2_read = 1'b1;
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
+				ctrl.mem_rdatamux_sel = 1'b1;
 			end
 			op_lea: begin
 			
