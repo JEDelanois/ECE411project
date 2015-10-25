@@ -15,6 +15,7 @@ always_comb
 		ctrl.mem1_read = 1'b0;
 		ctrl.IfId_load = 1'b0;
 		ctrl.sr1mux_sel = 1'b0;
+		ctrl.sr2mux_sel = 1'b0;
 		ctrl.destmux_sel = 1'b0;
 		ctrl.IdEx_load = 1'b0;
 		ctrl.alumux_sel = 3'b000;
@@ -91,7 +92,9 @@ always_comb
 			
 			end
 			op_str: begin //TODO
-			
+				ctrl.sr2mux_sel = 1'b1;
+				ctrl.alumux_sel = 3'b011;
+				ctrl.mem2_write = 1'b1;
 			end
 			op_trap: begin
 			
