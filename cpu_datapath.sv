@@ -36,7 +36,7 @@ instruction_fetch IF_Logic
 (
 		.clk(clk),
 		.load_pc(clk),
-		.pcmux_sel({1'b1, branch_enable}),
+		.pcmux_sel({1'b0, branch_enable}),
 		.br_add_out(br_adder_out),
 		.sr1_out(),
 		.mem_rdata(mem_rdata2),
