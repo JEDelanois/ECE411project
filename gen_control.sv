@@ -38,6 +38,7 @@ always_comb
 				else
 					ctrl.alumux_sel = 3'b001;
 				ctrl.regFile_load = 1'b1;
+				ctrl.cc_load = 1'b1;
 			end
 			op_and: begin //TODO
 				if(IRbits[0])
@@ -46,6 +47,7 @@ always_comb
 					ctrl.alumux_sel = 3'b001;
 				ctrl.regFile_load = 1'b1;
 				ctrl.aluop = alu_and;
+				ctrl.cc_load = 1'b1;
 			end
 			op_br: begin //TODO
 			
@@ -64,6 +66,9 @@ always_comb
 			end
 			op_ldr: begin //TODO
 				ctrl.alumux_sel = 3'b011;
+				ctrl.mem2_read = 1'b1;
+				ctrl.regFile_load = 1'b1;
+				ctrl.cc_load = 1'b1;
 			end
 			op_lea: begin
 			
@@ -71,7 +76,7 @@ always_comb
 			op_not: begin //TODO
 				ctrl.aluop = alu_not;
 				ctrl.regFile_load = 1'b1;
-				ctrl.mem2_read = 1'b1;
+				ctrl.cc_load = 1'b1;
 			end
 			op_rti: begin
 			
