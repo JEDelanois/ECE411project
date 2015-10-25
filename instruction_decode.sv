@@ -49,7 +49,7 @@ mux2 #(3) sr1_mux
 
 mux2 #(3) dest_mux
 (
-		.sel(control_word.destmux_sel),
+		.sel(control_word.destmux_sel /* SHOULD COME FROM THE CONTROL OF THE WB STAGE THIS IS CURRENTLY WRONG*/),
 		.a(IR[11:9]),
 		.b(3'b111),
 		.f(dest)

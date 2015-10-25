@@ -33,10 +33,19 @@ always_comb
 		/* Apply unique values per instruction*/
 		case(opcode)
 			op_add: begin //TODO
-			
+				if(IRbits[0])
+					ctrl.alumux_sel = 3'b100;
+				else
+					ctrl.alumux_sel = 3'b001;
+				ctrl.regFile_load = 1'b1;
 			end
 			op_and: begin //TODO
-			
+				if(IRbits[0])
+					ctrl.alumux_sel = 3'b100;
+				else
+					ctrl.alumux_sel = 3'b001;
+				ctrl.regFile_load = 1'b1;
+				ctrl.aluop = alu_and;
 			end
 			op_br: begin //TODO
 			
@@ -54,13 +63,15 @@ always_comb
 			
 			end
 			op_ldr: begin //TODO
-			
+				ctrl.alumux_sel = 3'b011;
 			end
 			op_lea: begin
 			
 			end
 			op_not: begin //TODO
-			
+				ctrl.aluop = alu_not;
+				ctrl.regFile_load = 1'b1;
+				ctrl.mem2_read = 1'b1;
 			end
 			op_rti: begin
 			

@@ -14,7 +14,7 @@ typedef logic [4:0] lc3b_imm5;
 typedef logic [10:0] lc3b_offset11;
 typedef logic [3:0] lc3b_imm4;
 
-
+const int CONTROL_WIDTH = 30;
 
 typedef enum bit [3:0] {
     op_add  = 4'b0001,
