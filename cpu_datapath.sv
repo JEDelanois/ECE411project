@@ -48,7 +48,7 @@ latch_if_id IF_ID_Latch
 		.clk(clk),
 		.load_latch(clk),
 		.IR_in(mem_rdata1),
-		.PC_in(pc_out),
+		.PC_in(pc_out + 4'h2),
 		.IR_out(IF_IR),
 		.PC_out(IF_EX_PC)
 );
