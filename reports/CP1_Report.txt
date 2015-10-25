@@ -30,3 +30,12 @@ looked at simulation waveforms to identify bugs while the other two looked
 through RTL and the code to find the source of the bug. This system worked
 quite well as the person looking at waveforms continued to give more
 information about the bug to help the others narrow their search for the source.
+
+For the next checkpoint, we need to complete the ISA and cache arbiter. Our road map is to complete the ISA before touching the cache or the arbiter. For the
+implementation, we will have one person working on datapath modifications while
+the other two work on adding on to the control rom logic. When debugging
+instructions, we will probably stick to the same system of going instruction
+by instruction and having one person look at simulation waveforms while the
+other two look through RTL and SystemVerilog code. After the ISA is complete,
+we will have two people working on the L1 caches while one person works on the
+arbiter.
