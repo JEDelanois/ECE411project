@@ -9,13 +9,15 @@ module instruction_decode
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
 		output lc3b_word sr1, sr2,
 		output lc3b_word IR_post,
-		output lc3b_control control_word
+		output lc3b_control control_word,
+		output lc3b_word genCC_WB
 );
 
 lc3b_reg src_a, dest;
 lc3b_word regfile_mux_out;
 
 assign IR_post = IR;
+assign genCC_WB = regfile_mux_out;
 
 gen_control Control_Generator
 (
