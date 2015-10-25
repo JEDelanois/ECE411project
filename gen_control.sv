@@ -3,6 +3,7 @@ import lc3b_types::*;
 module gen_control
 (
 		input logic [3:0] opcode,
+		input logic [11:0] IRbits,
 		output lc3b_control ctrl
 );
 
@@ -37,7 +38,7 @@ always_comb
 			op_and: begin //TODO
 			
 			end
-			op_br: begin
+			op_br: begin //TODO
 			
 			end
 			op_jmp: begin

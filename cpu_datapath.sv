@@ -54,7 +54,8 @@ instruction_decode ID_Logic
 		.sr1(ID_SR1),
 		.sr2(ID_SR2),
 		.IR_post(ID_IR),
-		.control_word(ID_CW)
+		.control_word(ID_CW),
+		.genCC_WB()
 );
 
 latch_id_ex ID_EX_Latch

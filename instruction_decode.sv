@@ -22,6 +22,7 @@ assign genCC_WB = regfile_mux_out;
 gen_control Control_Generator
 (
 	.opcode(IR[15:12]),
+	.IRbits(IR[11:0]),
 	.ctrl(control_word)
 );
 
