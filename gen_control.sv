@@ -51,7 +51,7 @@ always_comb
 				ctrl.cc_load = 1'b1;
 			end
 			op_br: begin //TODO
-			
+				/* Nothing needs to happen for now. God help you for the next checkpoints though.*/
 			end
 			op_jmp: begin
 			
@@ -66,7 +66,6 @@ always_comb
 			
 			end
 			op_ldr: begin //TODO
-				ctrl.alumux_sel = 3'b011;
 				ctrl.mem2_read = 1'b1;
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
@@ -94,7 +93,6 @@ always_comb
 			end
 			op_str: begin //TODO
 				ctrl.sr2mux_sel = 1'b1;
-				ctrl.alumux_sel = 3'b011;
 				ctrl.mem2_write = 1'b1;
 			end
 			op_trap: begin
