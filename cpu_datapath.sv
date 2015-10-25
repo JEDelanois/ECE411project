@@ -28,7 +28,7 @@ lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 
 assign mem_read1 = clk;
 assign mem_addr1 = pc_out;
-assign mem_wdata = SR2_MEM;
+assign mem_wdata2 = SR2_MEM;
 assign mem_read2 = MEM_CW.mem2_read;
 assign mem_write2 = MEM_CW.mem2_write;
 
@@ -58,6 +58,7 @@ instruction_decode ID_Logic
 (
 		.clk(clk),
 		.IR(IF_IR),
+		.WB_IR(WB_IR),
 		.data_in(final_MDR),
 		.mem_control(WB_CW.regFile_load),	/* mem_control is the control to decide when to load regfile, from the writeback section */
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
@@ -131,7 +132,6 @@ memory_module Mem_Module
 		.controlWordout(CW_MEM)
 );
 
-assign mem_wdata2 = MDR_MEM;
 
 latch_wb WB_latch
 (

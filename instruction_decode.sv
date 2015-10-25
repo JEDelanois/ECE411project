@@ -3,7 +3,7 @@ import lc3b_types::*;
 module instruction_decode
 (
 		input logic clk,
-		input lc3b_word IR,
+		input lc3b_word IR, WB_IR,
 		input lc3b_word data_in,
 		input logic mem_control,
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
@@ -59,7 +59,7 @@ mux2 #(3) sr2_mux
 mux2 #(3) dest_mux
 (
 		.sel(control_word.destmux_sel /* SHOULD COME FROM THE CONTROL OF THE WB STAGE THIS IS CURRENTLY WRONG*/),
-		.a(IR[11:9]),
+		.a(WB_IR[11:9]),
 		.b(3'b111),
 		.f(dest)
 );
