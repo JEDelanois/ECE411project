@@ -16,7 +16,7 @@ module cpu_datapath
 // IF/ID wires
 lc3b_word pc_out, IF_IR, IF_EX_PC;
 // ID/EX wires
-lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX;
+lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, SR2_MEM;
 // EX/MEM wires
 lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU;
 // MEM/WB wires
@@ -28,6 +28,9 @@ lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 
 assign mem_read1 = clk;
 assign mem_addr1 = pc_out;
+assign mem_wdata = SR2_MEM;
+assign mem_read2 = MEM_CW.mem2_read;
+assign mem_write2 = MEM_CW.mem2_write;
 
 instruction_fetch IF_Logic
 (
@@ -102,10 +105,12 @@ latch_ex_mem EX_MEM_Latch
 		.IR_in(EX_IR),
 		.PC_in(EX_PC),
 		.ALU_in(EX_ALU),
+		.sr2_in(SR2_EX),
 		.CW_in(EX_CW),
 		.IR_out(MEM_IR),
 		.PC_out(MEM_PC),
 		.ALU_out(MEM_ALU),
+		.sr2_out(SR2_MEM),
 		.CW_out(MEM_CW)
 );
 
@@ -119,8 +124,6 @@ memory_module Mem_Module
 		.controlWord(MEM_CW),
 		.mem_rdata(mem_rdata2),
 		.mem_addr2(mem_addr2),
-		.mem_read2(mem_read2),																				//These two signals need to me connected to memory
-		.mem_write2(mem_write2),
 		.currALUout(ALU_MEM),
 		.MDR(MDR_MEM),
 		.currIRout(IR_MEM),

@@ -13,7 +13,7 @@ module instruction_decode
 		output lc3b_word genCC_WB
 );
 
-lc3b_reg src_a, dest;
+lc3b_reg src_a,src_b, dest;
 lc3b_word regfile_mux_out;
 
 assign IR_post = IR;
@@ -33,7 +33,7 @@ regfile LC3b_RegFile
 		.load(/*Comes from control of the wb stage*/mem_control),
 		.in(regfile_mux_out),
 		.src_a(src_a), 
-		.src_b(IR[2:0]), 
+		.src_b(src_b), 
 		.dest(dest),
 		.reg_a(sr1), 
 		.reg_b(sr2)
@@ -46,6 +46,15 @@ mux2 #(3) sr1_mux
 		.b(IR[11:9]), /* DOUBLE CHECK THIS IS CORRECT */
 		.f(src_a)
 );
+
+mux2 #(3) sr2_mux
+(
+		.sel(control_word.sr2mux_sel),
+		.a(IR[2:0]),
+		.b(IR[11:9]), /* DOUBLE CHECK THIS IS CORRECT */
+		.f(src_b)
+);
+
 
 mux2 #(3) dest_mux
 (
