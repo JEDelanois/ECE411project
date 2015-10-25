@@ -14,7 +14,7 @@ typedef logic [4:0] lc3b_imm5;
 typedef logic [10:0] lc3b_offset11;
 typedef logic [3:0] lc3b_imm4;
 
-parameter CONTROL_WIDTH = 30;
+parameter CONTROL_WIDTH = 31;
 
 typedef enum bit [3:0] {
     op_add  = 4'b0001,
@@ -52,6 +52,7 @@ typedef struct packed
 	logic mem1_read;
 	logic IfId_load;
 	logic sr1mux_sel;
+	logic sr2mux_sel;
 	logic destmux_sel;
 	logic IdEx_load;
 	logic [2:0] alumux_sel;

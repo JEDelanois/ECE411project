@@ -3,9 +3,11 @@ import lc3b_types::*;
 module latch_ex_mem
 (
 	input logic clk, load_latch,
-	input lc3b_word IR_in, PC_in, ALU_in,
+	input lc3b_word IR_in, PC_in, ALU_in, sr2_in,
     input lc3b_control CW_in,
-	output lc3b_word IR_out, PC_out, ALU_out,
+	 
+	 
+	output lc3b_word IR_out, PC_out, ALU_out, sr2_out,
     output lc3b_control CW_out
 );
 
@@ -41,6 +43,14 @@ register #(CONTROL_WIDTH) CW
 	.load(load_latch),
 	.in(CW_in),
 	.out(CW_out)
+);
+
+register sr2
+(
+    .clk(clk),
+    .load(load_latch),
+    .in(sr2_in),
+    .out(sr2_out)
 );
 
 endmodule : latch_ex_mem
