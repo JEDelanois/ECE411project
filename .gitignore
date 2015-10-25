@@ -8,7 +8,7 @@
 !*.sv
 
 # track testcode
-!testcode/
+!testcode/*
 
 # track assembler
 !LC3bAssembler
