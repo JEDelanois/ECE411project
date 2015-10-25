@@ -51,7 +51,7 @@ always_comb
 				ctrl.cc_load = 1'b1;
 			end
 			op_br: begin //TODO
-			
+				/* Nothing needs to happen for now. God help you for the next checkpoints though.*/
 			end
 			op_jmp: begin
 			
