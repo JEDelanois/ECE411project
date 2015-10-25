@@ -16,7 +16,7 @@ module cpu_datapath
 lc3b_word pc_out, IF_IR, IF_EX_PC; // IF/ID wires
 lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX; // ID/EX wires
 lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU ; // EX/MEM wires
-lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB; // MEM/WB wires
+lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,branch_enable,ALUin; // MEM/WB wires
 lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW; //Control Word typing for register wires
 
 assign mem_read1 = clk;
@@ -25,9 +25,9 @@ assign mem_addr1 = pc_out;
 instruction_fetch IF_Logic
 (
 		.clk(clk),
-		.load_pc(),
-		.pcmux_sel(),
-		.br_add_out(),
+		.load_pc(clk),
+		.pcmux_sel({1'b1, branch_enable}),
+		.br_add_out(br_adder_out),
 		.sr1_out(),
 		.mem_rdata(mem_rdata2),
 		.pc_out(pc_out)
@@ -49,7 +49,7 @@ instruction_decode ID_Logic
 		.clk(clk),
 		.IR(IF_IR),
 		.data_in(final_MDR),
-		.mem_control(),	/* mem_control is the control to decide when to load regfile, from the writeback section */
+		.mem_control(WB_CW.regFile_load),	/* mem_control is the control to decide when to load regfile, from the writeback section */
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
 		.genCC_WB(genCC_WB),
 		.sr1(ID_SR1),
@@ -112,8 +112,8 @@ memory_module Mem_Module
 		.controlWord(MEM_CW),
 		.mem_rdata(mem_rdata2),
 		.mem_addr2(mem_addr2),
-		.mem_read2,
-		.mem_write2,
+		.mem_read2(mem_read2),																				//These two signals need to me connected to memory
+		.mem_write2(mem_write2),
 		.currALUout(ALU_MEM),
 		.MDR(MDR_MEM),
 		.currIRout(IR_MEM),
@@ -149,10 +149,10 @@ writeback_module WB_Module
 		.controlWord(WB_CW),
 		.genCC_WB(genCC_WB),
 		
-		.currALUout(),
+		.currALUout(ALUin),
 		.MDRout(final_MDR),
-		.br_adder_out(),
-		.branch_enable()
+		.br_adder_out(br_adder_out),
+		.branch_enable(branch_enable)
 );
 
 endmodule : cpu_datapath
