@@ -59,7 +59,7 @@ typedef struct packed
 	lc3b_aluop aluop;
 	logic ExMem_load;
 	logic memAdd2mux_sel;
-	logic mem_rdatamux_sel;
+	logic mem_mdrmux_sel;
 	logic MemWb_load;
 	logic mem2_read;
 	logic mem2_write;
