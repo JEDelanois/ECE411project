@@ -4,7 +4,7 @@ module instruction_fetch
 (
 	input clk,
 	input load_pc,
-	input [1:0] pcmux_sel,
+	input [2:0] pcmux_sel,
 	input lc3b_word br_add_out,
 	input lc3b_word sr1_out,
 	input lc3b_word mem_rdata,
@@ -40,14 +40,18 @@ plus2 pc_plus2
 /*
  * PC mux
  */
-mux4 #(.width(16)) pcmux
+mux8 #(.width(16)) pcmux
 (
     .sel(pcmux_sel),
     .a(pc_plus2_out),
     .b(branchmux_out),
 	.c(sr1_out),
 	.d(mem_rdata),
-    .f(pcmux_out)
+	.e(br_add_out),
+	.f(),
+	.g(),
+	.h(),
+   .f(pcmux_out)
 );
 
 
