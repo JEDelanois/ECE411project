@@ -11,7 +11,7 @@ always_comb
 	begin
 		/* Default signal assignments*/
 		ctrl.opcode = opcode;
-		ctrl.PCmux_sel = 2'b00;
+		ctrl.PCmux_sel = 3'b000;
 		ctrl.mem1_read = 1'b0;
 		ctrl.IfId_load = 1'b0;
 		ctrl.sr1mux_sel = 1'b0;
@@ -33,7 +33,7 @@ always_comb
 		
 		/* Apply unique values per instruction*/
 		case(opcode)
-			op_add: begin //TODO
+			op_add: begin
 				if(IRbits[5] == 0)
 					ctrl.alumux_sel = 3'b100;
 				else
@@ -41,7 +41,7 @@ always_comb
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
 			end
-			op_and: begin //TODO
+			op_and: begin
 				if(IRbits[5] == 0)
 					ctrl.alumux_sel = 3'b100;
 				else
@@ -50,15 +50,29 @@ always_comb
 					ctrl.aluop = alu_and;
 					ctrl.cc_load = 1'b1;
 			end
-			op_br: begin //TODO
-					ctrl.PCmux_sel = 2'b01;
+			op_br: begin
+					ctrl.PCmux_sel = 3'b001;
 			end
 			op_jmp: begin
-					ctrl.PCmux_sel = 2'b10;
+					ctrl.PCmux_sel = 3'b010;	//NOTE: IF THIS IS BROKEN, SO IS JSRR FOR THE SAME REASON
 					ctrl.aluop = alu_pass;
 			end
 			op_jsr: begin
-			
+					//Store PC into R7
+					ctrl.destmux_sel = 1'b1;
+					ctrl.regFilemux_sel = 3'b001;
+					ctrl.regFile_load = 1'b1;
+					if(IRbits[11] == 1)	//The case for JSR
+						begin
+							ctrl.PCmux_sel = 3'b100;
+							ctrl.adjmux_sel = 1'b1;
+						end
+					else						//The case for JSRR
+						begin
+							ctrl.PCmux_sel = 3'b010;
+							ctrl.aluop = alu_pass;
+						end
+					
 			end
 			op_ldb: begin
 			
@@ -66,7 +80,7 @@ always_comb
 			op_ldi: begin
 			
 			end
-			op_ldr: begin //TODO
+			op_ldr: begin
 				ctrl.mem2_read = 1'b1;
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
@@ -75,7 +89,7 @@ always_comb
 			op_lea: begin
 			
 			end
-			op_not: begin //TODO
+			op_not: begin
 				ctrl.aluop = alu_not;
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
@@ -92,7 +106,7 @@ always_comb
 			op_sti: begin
 			
 			end
-			op_str: begin //TODO
+			op_str: begin
 				ctrl.sr2mux_sel = 1'b1;
 				ctrl.mem2_write = 1'b1;
 			end
