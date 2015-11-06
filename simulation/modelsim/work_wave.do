@@ -1,5 +1,6 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
+delete wave /mp3_tb*
 add wave -noupdate -radix hexadecimal /mp3_tb/clk
 add wave -noupdate -radix hexadecimal /mp3_tb/dut/LC3b_CPU/IF_Logic/pcmux_sel
 add wave -noupdate -radix hexadecimal /mp3_tb/dut/LC3b_CPU/IF_Logic/pc_out
