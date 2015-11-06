@@ -46,15 +46,16 @@ always_comb
 					ctrl.alumux_sel = 3'b100;
 				else
 					ctrl.alumux_sel = 3'b001;
-				ctrl.regFile_load = 1'b1;
-				ctrl.aluop = alu_and;
-				ctrl.cc_load = 1'b1;
+					ctrl.regFile_load = 1'b1;
+					ctrl.aluop = alu_and;
+					ctrl.cc_load = 1'b1;
 			end
 			op_br: begin //TODO
-				/* Nothing needs to happen for now. God help you for the next checkpoints though.*/
+					ctrl.PCmux_sel = 2'b01;
 			end
 			op_jmp: begin
-			
+					ctrl.PCmux_sel = 2'b10;
+					ctrl.aluop = alu_pass;
 			end
 			op_jsr: begin
 			
