@@ -82,8 +82,6 @@ always_comb
 					ctrl.regFile_load = 1'b1;
 			end
 			op_ldi: begin
-					ctrl.cc_load = 1'b1;
-					ctrl.alumux_sel = 3'b101;
 					
 			end
 			op_ldr: begin
@@ -123,6 +121,8 @@ always_comb
 			end
 			op_stb: begin
 				ctrl.mem_byte_enable = 2'b01;
+				ctrl.alumux_sel = 3'b011;
+				ctrl.sr2mux_sel = 1'b1;
 			end
 			op_sti: begin
 			
