@@ -41,7 +41,7 @@ mux2 mem_addr2Mux
 mux2 mem_rdataMux
 (
 	/* port declaration */
-	.sel(controlWord.mem_rdatamux_sel),
+	.sel(controlWord.mem_mdrmux_sel),
 	.a(currALU), 
 	.b(mem_rdata),
 	.f(MDR)
