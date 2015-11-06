@@ -8,6 +8,7 @@ module instruction_decode
 		input lc3b_word WB_pcin,
 		input logic mem_control,
 		input logic [2:0] mem_select,
+		input logic wb_dest_sel,
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
 		output lc3b_word sr1, sr2,
 		output lc3b_word IR_post,
