@@ -30,6 +30,7 @@ add wave -noupdate -radix hexadecimal /mp3_tb/mem_addr2
 add wave -noupdate -radix hexadecimal /mp3_tb/mem_rdata1
 add wave -noupdate -radix hexadecimal /mp3_tb/mem_rdata2
 add wave -noupdate -radix hexadecimal /mp3_tb/mem_wdata2
+add wave -position end  sim:/mp3_tb/dut/mem_byte_enable2
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {174922 ps} 0}
 quietly wave cursor active 1

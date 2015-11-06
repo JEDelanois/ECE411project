@@ -1,0 +1,42 @@
+ORIGIN 0
+
+	ADD R0, R0, 3
+	TRAP road
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+
+HALT:
+	BRnzp HALT
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+
+road:
+	DATA2 func
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+
+func:
+	ADD R0, R0, 2
+	RET
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
