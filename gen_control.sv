@@ -81,6 +81,7 @@ always_comb
 			end
 			op_ldi: begin
 					ctrl.cc_load = 1'b1;
+					ctrl.alumux_sel = 3'b101;
 					
 			end
 			op_ldr: begin
@@ -91,6 +92,8 @@ always_comb
 			end
 			op_lea: begin
 				ctrl.cc_load = 1'b1;
+				ctrl.regFilemux_sel = 3'b010;
+				ctrl.regFile_load = 1'b1;
 			end
 			op_not: begin
 				ctrl.aluop = alu_not;
