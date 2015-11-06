@@ -26,7 +26,6 @@ module mp3
 );
 
 assign mem_write1 = 0;
-assign mem_byte_enable2 = 2'b11;
 
 /*
 cache_system LC3b_Cache
@@ -53,7 +52,8 @@ cpu_datapath LC3b_CPU
 		.mem_read2,
 		.mem_write2,
 		.mem_rdata2,
-		.mem_wdata2
+		.mem_wdata2,
+		.mem_byte_enable2
 );
 
 

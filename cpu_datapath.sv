@@ -10,7 +10,8 @@ module cpu_datapath
 		output logic mem_read2,
 		output logic mem_write2,
 		input lc3b_word mem_rdata2,
-		output lc3b_word mem_wdata2
+		output lc3b_word mem_wdata2,
+		output lc3b_mem_wmask mem_byte_enable2
 );
 
 // IF/ID wires
@@ -31,6 +32,7 @@ assign mem_addr1 = pc_out;
 assign mem_wdata2 = SR2_MEM;
 assign mem_read2 = MEM_CW.mem2_read;
 assign mem_write2 = MEM_CW.mem2_write;
+assign mem_byte_enable2 = MEM_CW.mem_byte_enable;
 
 
 instruction_fetch IF_Logic
