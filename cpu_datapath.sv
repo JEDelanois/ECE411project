@@ -144,7 +144,7 @@ latch_wb MEM_WB_latch
 		.clk(clk),
 		.load_latch(clk),
 		.IR_in(IR_MEM),
-		.PC_in(PC_MEcurrIRM),
+		.PC_in(PC_MEM),
 		.ALU_in(ALU_MEM),
 		.MDR_in(MDR_MEM),
 		.CW_in(CW_MEM),

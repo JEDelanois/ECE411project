@@ -39,8 +39,8 @@ always_comb
 					ctrl.alumux_sel = 3'b100;
 				else
 					ctrl.alumux_sel = 3'b001;
-				ctrl.regFile_load = 1'b1;
-				ctrl.cc_load = 1'b1;
+					ctrl.regFile_load = 1'b1;
+					ctrl.cc_load = 1'b1;
 			end
 			op_and: begin
 				if(IRbits[5] == 0)
@@ -52,34 +52,33 @@ always_comb
 					ctrl.cc_load = 1'b1;
 			end
 			op_br: begin
-					ctrl.PCmux_sel = 3'b001;
+				ctrl.PCmux_sel = 3'b001;
 			end
 			op_jmp: begin
-					ctrl.PCmux_sel = 3'b010;	//NOTE: IF THIS IS BROKEN, SO IS JSRR FOR THE SAME REASON
-					ctrl.aluop = alu_pass;
+				ctrl.PCmux_sel = 3'b010;	//NOTE: IF THIS IS BROKEN, SO IS JSRR FOR THE SAME REASON
+				ctrl.aluop = alu_pass;
 			end
 			op_jsr: begin
-					//Store PC into R7
-					ctrl.destmux_sel = 1'b1;
-					ctrl.regFilemux_sel = 3'b001;
-					ctrl.regFile_load = 1'b1;
-					if(IRbits[11] == 1)	//The case for JSR
-						begin
-							ctrl.PCmux_sel = 3'b100;
-							ctrl.adjmux_sel = 1'b1;
-						end
-					else						//The case for JSRR
-						begin
-							ctrl.PCmux_sel = 3'b010;
-							ctrl.aluop = alu_pass;
-						end
-					
+				//Store PC into R7
+				ctrl.destmux_sel = 1'b1;
+				ctrl.regFilemux_sel = 3'b001;
+				ctrl.regFile_load = 1'b1;
+				if(IRbits[11] == 1)	//The case for JSR
+					begin
+						ctrl.PCmux_sel = 3'b100;
+						ctrl.adjmux_sel = 1'b1;
+					end
+				else						//The case for JSRR
+					begin
+						ctrl.PCmux_sel = 3'b010;
+						ctrl.aluop = alu_pass;
+					end
 			end
 			op_ldb: begin						//LDB assumes that we recieve data already ZEXTed from mem
-					ctrl.cc_load = 1'b1;
-					ctrl.alumux_sel = 3'b011;
-					ctrl.mem_mdrmux_sel = 2'b10;
-					ctrl.regFile_load = 1'b1;
+				ctrl.cc_load = 1'b1;
+				ctrl.alumux_sel = 3'b011;
+				ctrl.mem_mdrmux_sel = 2'b10;
+				ctrl.regFile_load = 1'b1;
 			end
 			op_ldi: begin
 					
@@ -132,7 +131,12 @@ always_comb
 				ctrl.mem2_write = 1'b1;
 			end
 			op_trap: begin
-			
+				ctrl.destmux_sel = 1'b1;
+				ctrl.regFilemux_sel = 3'b001;
+				ctrl.regFile_load = 1'b1;
+				ctrl.PCmux_sel = 3'b101;
+				ctrl.memAdd2mux_sel = 1'b1;
+				ctrl.mem_mdrmux_sel = 1'b1;
 			end
 	endcase
 end
