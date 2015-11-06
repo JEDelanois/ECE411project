@@ -7,6 +7,7 @@ module instruction_decode
 		input lc3b_word data_in,
 		input lc3b_word WB_pcin,
 		input logic mem_control,
+		input logic [2:0] mem_select,
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
 		output lc3b_word sr1, sr2,
 		output lc3b_word IR_post,
@@ -67,7 +68,7 @@ mux2 #(3) dest_mux
 
 mux8 regfile_load_mux
 (
-		.sel(/*Comes from control of the wb stage*/ 3'b000),
+		.sel(mem_select),
 		.a(data_in),
 		.b(WB_pcin),
 		.c(),
