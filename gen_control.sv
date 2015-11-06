@@ -90,7 +90,7 @@ always_comb
 				ctrl.mem_mdrmux_sel = 2'b01;
 			end
 			op_lea: begin
-			
+				ctrl.cc_load = 1'b1;
 			end
 			op_not: begin
 				ctrl.aluop = alu_not;
