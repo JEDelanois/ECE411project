@@ -2,11 +2,15 @@ Note about modules:
 -muxes and sext vary in length based on width
 -zext is fixed length on 8 bits
 
+Note about Cache Design:
 
-Note about magic memory:
--Loading in a program when uncommented doesn't work
+This text is more me thinking about it, than important information.
 
+-We need to think about the case where L2 is servicing Instruction, but then Data makes a request and interrupts it. Is it possible for Data to recieve the wrong information in that case? Listing the cases below:
 
-Note about lc3b_types:
-Modelsim cannot find lc3b_types for an unknown reason.
+Case 1: Instruction is reading and Data interrupts with a read. In this case, even if it recieved the incorrect data (because it recieved the instruction's read, not it's own), the Data Cache's control will naturally do another tag check before navigating to a hit. This means that overall, the cache system will void any currently running read process and do what it should do. THIS IS GOOD.
+
+Case 2: Instruction is reading and Data interrupts with a write. This has the undefined behavior we need to be concerned about. However this is much more reliant on the specific implementation of the L2 cache's control, since it is not designed yet, we won't know how the control works.
+
+Conclusion: If we ensure that the control resets whenever the instruction for the L2 cache goes from read to write, all problems should be eliminated.
 

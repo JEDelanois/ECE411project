@@ -29,7 +29,7 @@ assign mem_write1 = 0;
 assign mem_byte_enable2 = 2'b11;
 
 /*
-cache LC3b_Cache
+cache_system LC3b_Cache
 (
 		.clk(clk),
 		.pmem_resp(pmem_resp),

@@ -11,12 +11,17 @@
 !/testcode/
 !testcode/*
 
+# track reports
+!/reports/
+!reports/*
+
 # track assembler
 !LC3bAssembler
 
 # track txt files
 !ToDo.txt
 !modelsim_do_example.txt
+!CP1_Report.txt
 
 # track shell commands
 !*.sh
