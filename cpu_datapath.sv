@@ -62,8 +62,8 @@ instruction_decode ID_Logic
 		.WB_IR(WB_IR),
 		.data_in(final_MDR),
 		.WB_pcin(WB_PC),
-		.mem_control(WB_CW.regFile_load),	/* mem_control is the control to decide when to load regfile, from the writeback section */
-		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
+		.mem_control(WB_CW.regFile_load),
+		.mem_select(WB_CW.regFilemux_sel),
 		.sr1(ID_SR1),
 		.sr2(ID_SR2),
 		.IR_post(ID_IR),
