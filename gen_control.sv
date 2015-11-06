@@ -79,6 +79,7 @@ always_comb
 					ctrl.cc_load = 1'b1;
 					ctrl.alumux_sel = 3'b011;
 					ctrl.mem_mdrmux_sel = 2'b10;
+					ctrl.regFile_load = 1'b1;
 			end
 			op_ldi: begin
 					ctrl.cc_load = 1'b1;
