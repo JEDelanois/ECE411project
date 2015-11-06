@@ -101,10 +101,23 @@ always_comb
 				ctrl.cc_load = 1'b1;
 			end
 			op_rti: begin
-			
+				//We're assuming this does not need to get done for the checkpoint; or even at all
 			end
 			op_shf: begin
-			
+				ctrl.cc_load = 1'b1;
+				ctrl.alumux_sel = 3'b101;
+				if(IRbits[4] == 1'b0)
+					begin
+						ctrl.aluop = alu_sll;
+					end
+				else if(IRbits[5] = 1'b0)
+					begin
+						ctrl.aluop = alu_srl;
+					end
+				else
+					begin
+						ctrl.aluop = alu_sra;
+					end
 			end
 			op_stb: begin
 			
