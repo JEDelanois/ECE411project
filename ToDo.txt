@@ -15,3 +15,6 @@ Case 2: Instruction is reading and Data interrupts with a write. This has the un
 Conclusion: If we ensure that the control resets whenever the instruction for the L2 cache goes from read to write, all problems should be eliminated.
 
 Notes on Debugging: write comprehensive test and test cc
+-left shift doesn't work. alu has right op but wrong operand
+-right shift logical and arithmetic produce right output from alu but not written to regs
+-stb doesn't work. no store occurs
