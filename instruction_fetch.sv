@@ -51,7 +51,7 @@ mux8 #(.width(16)) pcmux
 	.f(),
 	.g(),
 	.h(),
-   .f(pcmux_out)
+   .z(pcmux_out)
 );
 
 
