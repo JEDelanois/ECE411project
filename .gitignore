@@ -9,7 +9,7 @@
 
 # track testcode
 !/testcode/
-!testcode/*
+!testcode/*.asm
 
 # track reports
 !/reports/
