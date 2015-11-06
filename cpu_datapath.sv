@@ -32,6 +32,7 @@ assign mem_wdata2 = SR2_MEM;
 assign mem_read2 = MEM_CW.mem2_read;
 assign mem_write2 = MEM_CW.mem2_write;
 
+
 instruction_fetch IF_Logic
 (
 		.clk(clk),
@@ -39,6 +40,7 @@ instruction_fetch IF_Logic
 		.pcmux_sel(WB_CW.PCmux_sel),
 		.br_add_out(br_adder_out),
 		.sr1_out(WB_ALU),
+		.final_MDR(final_MDR),
 		.mem_rdata(mem_rdata2),
 		.branch_enable(branch_enable),
 		.pc_out(pc_out)
@@ -142,7 +144,7 @@ latch_wb MEM_WB_latch
 		.clk(clk),
 		.load_latch(clk),
 		.IR_in(IR_MEM),
-		.PC_in(PC_MEM),
+		.PC_in(PC_MEcurrIRM),
 		.ALU_in(ALU_MEM),
 		.MDR_in(MDR_MEM),
 		.CW_in(CW_MEM),

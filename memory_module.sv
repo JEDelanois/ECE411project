@@ -24,13 +24,13 @@ assign controlWordout = controlWord;
 
 
 logic [15:0] ldbmux_out;
-
+logic [15:0] zextshift_out;
 mux2 mem_addr2Mux
 (
 	/* port declaration */
 	.sel(controlWord.memAdd2mux_sel),
 	.a(currALU), 
-	.b(),
+	.b(zextshift_out),
 	.f(mem_addr2)
 );
 
@@ -44,6 +44,11 @@ mux2 ldbmux
 	.f(ldbmux_out)
 );
 
+zextshift zextshift
+(
+	.in(currIR[7:0]),
+	.out(zextshift_out)
+);
 
 mux4 mem_mdrmux
 (

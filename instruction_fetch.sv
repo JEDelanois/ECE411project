@@ -7,6 +7,7 @@ module instruction_fetch
 	input [2:0] pcmux_sel,
 	input lc3b_word br_add_out,
 	input lc3b_word sr1_out,
+	input lc3b_word final_MDR,
 	input lc3b_word mem_rdata,
 	input branch_enable,
 	
@@ -48,7 +49,7 @@ mux8 #(.width(16)) pcmux
 	.c(sr1_out),
 	.d(mem_rdata),
 	.e(br_add_out),
-	.f(),
+	.f(final_MDR),
 	.g(),
 	.h(),
    .z(pcmux_out)
