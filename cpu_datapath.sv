@@ -36,10 +36,11 @@ instruction_fetch IF_Logic
 (
 		.clk(clk),
 		.load_pc(clk),
-		.pcmux_sel({1'b0, branch_enable}),
+		.pcmux_sel(WB_CW.PCmux_sel),
 		.br_add_out(br_adder_out),
-		.sr1_out(),
+		.sr1_out(WB_ALU),
 		.mem_rdata(mem_rdata2),
+		.branch_enable(branch_enable),
 		.pc_out(pc_out)
 );
 
@@ -133,7 +134,7 @@ memory_module Mem_Module
 );
 
 
-latch_wb WB_latch
+latch_wb MEM_WB_latch
 (
 		.clk(clk),
 		.load_latch(clk),
