@@ -105,6 +105,7 @@ always_comb
 			op_shf: begin
 				ctrl.cc_load = 1'b1;
 				ctrl.alumux_sel = 3'b101;
+				ctrl.regFile_load = 1'b1;
 				if(IRbits[4] == 1'b0)
 					begin
 						ctrl.aluop = alu_sll;
@@ -122,6 +123,7 @@ always_comb
 				ctrl.mem_byte_enable = 2'b01;
 				ctrl.alumux_sel = 3'b011;
 				ctrl.sr2mux_sel = 1'b1;
+				ctrl.mem2_write = 1'b1;
 			end
 			op_sti: begin
 			
