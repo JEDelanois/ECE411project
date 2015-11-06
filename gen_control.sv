@@ -26,6 +26,7 @@ always_comb
 		ctrl.MemWb_load = 1'b0;
 		ctrl.mem2_read = 1'b0;
 		ctrl.mem2_write = 1'b0;
+		ctrl.mem_byte_enable = 2'b11;
 		ctrl.adjmux_sel = 1'b0;
 		ctrl.cc_load = 1'b0;
 		ctrl.regFilemux_sel = 3'b000;
@@ -110,7 +111,7 @@ always_comb
 					begin
 						ctrl.aluop = alu_sll;
 					end
-				else if(IRbits[5] = 1'b0)
+				else if(IRbits[5] == 1'b0)
 					begin
 						ctrl.aluop = alu_srl;
 					end
@@ -120,7 +121,7 @@ always_comb
 					end
 			end
 			op_stb: begin
-			
+				ctrl.mem_byte_enable = 2'b01;
 			end
 			op_sti: begin
 			
