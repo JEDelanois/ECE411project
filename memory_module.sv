@@ -23,9 +23,8 @@ assign currPCout = currPC;
 assign controlWordout = controlWord;
 
 
+logic [15:0] ldbmux_out;
 
-
-//DANGLE select
 mux2 mem_addr2Mux
 (
 	/* port declaration */
@@ -36,14 +35,24 @@ mux2 mem_addr2Mux
 );
 
 
-
-
-mux2 mem_rdataMux
+mux2 ldbmux
 (
 	/* port declaration */
-	.sel(controlWord.mem_rdatamux_sel),
+	.sel(mem_addr2[0]),
+	.a({8'b00000000,mem_rdata[7:0]}), 
+	.b({8'b00000000,mem_rdata[15:8]}),
+	.f(ldbmux_out)
+);
+
+
+mux4 mem_mdrmux
+(
+	/* port declaration */
+	.sel(controlWord.mem_mdrmux_sel),
 	.a(currALU), 
 	.b(mem_rdata),
+	.c(ldbmux_out),
+	.d(),
 	.f(MDR)
 );
 
