@@ -80,7 +80,8 @@ always_comb
 					ctrl.mem_mdrmux_sel = 2'b10;
 			end
 			op_ldi: begin
-			
+					ctrl.cc_load = 1'b1;
+					
 			end
 			op_ldr: begin
 				ctrl.mem2_read = 1'b1;
