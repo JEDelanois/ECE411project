@@ -22,7 +22,7 @@ always_comb
 		ctrl.aluop = alu_add;
 		ctrl.ExMem_load = 1'b0;
 		ctrl.memAdd2mux_sel = 1'b0;
-		ctrl.mem_mdrmux_sel = 1'b0;
+		ctrl.mem_mdrmux_sel = 2'b00;
 		ctrl.MemWb_load = 1'b0;
 		ctrl.mem2_read = 1'b0;
 		ctrl.mem2_write = 1'b0;
@@ -74,10 +74,10 @@ always_comb
 						end
 					
 			end
-			op_ldb: begin
+			op_ldb: begin						//LDB assumes that we recieve data already ZEXTed from mem
 					ctrl.cc_load = 1'b1;
 					ctrl.alumux_sel = 3'b011;
-					
+					ctrl.mem_mdrmux_sel = 2'b10;
 			end
 			op_ldi: begin
 			
@@ -86,7 +86,7 @@ always_comb
 				ctrl.mem2_read = 1'b1;
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
-				ctrl.mem_mdrmux_sel = 1'b1;
+				ctrl.mem_mdrmux_sel = 2'b01;
 			end
 			op_lea: begin
 			
