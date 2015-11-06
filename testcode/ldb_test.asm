@@ -1,7 +1,7 @@
 SEGMENT  CodeSegment:
 
    LDR  R1, R0, NEGTWO  ; R1 <= -2
-   LDR  R2, R0, TWO     ; R2 <= 2
+   LDR  R2, R0, TEMP1  ; R2 <= 2
    LDR  R4, R0, ONE     ; R4 <= 1
    LDR  R5, R0, TEMP1
    NOP
@@ -29,7 +29,8 @@ GOOD:   DATA2 4x600D
 BADD:   DATA2 4xBADD
 
 DONE:
-   LDR  R1, R0, GOOD
+   LDB  R1, R5, -2
+   LDB  R2, R5, -1
    BRnzp DONE
    NOP
    NOP
