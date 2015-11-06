@@ -22,7 +22,7 @@ always_comb
 		ctrl.aluop = alu_add;
 		ctrl.ExMem_load = 1'b0;
 		ctrl.memAdd2mux_sel = 1'b0;
-		ctrl.mem_rdatamux_sel = 1'b0;
+		ctrl.mem_mdrmux_sel = 1'b0;
 		ctrl.MemWb_load = 1'b0;
 		ctrl.mem2_read = 1'b0;
 		ctrl.mem2_write = 1'b0;
@@ -75,7 +75,9 @@ always_comb
 					
 			end
 			op_ldb: begin
-			
+					ctrl.cc_load = 1'b1;
+					ctrl.alumux_sel = 3'b011;
+					
 			end
 			op_ldi: begin
 			
@@ -84,7 +86,7 @@ always_comb
 				ctrl.mem2_read = 1'b1;
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
-				ctrl.mem_rdatamux_sel = 1'b1;
+				ctrl.mem_mdrmux_sel = 1'b1;
 			end
 			op_lea: begin
 			
