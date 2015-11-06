@@ -26,6 +26,7 @@ always_comb
 		ctrl.MemWb_load = 1'b0;
 		ctrl.mem2_read = 1'b0;
 		ctrl.mem2_write = 1'b0;
+		ctrl.mem_byte_enable = 2'b11;
 		ctrl.adjmux_sel = 1'b0;
 		ctrl.cc_load = 1'b0;
 		ctrl.regFilemux_sel = 3'b000;
@@ -78,9 +79,11 @@ always_comb
 					ctrl.cc_load = 1'b1;
 					ctrl.alumux_sel = 3'b011;
 					ctrl.mem_mdrmux_sel = 2'b10;
+					ctrl.regFile_load = 1'b1;
 			end
 			op_ldi: begin
 					ctrl.cc_load = 1'b1;
+					ctrl.alumux_sel = 3'b101;
 					
 			end
 			op_ldr: begin
@@ -91,6 +94,8 @@ always_comb
 			end
 			op_lea: begin
 				ctrl.cc_load = 1'b1;
+				ctrl.regFilemux_sel = 3'b010;
+				ctrl.regFile_load = 1'b1;
 			end
 			op_not: begin
 				ctrl.aluop = alu_not;
@@ -98,13 +103,26 @@ always_comb
 				ctrl.cc_load = 1'b1;
 			end
 			op_rti: begin
-			
+				//We're assuming this does not need to get done for the checkpoint; or even at all
 			end
 			op_shf: begin
-			
+				ctrl.cc_load = 1'b1;
+				ctrl.alumux_sel = 3'b101;
+				if(IRbits[4] == 1'b0)
+					begin
+						ctrl.aluop = alu_sll;
+					end
+				else if(IRbits[5] == 1'b0)
+					begin
+						ctrl.aluop = alu_srl;
+					end
+				else
+					begin
+						ctrl.aluop = alu_sra;
+					end
 			end
 			op_stb: begin
-			
+				ctrl.mem_byte_enable = 2'b01;
 			end
 			op_sti: begin
 			

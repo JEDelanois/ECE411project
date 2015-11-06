@@ -62,6 +62,7 @@ instruction_decode ID_Logic
 		.WB_IR(WB_IR),
 		.data_in(final_MDR),
 		.WB_pcin(WB_PC),
+		.WB_br_adder_out(br_adder_out),
 		.mem_control(WB_CW.regFile_load),
 		.mem_select(WB_CW.regFilemux_sel),
 		.wb_dest_sel(WB_CW.destmux_sel),
