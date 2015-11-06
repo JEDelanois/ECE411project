@@ -7,6 +7,9 @@
 # track .sv
 !*.sv
 
+# track LC3bIDE
+!LC3bIDE
+
 # track testcode
 !/testcode/
 !testcode/*.asm
