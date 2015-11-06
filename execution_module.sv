@@ -82,7 +82,7 @@ mux8 #(16) alumuux
 	.c(sext4_out),
 	.d(sext6_out),
 	.e(sr2_out),
-	.f(),
+	.f({12'b000000000000,imm4}),
 	.g(),
 	.h(),
 	.z(alumux_out)
