@@ -15,6 +15,11 @@
 !/reports/
 !reports/*
 
+# track simulation/modelsim
+!/simulation/
+!/simulation/modelsim/
+!/simulation/modelsim/work_wave.do
+
 # track assembler
 !LC3bAssembler
 
