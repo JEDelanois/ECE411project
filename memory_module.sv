@@ -14,7 +14,8 @@ module memory_module
 	output [15:0] MDR,
 	output [15:0] currIRout,
 	output [15:0] currPCout,
-	output lc3b_control controlWordout
+	output lc3b_control controlWordout,
+	output mem_indirect_stall
 );
 
 assign currALUout = currALU;
