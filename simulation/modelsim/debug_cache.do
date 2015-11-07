@@ -4,7 +4,7 @@ quietly WaveActivateNextPane {} 0
 add wave -label clk -noupdate -height 15 /mp3_tb_phys/dut/clk
 add wave -label CPU_instr_read -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_read
 add wave -label pmem_read -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/pmem_read
-add wave -label CPU_instr_resp-noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_resp
+add wave -label CPU_instr_resp -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_resp
 add wave -label pmem_resp -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/pmem_resp
 add wave -label CPU_instr_addr -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_addr
 add wave -label pmem_addr -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/pmem_addr
