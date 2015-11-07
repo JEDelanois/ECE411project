@@ -15,7 +15,9 @@ module memory_module
 	output [15:0] currIRout,
 	output [15:0] currPCout,
 	output lc3b_control controlWordout,
-	output mem_indirect_stall
+	output mem_indirect_stall,
+	output mem_read,
+	output mem_write
 );
 
 assign currALUout = currALU;
@@ -24,7 +26,7 @@ assign currPCout = currPC;
 assign controlWordout = controlWord;
 
 logic iMDR_load, indirect_switch;
-logic [15:0] ldbmux_out, zextshift_out, prev_MDR;
+logic [15:0] ldbmux_out, zextshift_out, prev_MDR, mem_addr2Mux_out;
 
 mux2 mem_addr2Mux
 (
@@ -32,8 +34,19 @@ mux2 mem_addr2Mux
 	.sel(controlWord.memAdd2mux_sel),
 	.a(currALU), 
 	.b(zextshift_out),
+	.f(mem_addr2Mux_out)
+);
+
+
+mux2 Indirect_addr_mux
+(
+	/* port declaration */
+	.sel(indirect_switch),
+	.a(mem_addr2Mux_out), 
+	.b(prev_MDR),
 	.f(mem_addr2)
 );
+
 
 
 mux2 ldbmux
@@ -77,7 +90,31 @@ indirect_logic
 		.opcode(currIR[15:12]),
 		.indirect_switch(indirect_switch),
 		.iMDR_load(iMDR_load),
-		.mem_indirect_stall(mem_indirect_stall)
+		.mem_indirect_stall(mem_indirect_stall),
+		.rw_switch(rw_switch)
 );
+
+
+//read write muxes
+mux2 #(1) read_sig_mux
+(
+	/* port declaration */
+	.sel(indirect_switch),
+	.a(controlWord.mem2_read), 
+	.b(!rw_switch),
+	.f(mem_read)
+);
+
+
+mux2 #(1) write_sig_mux
+(
+	/* port declaration */
+	.sel(indirect_switch),
+	.a(controlWord.mem2_write), 
+	.b(rw_switch),
+	.f(mem_write)
+);
+
+
 
 endmodule : memory_module

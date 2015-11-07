@@ -32,8 +32,6 @@ lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 assign mem_read1 = clk;
 assign mem_addr1 = pc_out;
 assign mem_wdata2 = SR2_MEM;
-assign mem_read2 = MEM_CW.mem2_read;
-assign mem_write2 = MEM_CW.mem2_write;
 assign mem_byte_enable2 = MEM_CW.mem_byte_enable;
 
 
@@ -153,7 +151,9 @@ memory_module Mem_Module
 		.currIRout(IR_MEM),
 		.currPCout(PC_MEM),
 		.controlWordout(CW_MEM),
-		.mem_indirect_stall(mem_indirect_stall)
+		.mem_indirect_stall(mem_indirect_stall),
+		.mem_read(mem_read2),
+	   .mem_write(mem_write2)
 );
 
 
