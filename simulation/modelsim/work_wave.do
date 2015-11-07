@@ -1,6 +1,5 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-delete wave /mp3_tb*
 add wave -noupdate -radix hexadecimal /mp3_tb/clk
 add wave -noupdate -radix hexadecimal /mp3_tb/dut/LC3b_CPU/IF_Logic/pcmux_sel
 add wave -noupdate -radix hexadecimal /mp3_tb/dut/LC3b_CPU/IF_Logic/pc_out
@@ -30,11 +29,29 @@ add wave -noupdate -radix hexadecimal /mp3_tb/mem_addr2
 add wave -noupdate -radix hexadecimal /mp3_tb/mem_rdata1
 add wave -noupdate -radix hexadecimal /mp3_tb/mem_rdata2
 add wave -noupdate -radix hexadecimal /mp3_tb/mem_wdata2
-add wave -position end  sim:/mp3_tb/dut/mem_byte_enable2
+add wave -noupdate /mp3_tb/dut/mem_byte_enable2
+add wave -noupdate /mp3_tb/magic_memory_dp/rdata_b
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/MEM_WB_latch/MDR_in
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/MEM_WB_latch/MDR_out
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/sel
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/a
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/b
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/c
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/d
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/e
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/f
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/g
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/h
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/ID_Logic/regfile_load_mux/z
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/flow_control/flow_EXMEM
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/flow_control/flow_IDEX
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/flow_control/flow_IFID
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/flow_control/flow_MEMWB
+add wave -noupdate /mp3_tb/dut/LC3b_CPU/flow_control/mem_indirect_stall
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {174922 ps} 0}
+WaveRestoreCursors {{Cursor 1} {73890 ps} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 352
+configure wave -namecolwidth 422
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 0
@@ -48,5 +65,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {81196 ps} {332777 ps}
-restart -f
+WaveRestoreZoom {0 ps} {239118 ps}

@@ -4,7 +4,7 @@ module indirect_logic
 (
 		input clk, mem_resp,
 		input [3:0] opcode,
-		output indirect_switch, iMDR_load, mem_indirect_stall, rw_switch
+		output logic indirect_switch, iMDR_load, mem_indirect_stall, rw_switch
 );
 
 logic state_load, state_in, state_out;
