@@ -25,7 +25,7 @@ assign currIRout = currIR;
 assign currPCout = currPC;
 assign controlWordout = controlWord;
 
-logic iMDR_load, indirect_switch;
+logic iMDR_load, indirect_switch, rw_switch;
 logic [15:0] ldbmux_out, zextshift_out, prev_MDR, mem_addr2Mux_out;
 
 mux2 mem_addr2Mux
@@ -83,7 +83,7 @@ register #(16) iMDR_register
 	.out(prev_MDR)
 ); 
 
-indirect_logic 
+indirect_logic Indirect_Logic_Module
 (
 		.clk(clk),
 		.mem_resp(mem_resp),
