@@ -1,5 +1,3 @@
-import lc3b_types ::*;
-
 module array #(parameter width = 1)
 (
 	input clk,

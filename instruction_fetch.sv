@@ -3,6 +3,8 @@ import lc3b_types::*;
 module instruction_fetch
 (
 	input clk,
+	input resp_a,
+	input flow_IFID,
 	input load_pc,
 	input [2:0] pcmux_sel,
 	input lc3b_word br_add_out,
@@ -12,11 +14,25 @@ module instruction_fetch
 	input branch_enable,
 	
 	
-	output lc3b_word pc_out
+	output lc3b_word pc_out,
+	output logic mem_read1,
+	output logic stall_fetch
 );
 
 lc3b_word pcmux_out, branchmux_out;
 lc3b_word pc_plus2_out;
+
+
+Cache1_cont cache1_cont
+(
+    .resp_a(resp_a),
+	 
+    
+	 .mem_read1(mem_read1),
+	 .stall_fetch(stall_fetch)
+);
+
+
 
 /*
  * PC
@@ -24,7 +40,7 @@ lc3b_word pc_plus2_out;
 register pc
 (
     .clk,
-    .load(load_pc),
+    .load(load_pc && flow_IFID),
     .in(pcmux_out),
     .out(pc_out)
 );

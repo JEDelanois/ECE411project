@@ -1,5 +1,3 @@
-import lc3b_types ::*;
-
 module L1_cache_way
 (
 		input clk, dirty_in,

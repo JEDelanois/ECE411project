@@ -24,12 +24,11 @@ lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, SR2_MEM;
 lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU;
 // MEM/WB wires
 lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,ALUin;
-logic branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB;
+logic branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch;
 lc3b_word br_adder_out;
 //Control Word typing for register wires
 lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 
-assign mem_read1 = clk;
 assign mem_addr1 = pc_out;
 assign mem_wdata2 = SR2_MEM;
 assign mem_byte_enable2 = MEM_CW.mem_byte_enable;
@@ -38,26 +37,32 @@ assign mem_byte_enable2 = MEM_CW.mem_byte_enable;
 
 flow_control flow_control
 (
-	.clk(clk),
-	.mem_indirect_stall(mem_indirect_stall),				
+	 .clk(clk),
+	 .mem_indirect_stall(mem_indirect_stall),	
+	 .stall_fetch(stall_fetch),
 	 .flow_IFID(flow_IFID), 
 	 .flow_IDEX(flow_IDEX), 
 	 .flow_EXMEM(flow_EXMEM), 
-	 .flow_MEMWB(flow_MEMWB)
+	 .flow_MEMWB(flow_MEMWB),
+	 .stall_cache2_miss( (mem_read2 || mem_write2) && (!resp_b) ) // stall when you are reading or writing and there is a cache miss 
 );
 
 
 instruction_fetch IF_Logic
 (
 		.clk(clk),
-		.load_pc(clk),
+		.resp_a(resp_a),
+		.flow_IFID(flow_IFID),
+		.load_pc(1'b1),
 		.pcmux_sel(WB_CW.PCmux_sel),
 		.br_add_out(br_adder_out),
 		.sr1_out(WB_ALU),
 		.final_MDR(final_MDR),
 		.mem_rdata(mem_rdata2),
 		.branch_enable(branch_enable),
-		.pc_out(pc_out)
+		.pc_out(pc_out),
+		.mem_read1(mem_read1),
+		.stall_fetch(stall_fetch)
 );
 
 latch_if_id IF_ID_Latch

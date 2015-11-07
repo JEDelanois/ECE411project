@@ -1,5 +1,3 @@
-import lc3b_types::*;
-
 module L1_cache_control
 (
 	input clk, mem_read, mem_write, arb_resp, hit, w2_hit, LRU_out, w1_dirty_out, w2_dirty_out,

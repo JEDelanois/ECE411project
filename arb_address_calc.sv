@@ -1,5 +1,3 @@
-import lc3b_types ::*;
-
 module arb_address_calc
 (
 	input [15:0] mem_address,

@@ -1,5 +1,3 @@
-import lc3b_types::*;
-
 module hit_logic
 (
 	input [8:0] tag, w1_tag_out, w2_tag_out,
