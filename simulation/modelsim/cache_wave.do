@@ -23,7 +23,9 @@ add wave -label alumux_h -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_modul
 add wave -label alumux_sel -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/sel
 add wave -label alumux_z -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/z
 add wave -label instr_read -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_read
+add wave -label instr_resp -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_resp
 add wave -label CPU_data_read -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_read
+add wave -label CPU_data_resp -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_resp
 add wave -label CPU_data_write -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_write
 add wave -label CPU_instr_addr -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_addr
 add wave -label CPU_data_addr -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_addr
@@ -50,4 +52,5 @@ configure wave -timelineunits ns
 update
 WaveRestoreZoom {0 ps} {145546 ps}
 restart -f
-run 200ns
+run 2000ns
+radix -hexadecimal

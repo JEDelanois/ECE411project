@@ -18,8 +18,8 @@
 # track simulation/modelsim
 !/simulation/
 !/simulation/modelsim/
-!/simulation/modelsim/work_wave.do
-!/simulation/modelsim/cache_wave.do
+!/simulation/modelsim/*.do
+/simulation/modelsim/mp3_run_msim_rtl_verilog.do
 
 # track assembler
 !LC3bAssembler
