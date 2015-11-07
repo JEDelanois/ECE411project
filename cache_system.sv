@@ -31,7 +31,7 @@ L1_cache	Instruction_Cache_L1
 		.mem_write(1'b0),
 		.mem_byte_enable(2'b11),
 		.mem_address(CPU_instr_addr),
-		.mem_wdata(16'bZ /* The system should never use this, as write is permanently 0.*/),
+		.mem_wdata(16'b1 /* The system should never use this, as write is permanently 0.*/),
 	 
 		.mem_resp(CPU_instr_resp),
 		.arb_read(instr_read),
