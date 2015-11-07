@@ -2,7 +2,7 @@ import lc3b_types::*;
 
 module memory_module
 (
-	input clk,
+	input clk, mem_resp,
 	input [15:0] currALU,
 	input [15:0] currIR,
 	input [15:0] currPC,
@@ -23,9 +23,9 @@ assign currIRout = currIR;
 assign currPCout = currPC;
 assign controlWordout = controlWord;
 
+logic iMDR_load, indirect_switch;
+logic [15:0] ldbmux_out, zextshift_out, prev_MDR;
 
-logic [15:0] ldbmux_out;
-logic [15:0] zextshift_out;
 mux2 mem_addr2Mux
 (
 	/* port declaration */
@@ -60,6 +60,24 @@ mux4 mem_mdrmux
 	.c(ldbmux_out),
 	.d(),
 	.f(MDR)
+);
+
+register #(16) iMDR_register
+(
+	.clk(clk),
+	.load(iMDR_load),
+	.in(mem_rdata),
+	.out(prev_MDR)
+); 
+
+indirect_logic 
+(
+		.clk(clk),
+		.mem_resp(mem_resp),
+		.opcode(currIR[15:12]),
+		.indirect_switch(indirect_switch),
+		.iMDR_load(iMDR_load),
+		.mem_indirect_stall(mem_indirect_stall)
 );
 
 endmodule : memory_module
