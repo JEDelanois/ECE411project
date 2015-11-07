@@ -4,12 +4,12 @@ module indirect_logic
 (
 		input clk, mem_resp,
 		input [3:0] opcode,
-		output indirect_switch, iMDR_load, mem_indirect_stall, rw_switch
+		output indirect_switch, iMDR_load, mem_indirect_stall, logic rw_switch
 );
 
 logic state_load, state_in, state_out;
 
-assign rw_switch = state_out;
+
 
 register #(1) indirect_state
 (
@@ -18,6 +18,19 @@ register #(1) indirect_state
 	.in(state_in),
 	.out(state_out)
 );
+
+always_comb
+	begin
+		if(opcode == op_sti)
+			begin
+				if(state_out == 1'b0)
+					rw_switch = 1'b0;
+				else
+					rw_switch = 1'b1;
+			end
+		else
+			rw_switch = 1'b0;
+	end
 
 always_comb
 	begin
