@@ -3,6 +3,8 @@ import lc3b_types::*;
 module cpu_datapath
 (
 		input clk,
+		input resp_a,
+		input resp_b,
 		output lc3b_word mem_addr1,
 		output logic mem_read1,
 		input lc3b_word mem_rdata1,
@@ -139,6 +141,7 @@ latch_ex_mem EX_MEM_Latch
 memory_module Mem_Module
 (
 		.clk(clk),
+		.mem_resp(resp_b),
 		.currALU(MEM_ALU),
 		.currIR(MEM_IR),
 		.currPC(MEM_PC),
@@ -152,6 +155,7 @@ memory_module Mem_Module
 		.controlWordout(CW_MEM),
 		.mem_indirect_stall(mem_indirect_stall)
 );
+
 
 
 latch_wb MEM_WB_latch

@@ -8,12 +8,15 @@ logic mem_read1;
 logic mem_write1;
 logic mem_read2;
 logic mem_write2;
+logic resp_a;
+logic resp_b;
 logic [1:0] mem_byte_enable2;
 logic [15:0] mem_addr1;
 logic [15:0] mem_addr2;
 logic [15:0] mem_rdata1;
 logic [15:0] mem_rdata2;
 logic [15:0] mem_wdata2;
+
 
 /* Clock generator */
 initial clk = 0;
@@ -24,6 +27,8 @@ mp3 dut
     .clk,
 
     /* Memory signals*/
+	 .resp_a(resp_a),
+	 .resp_b(resp_b),
     .mem_addr1,
     .mem_read1,
     .mem_write1,
@@ -46,7 +51,7 @@ magic_memory_dp magic_memory_dp
     .wmask_a(),
     .address_a(mem_addr1),
     .wdata_a(),
-    .resp_a(),
+    .resp_a(resp_a),
     .rdata_a(mem_rdata1),
 
     /* Port B */
@@ -55,7 +60,7 @@ magic_memory_dp magic_memory_dp
     .wmask_b(mem_byte_enable2),
     .address_b(mem_addr2),
     .wdata_b(mem_wdata2),
-    .resp_b(),
+    .resp_b(resp_b),
     .rdata_b(mem_rdata2)
 );
 

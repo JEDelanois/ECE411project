@@ -13,6 +13,8 @@ module mp3
 		*/
 
 		/* Memory signals*/
+		input resp_a,
+		input resp_b,
 		output lc3b_word mem_addr1,
 		output logic mem_read1,
 		output logic mem_write1,
@@ -45,6 +47,8 @@ cache_system LC3b_Cache
 cpu_datapath LC3b_CPU
 (
 		.clk,
+		.resp_a,
+		.resp_b,
 		.mem_addr1,
 		.mem_read1,
 		.mem_rdata1,
