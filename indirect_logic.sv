@@ -12,7 +12,7 @@ logic state_load, state_in, state_out;
 //This needs to be able to be reset after ldi/sti finishes.
 register #(1) indirect_state
 (
-	.clk(state_load),
+	.clk(clk),
 	.load(state_load),
 	.in(state_in),
 	.out(state_out)

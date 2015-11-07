@@ -1,3 +1,5 @@
+import lc3b_types::*;
+
 module L1_cache
 (
 		input clk,

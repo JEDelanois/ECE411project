@@ -8,7 +8,7 @@ module flow_control
 
 /* multiplexor definition */
 always_comb
-
+	begin
 	if(mem_indirect_stall == 1'b1) // if there is an indirect memory acces 
 		begin
 		flow_IFID  = 1'b0;		//stall the entire pipeline
@@ -25,5 +25,5 @@ always_comb
 		flow_MEMWB = 1'b1;
 		
 		end
-	
+end
 endmodule : flow_control

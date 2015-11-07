@@ -6,11 +6,16 @@ module cache_system
 		input CPU_data_read, CPU_data_write,
 		input [1:0] CPU_data_byte_enable,
 		input [15:0] CPU_data_addr, CPU_data_wdata,
+		input pmem_resp,
+	   input [127:0] pmem_rdata,
 		
 		output CPU_instr_resp,
 		output [15:0] CPU_instr_rdata,
 		output CPU_data_resp,
-		output [15:0] CPU_data_rdata
+		output [15:0] CPU_data_rdata,
+		output pmem_read, pmem_write,
+		output [15:0] pmem_addr,
+		output [127:0] pmem_wdata
 );
 
 logic data_resp, data_read, data_write, instr_resp, instr_read, instr_write;
@@ -68,11 +73,11 @@ arbiter L1_Arbiter
 		.data_rdata(data_rdata),
 		.data_resp(data_resp),
 		
-		.L2_read(), .L2_write(),
-		.L2_addr(),
-		.L2_wdata(),
-		.L2_rdata(),
-		.L2_resp()
+		.L2_read(pmem_read), .L2_write(pmem_write),
+		.L2_addr(pmem_addr),
+		.L2_wdata(pmem_wdata),
+		.L2_rdata(pmem_rdata),
+		.L2_resp(pmem_resp)
 );
 
 endmodule : cache_system

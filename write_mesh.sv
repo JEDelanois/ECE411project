@@ -1,5 +1,3 @@
-import lc3b_types ::*;
-
 module write_mesh
 (
 	input [127:0] data_out,
