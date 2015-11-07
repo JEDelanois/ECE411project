@@ -3,7 +3,7 @@ module flow_control
 	input clk,
 	input mem_indirect_stall,
 	
-	output flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB
+	output logic flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB
 );
 
 /* multiplexor definition */
