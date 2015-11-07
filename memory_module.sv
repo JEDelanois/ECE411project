@@ -77,7 +77,7 @@ mux4 mem_mdrmux
 
 register #(16) iMDR_register
 (
-	.clk(clk),
+	.clk(iMDR_load),
 	.load(iMDR_load),
 	.in(mem_rdata),
 	.out(prev_MDR)
