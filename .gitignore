@@ -19,6 +19,7 @@
 !/simulation/
 !/simulation/modelsim/
 !/simulation/modelsim/work_wave.do
+!/simulation/modelsim/cache_wave.do
 
 # track assembler
 !LC3bAssembler
