@@ -4,6 +4,7 @@ module gen_control
 (
 		input logic [3:0] opcode,
 		input logic [11:0] IRbits,
+		input inject_NOP,
 		output lc3b_control ctrl
 );
 
@@ -32,6 +33,8 @@ always_comb
 		ctrl.regFilemux_sel = 3'b000;
 		ctrl.regFile_load = 1'b0;
 		
+		if(inject_NOP == 1'b0)
+		begin
 		/* Apply unique values per instruction*/
 		case(opcode)
 			op_add: begin
@@ -147,6 +150,7 @@ always_comb
 				ctrl.mem_mdrmux_sel = 1'b1;
 			end
 	endcase
+	end
 end
 
 endmodule : gen_control

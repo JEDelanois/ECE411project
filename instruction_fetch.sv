@@ -16,7 +16,8 @@ module instruction_fetch
 	
 	output lc3b_word pc_out,
 	output logic mem_read1,
-	output logic stall_fetch
+	output logic stall_fetch,
+	output logic inject_NOP
 );
 
 lc3b_word pcmux_out, branchmux_out;
@@ -29,7 +30,8 @@ Cache1_cont cache1_cont
 	 
     
 	 .mem_read1(mem_read1),
-	 .stall_fetch(stall_fetch)
+	 .stall_fetch(stall_fetch),
+	 .inject_NOP(inject_NOP)
 );
 
 

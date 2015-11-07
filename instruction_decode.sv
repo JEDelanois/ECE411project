@@ -3,6 +3,7 @@ import lc3b_types::*;
 module instruction_decode
 (
 		input logic clk,
+		input inject_NOP,
 		input lc3b_word IR, WB_IR,
 		input lc3b_word data_in,
 		input lc3b_word WB_pcin,
@@ -27,6 +28,7 @@ gen_control Control_Generator
 (
 	.opcode(IR[15:12]),
 	.IRbits(IR[11:0]),
+	.inject_NOP(inject_NOP),
 	.ctrl(control_word)
 );
 

@@ -24,7 +24,7 @@ lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, SR2_MEM;
 lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU;
 // MEM/WB wires
 lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,ALUin;
-logic branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch;
+logic branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP,inject_NOP_out;
 lc3b_word br_adder_out;
 //Control Word typing for register wires
 lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
@@ -62,7 +62,8 @@ instruction_fetch IF_Logic
 		.branch_enable(branch_enable),
 		.pc_out(pc_out),
 		.mem_read1(mem_read1),
-		.stall_fetch(stall_fetch)
+		.stall_fetch(stall_fetch),
+		.inject_NOP(inject_NOP)
 );
 
 latch_if_id IF_ID_Latch
@@ -71,14 +72,17 @@ latch_if_id IF_ID_Latch
 		.load_latch(flow_IFID),
 		.IR_in(mem_rdata1),
 		.PC_in(pc_out + 4'h2),
+		.inject_NOP(inject_NOP),
 		.IR_out(IF_IR),
-		.PC_out(IF_EX_PC)
+		.PC_out(IF_EX_PC),
+		.inject_NOP_out(inject_NOP_out)
 );
 
 
 instruction_decode ID_Logic
 (
 		.clk(clk),
+		.inject_NOP(inject_NOP_out),
 		.IR(IF_IR),
 		.WB_IR(WB_IR),
 		.data_in(final_MDR),
