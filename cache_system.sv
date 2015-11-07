@@ -24,7 +24,7 @@ logic [127:0] data_rdata, data_wdata, instr_rdata, instr_wdata;
 
 L1_cache	Instruction_Cache_L1
 (
-		.clk,
+		.clk(clk),
 		.arb_resp(instr_resp),
 		.arb_rdata(instr_rdata),
 		.mem_read(CPU_instr_read),
@@ -43,7 +43,7 @@ L1_cache	Instruction_Cache_L1
 
 L1_cache Data_Cache_L1
 (
-		.clk,
+		.clk(clk),
 		.arb_resp(data_resp),
 		.arb_rdata(data_rdata),
 		.mem_read(CPU_data_read),
