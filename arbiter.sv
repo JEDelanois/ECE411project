@@ -29,8 +29,8 @@ always_comb
 				L2_wdata = instr_wdata;
 				instr_rdata = L2_rdata;
 				instr_resp = L2_resp;
-				data_rdata = 128'bZ;				//Need to drive all outputs, otherwise not combinational. HIGH IMPEDANCE
-				data_resp = 1'bZ;
+				data_rdata = 128'b1;				//Need to drive all outputs, otherwise not combinational. HIGH IMPEDANCE
+				data_resp = 1'b0;
 			end
 		else
 			begin
@@ -40,8 +40,8 @@ always_comb
 				L2_wdata = data_wdata;
 				data_rdata = L2_rdata;
 				data_resp = L2_resp;
-				instr_rdata = 128'bZ;			//Need to drive all outputs, otherwise not combinational.HIGH IMPEDANCE
-				instr_resp = 1'bZ;
+				instr_rdata = 128'b1;			//Need to drive all outputs, otherwise not combinational.HIGH IMPEDANCE
+				instr_resp = 1'b0;
 			end
 	end
 
