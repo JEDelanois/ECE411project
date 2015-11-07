@@ -4,7 +4,7 @@ module indirect_logic
 (
 		input clk, mem_resp,
 		input [3:0] opcode,
-		output indirect_switch, iMDR_load, mem_indirect_stall, rw_switch
+		output logic indirect_switch, iMDR_load, mem_indirect_stall, rw_switch
 );
 
 logic state_load, state_in, state_out;
@@ -13,7 +13,7 @@ logic state_load, state_in, state_out;
 //This needs to be able to be reset after ldi/sti finishes.
 register #(1) indirect_state
 (
-	.clk(clk),
+	.clk(state_load),
 	.load(state_load),
 	.in(state_in),
 	.out(state_out)
@@ -70,8 +70,8 @@ always_comb
 					end
 				else
 					mem_indirect_stall = 1'b0;
-					state_load = 1'b0;
-					state_in = 1'b1;
+					state_load = 1'b1;
+					state_in = 1'b0;
 					iMDR_load = 1'b0;
 					indirect_switch = 1'b0;
 			end
