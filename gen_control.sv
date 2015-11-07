@@ -82,7 +82,9 @@ always_comb
 			end
 			op_ldi: begin
 				ctrl.cc_load = 1'b1;
-				
+				ctrl.mem2_read = 1'b1;
+				ctrl.mem_mdrmux_sel = 2'b01;
+				ctrl.regFile_load = 1'b1;
 			end
 			op_ldr: begin
 				ctrl.mem2_read = 1'b1;
@@ -127,7 +129,10 @@ always_comb
 				ctrl.mem2_write = 1'b1;
 			end
 			op_sti: begin
-			
+				ctrl.cc_load = 1'b1;
+				ctrl.mem2_read = 1'b1;
+				ctrl.mem_mdrmux_sel = 2'b01;	
+				ctrl.sr2mux_sel = 1'b1;
 			end
 			op_str: begin
 				ctrl.sr2mux_sel = 1'b1;
