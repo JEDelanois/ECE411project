@@ -2,9 +2,10 @@ import lc3b_types::*;
 
 module latch_if_id
 (
-	input logic clk, load_latch,inject_NOP,
+	input logic clk, load_latch, inject_NOP,
 	input lc3b_word IR_in, PC_in,
-	output lc3b_word IR_out, PC_out,inject_NOP_out
+	output lc3b_word IR_out, PC_out,
+	output logic inject_NOP_out
 );
 
 register IR
@@ -24,7 +25,7 @@ register PC
     .out(PC_out)
 );
 
-register inject_NOP_latch
+register #(1) inject_NOP_latch
 (
     .clk(clk),
     .load(load_latch),
