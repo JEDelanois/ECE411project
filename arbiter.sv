@@ -29,7 +29,7 @@ always_comb
 				L2_wdata = instr_wdata;
 				instr_rdata = L2_rdata;
 				instr_resp = L2_resp;
-				data_rdata = 128'b1;				//Need to drive all outputs, otherwise not combinational. HIGH IMPEDANCE
+				data_rdata = 128'b1;				//Need to drive all outputs, otherwise not combinational. 
 				data_resp = 1'b0;
 			end
 		else
@@ -40,12 +40,12 @@ always_comb
 				L2_wdata = data_wdata;
 				data_rdata = L2_rdata;
 				data_resp = L2_resp;
-				instr_rdata = 128'b1;			//Need to drive all outputs, otherwise not combinational.HIGH IMPEDANCE
+				instr_rdata = 128'b1;			//Need to drive all outputs, otherwise not combinational.
 				instr_resp = 1'b0;
 			end
 	end
 
-	//Design a reset value for the L2 Cache -- current design is bad if an instruction miss's arguments are replaced with data's halfway through.
+	//Design a reset value for the L2 Cache -- current design is bad if an instruction misses arguments are replaced with data's halfway through.
 			//Thus, making a signal detect when a switch to data happens, reset the L2 cache and service the data. Low performance if it happens, but
 			//should be seldom.
 	
