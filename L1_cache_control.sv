@@ -10,9 +10,7 @@ module L1_cache_control
 enum int unsigned {
 		idle,
 		evict, //and write-back
-		replace, //and write-to
-		read,
-		write
+		replace
 } state, next_state;
 
 always_comb
@@ -35,20 +33,33 @@ begin : state_actions
 	case(state)
 		default:;
 		idle: begin
-			if((mem_read||mem_write)&&hit)
+			if(mem_read&&hit)
 				begin
 					mem_resp = 1'b1;
 					rw_mux_sel = 1'b1;
-					if(mem_write&&w2_hit)
-						begin
-							w2_dirty_in = 1'b1;
-							load_w2 = 4'b1001;
-						end
-					else if(mem_write&&!w2_hit)
-						begin
-							w1_dirty_in = 1'b1;
-							load_w1 = 4'b1001;
-						end
+					load_LRU = 1'b1;
+					if(w2_hit)
+						LRU_in = 1'b0;
+					else
+						LRU_in = 1'b1;
+				end
+			else if(mem_write&&hit)
+				begin
+				mem_resp = 1'b1;
+				rw_mux_sel = 1'b1;
+				load_LRU = 1'b1;
+				if(w2_hit)
+					begin
+					LRU_in = 1'b0;
+					w2_dirty_in = 1'b1;
+					load_w2 = 4'b1001;
+					end
+				else
+					begin
+					LRU_in = 1'b1;
+					w1_dirty_in = 1'b1;
+					load_w1 = 4'b1001;
+					end
 				end
 		end
 		evict: begin
@@ -79,31 +90,8 @@ begin : state_actions
 			else
 				load_w1 = 4'b1001;
 		end
-		read: begin
-			mem_resp = 1'b1;
-			load_LRU = 1'b1;
-			if(w2_hit)
-				LRU_in = 1'b0;
-			else
-				LRU_in = 1'b1;			
-		end
-		write: begin
-			mem_resp = 1'b1;
-			load_LRU = 1'b1;
-			rw_mux_sel = 1'b1;
-			if(w2_hit)
-				begin
-				LRU_in = 1'b0;
-				w2_dirty_in = 1'b1;
-				load_w2 = 4'b1000;
-				end
-			else
-				begin
-					LRU_in = 1'b1;
-					w1_dirty_in = 1'b1;
-					load_w1 = 4'b1000;
-				end			
-		end
+
+
 	endcase
 end
 
@@ -111,20 +99,10 @@ always_comb
 begin : next_state_logic
 	case(state)
 		idle: begin
-			if(hit&&mem_read)
-				next_state = read;
-			else if(hit&&mem_write)
-				next_state = write;
-			else if(!hit&&(mem_write||mem_read))
+			if(!hit&&(mem_write||mem_read))
 				next_state = evict;
 			else
 				next_state = idle;
-		end
-		read: begin
-			next_state = idle;
-		end
-		write: begin
-			next_state = idle;
 		end
 		evict: begin
 			if((arb_resp == 1)&&(!(!LRU_out&&w1_dirty_out)&&!(LRU_out&&w2_dirty_out)))
