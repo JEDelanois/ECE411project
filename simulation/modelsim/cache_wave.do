@@ -33,6 +33,8 @@ add wave -label CPU_instr_rdata -noupdate -height 15 /mp3_tb_phys/dut/Cache_Modu
 add wave -label CPU_data_rdata -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_rdata
 add wave -label CPU_data_wdata -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_wdata
 add wave -label CPU_data_byte_enable -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_byte_enable
+add wave -position end  sim:/mp3_tb_phys/dut/Cache_Module/Instruction_Cache_L1/cache_data/way_one/data/data
+add wave -position end  sim:/mp3_tb_phys/dut/Cache_Module/Instruction_Cache_L1/cache_data/way_two/data/data
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ps} 0}
 quietly wave cursor active 0
@@ -52,5 +54,5 @@ configure wave -timelineunits ns
 update
 WaveRestoreZoom {0 ps} {145546 ps}
 restart -f
-run 2000ns
+run 6000ns
 radix -hexadecimal
