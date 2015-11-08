@@ -42,7 +42,7 @@ Cache1_cont cache1_cont
 register pc
 (
     .clk,
-    .load(load_pc && flow_IFID),
+    .load((load_pc && flow_IFID)||branch_enable),
     .in(pcmux_out),
     .out(pc_out)
 );

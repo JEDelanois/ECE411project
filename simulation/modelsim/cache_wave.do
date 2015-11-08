@@ -54,5 +54,5 @@ configure wave -timelineunits ns
 update
 WaveRestoreZoom {0 ps} {145546 ps}
 restart -f
-run 6000ns
+run 100000ns
 radix -hexadecimal

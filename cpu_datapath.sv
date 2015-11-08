@@ -74,15 +74,13 @@ latch_if_id IF_ID_Latch
 		.PC_in(pc_out + 4'h2),
 		.inject_NOP(inject_NOP),
 		.IR_out(IF_IR),
-		.PC_out(IF_EX_PC),
-		.inject_NOP_out(inject_NOP_out)
+		.PC_out(IF_EX_PC)
 );
 
 
 instruction_decode ID_Logic
 (
 		.clk(clk),
-		.inject_NOP(inject_NOP_out),
 		.IR(IF_IR),
 		.WB_IR(WB_IR),
 		.data_in(final_MDR),
