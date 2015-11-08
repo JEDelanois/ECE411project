@@ -1,0 +1,27 @@
+Checkpoint 2 Report:
+Group: Elec E Money Gang
+NetID: delanos2, thomasn2, pandoh2
+
+In Checkpoint 2, we implemented the rest of the Instruction Set Architecture.
+In order to accomplish this, we added hardware to the datapath as well as logic
+to the control ROM. In addition, we implemented a split L1 cache with an arbiter.
+Thus, we swapped out the magic memory for physical memory. The only stalls that
+we needed to worry about were from structural hazards such as the memory response.
+
+Our testing strategy was to test each instruction before moving to the next one.
+After each instruction, we accumulated the test code to make a more comprehensive test.
+Once the design passed our test code and the test code given, we were confident
+that our design met ISA specifications. To test the cache, we wrote test code to
+simulate cache misses, hits, and several stores and loads to memory to see how
+the cache responded.
+
+In terms of workflow, we divided the work into 3 parts. One would work on extending
+the datapath while the other would work on control ROM and the third would test the
+newly implemented functionality. For the cache we split the work up between working
+on the individual instruction and data caches (because they are functionally similar),
+and the arbiter and testing.
+
+For the next checkpoint, we need to implement data forwarding and be able to detect
+data hazards. In addition, we will need to have our L2 cache implemented and have
+a fully sustaining cache hierarchy. Most likely, we will have two people working on
+handling data hazards and stalls while the third works on finishing the cache hierarchy.
