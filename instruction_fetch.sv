@@ -6,6 +6,7 @@ module instruction_fetch
 	input resp_a,
 	input flow_IFID,
 	input load_pc,
+	input force_pc_load,
 	input [2:0] pcmux_sel,
 	input lc3b_word br_add_out,
 	input lc3b_word sr1_out,
@@ -42,7 +43,7 @@ Cache1_cont cache1_cont
 register pc
 (
     .clk,
-    .load((load_pc && flow_IFID)||branch_enable),
+    .load(force_pc_load||((load_pc && flow_IFID)||branch_enable)),
     .in(pcmux_out),
     .out(pc_out)
 );

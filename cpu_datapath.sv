@@ -54,6 +54,7 @@ instruction_fetch IF_Logic
 		.resp_a(resp_a),
 		.flow_IFID(flow_IFID),
 		.load_pc(1'b1),
+		.force_pc_load(WB_CW.force_pc_load),
 		.pcmux_sel(WB_CW.PCmux_sel),
 		.br_add_out(br_adder_out),
 		.sr1_out(WB_ALU),

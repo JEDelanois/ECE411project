@@ -31,6 +31,7 @@ always_comb
 		ctrl.cc_load = 1'b0;
 		ctrl.regFilemux_sel = 3'b000;
 		ctrl.regFile_load = 1'b0;
+		ctrl.force_pc_load = 1'b0;
 		
 		/* Apply unique values per instruction*/
 		case(opcode)
@@ -58,12 +59,14 @@ always_comb
 			op_jmp: begin
 				ctrl.PCmux_sel = 3'b010;	//NOTE: IF THIS IS BROKEN, SO IS JSRR FOR THE SAME REASON
 				ctrl.aluop = alu_pass;
+				ctrl.force_pc_load = 1'b1;
 			end
 			op_jsr: begin
 				//Store PC into R7
 				ctrl.destmux_sel = 1'b1;
 				ctrl.regFilemux_sel = 3'b001;
 				ctrl.regFile_load = 1'b1;
+				ctrl.force_pc_load = 1'b1;
 				if(IRbits[11] == 1)	//The case for JSR
 					begin
 						ctrl.PCmux_sel = 3'b100;
@@ -140,12 +143,14 @@ always_comb
 				ctrl.mem2_write = 1'b1;
 			end
 			op_trap: begin
+				ctrl.force_pc_load = 1'b1;
+				ctrl.mem2_read = 1'b1;
 				ctrl.destmux_sel = 1'b1;
 				ctrl.regFilemux_sel = 3'b001;
 				ctrl.regFile_load = 1'b1;
 				ctrl.PCmux_sel = 3'b101;
 				ctrl.memAdd2mux_sel = 1'b1;
-				ctrl.mem_mdrmux_sel = 1'b1;
+				ctrl.mem_mdrmux_sel = 2'b01;
 			end
 	endcase
 end
