@@ -66,10 +66,17 @@ begin : state_actions
 			if(!(!LRU_out&&w1_dirty_out)&&!(LRU_out&&w2_dirty_out))	//Line to be evicted is not dirty! replace the line with the arb version
 				begin	
 					arb_read = 1'b1;
-					if(LRU_out == 0)
-						load_w1 = 4'b0111;		//Load into the correct way according to LRU bit
-					else
-						load_w2 = 4'b0111;
+					if(arb_resp == 1'b1)
+						begin
+						case(LRU_out)
+							1'b0: begin
+								load_w1 = 4'b0111;
+							end
+							1'b1: begin
+								load_w2 = 4'b0111;
+							end
+						endcase
+					end
 				end
 			else if(!LRU_out&&w1_dirty_out)	//The line to be evicted is dirty! Need to write it back to arb
 				begin

@@ -8,20 +8,6 @@ add wave -label pcmux_out -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/IF_Logi
 add wave -label pc_plus_2_out -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/IF_Logic/pc_plus2_out
 add wave -label  ID_Logic/IR -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/ID_Logic/IR
 add wave -label ID_Regfile -noupdate -height 15 -subitemconfig {{/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[7]} {-height 15} {/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[6]} {-height 15} {/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[5]} {-height 15} {/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[4]} {-height 15} {/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[3]} {-height 15} {/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[2]} {-height 15} {/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[1]} {-height 15} {/mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data[0]} {-height 15}} /mp3_tb_phys/dut/LC3b_CPU/ID_Logic/LC3b_RegFile/data
-add wave -label EX_aluop -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/aluop
-add wave -label ALU_a -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/ALU/a
-add wave -label ALU_b -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/ALU/b
-add wave -label ALU_f -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/ALU/f
-add wave -label alumux_a -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/a
-add wave -label alumux_b -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/b
-add wave -label alumux_c -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/c
-add wave -label alumux_d -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/d
-add wave -label alumux_e -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/e
-add wave -label alumux_f -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/f
-add wave -label alumux_g -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/g
-add wave -label alumux_h -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/h
-add wave -label alumux_sel -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/sel
-add wave -label alumux_z -noupdate -height 15 /mp3_tb_phys/dut/LC3b_CPU/EX_module/alumuux/z
 add wave -label instr_read -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_read
 add wave -label instr_resp -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_instr_resp
 add wave -label CPU_data_read -noupdate -height 15 /mp3_tb_phys/dut/Cache_Module/CPU_data_read
