@@ -11,7 +11,7 @@ module flow_control
 /* multiplexor definition */
 always_comb
 	begin
-	if((mem_indirect_stall == 1'b1) || (stall_cache2_miss == 1'b1) ) // if there is an indirect memory acces  or a chache miss
+	if((mem_indirect_stall == 1'b1) || (stall_cache2_miss == 1'b1) ) // if there is an indirect memory access or a cache miss
 		begin
 		flow_IFID  = 1'b0;		//stall the entire pipeline
 		flow_IDEX  = 1'b0;
@@ -21,7 +21,7 @@ always_comb
 		
 	else if(stall_fetch == 1'b1) // if you should stall the fetch stage
 		begin
-		flow_IFID  = 1'b0;		//stall only the fetxh stage
+		flow_IFID  = 1'b0;		//stall only the fetch stage
 		flow_IDEX  = 1'b1;
 		flow_EXMEM = 1'b1;
 		flow_MEMWB = 1'b1;

@@ -28,11 +28,9 @@ lc3b_word pc_plus2_out;
 Cache1_cont cache1_cont
 (
     .resp_a(resp_a),
-	 
-    
-	 .mem_read1(mem_read1),
-	 .stall_fetch(stall_fetch),
-	 .inject_NOP(inject_NOP)
+    .mem_read1(mem_read1),
+    .stall_fetch(stall_fetch),
+    .inject_NOP(inject_NOP)
 );
 
 
