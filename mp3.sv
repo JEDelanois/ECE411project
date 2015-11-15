@@ -1,5 +1,7 @@
 module mp3
 (
+		// For physical mem
+		/*
 		input clk,
 		input pmem_resp,
 		input [127:0] pmem_rdata,
@@ -7,9 +9,23 @@ module mp3
 		output pmem_read, pmem_write,
 		output [15:0] pmem_address,
 		output [127:0] pmem_wdata
+		*/
+
+		// For magic mem
+		input clk,
+		input resp_a, resp_b,
+		output logic [15:0] mem_addr1,
+		output logic mem_read1,
+		input logic [15:0] mem_rdata1,
+		
+		output logic [15:0] mem_addr2,
+		output logic mem_read2, mem_write2,
+		input logic [15:0] mem_rdata2,
+		output logic [15:0] mem_wdata2,
+		output [1:0] mem_byte_enable2
 );
 
-
+/*
 logic resp_a, resp_b, mem_read1, mem_read2, mem_write2;
 logic [1:0] mem_byte_enable2;
 logic [15:0] mem_addr1, mem_addr2, mem_rdata1, mem_rdata2, mem_wdata2;
@@ -36,6 +52,7 @@ cache_system Cache_Module
 		.pmem_addr(pmem_address),
 		.pmem_wdata(pmem_wdata)
 );
+*/
 
 
 cpu_datapath LC3b_CPU

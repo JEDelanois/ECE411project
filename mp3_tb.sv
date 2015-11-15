@@ -5,7 +5,6 @@ timeprecision 1ns;
 
 logic clk;
 logic mem_read1;
-logic mem_write1;
 logic mem_read2;
 logic mem_write2;
 logic resp_a;
@@ -25,20 +24,18 @@ always #5 clk = ~clk;
 mp3 dut
 (
     .clk,
-
-    /* Memory signals*/
-	 .resp_a(resp_a),
-	 .resp_b(resp_b),
+    .resp_a,
+    .resp_b,
     .mem_addr1,
     .mem_read1,
-    .mem_write1,
     .mem_rdata1,
+    
     .mem_addr2,
     .mem_read2,
     .mem_write2,
-    .mem_byte_enable2,
     .mem_rdata2,
-    .mem_wdata2
+    .mem_wdata2,
+    .mem_byte_enable2
 );
 
 magic_memory_dp magic_memory_dp
@@ -47,8 +44,8 @@ magic_memory_dp magic_memory_dp
 
     /* Port A */
     .read_a(mem_read1),
-    .write_a(mem_write1),
-    .wmask_a(),
+    .write_a(1'b0),
+    .wmask_a(2'b11),
     .address_a(mem_addr1),
     .wdata_a(),
     .resp_a(resp_a),

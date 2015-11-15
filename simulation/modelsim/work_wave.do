@@ -1,3 +1,4 @@
+delete wave *
 onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate -radix hexadecimal /mp3_tb/clk
@@ -66,3 +67,6 @@ configure wave -timeline 0
 configure wave -timelineunits ps
 update
 WaveRestoreZoom {0 ps} {239118 ps}
+restart -f
+radix -hexadecimal
+run $1 ns
