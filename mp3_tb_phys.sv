@@ -5,11 +5,11 @@ timeprecision 1ns;
 
 logic clk;
 logic pmem_resp;
-logic [127:0] pmem_rdata;
+logic [1023:0] pmem_rdata;
 		
 logic pmem_read, pmem_write;
 logic [15:0] pmem_address;
-logic [127:0] pmem_wdata;
+logic [1023:0] pmem_wdata;
 
 
 /* Clock generator */
