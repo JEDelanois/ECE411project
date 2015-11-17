@@ -19,7 +19,7 @@
 !/simulation/
 !/simulation/modelsim/
 !/simulation/modelsim/*.do
-/simulation/modelsim/mp3_run_msim_rtl_verilog.do
+/simulation/modelsim/*_run_msim_rtl_verilog.do
 
 # track assembler
 !LC3bAssembler
