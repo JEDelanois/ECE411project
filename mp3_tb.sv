@@ -30,7 +30,7 @@ mp3 dut
 	 .resp_a(resp_a),
 	 .resp_b(resp_b),
     .mem_addr1,
-    .mem_read1,
+
     .mem_write1,
     .mem_rdata1,
     .mem_addr2,
