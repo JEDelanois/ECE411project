@@ -14,3 +14,16 @@ This is Jon's job. Godspeed to him. This involves a 4-way set associative branch
 
 LC3X (up to 10):
 Implement SUB, MULT, DIV, XOR, and OR. We're thinking these could be encoded into the RTI instruction in control. Unfortunately you need to prove performance improvement over software algorithms to achieve each of these instructions, which could prove to not be that much fun, especially considering that you need to modify the compiler (or add your own) that correctly understands the instructions in assembly. Potentially not TERRIBLE, but we'll see.
+
+
+
+
+Questions for Dao:
+
+How many points are typically expected from the groups as far as final features go? All 55? 40? 25?
+
+Can you get full prefetch points if you don't prefetch anything for the data cache?
+
+Does LC3X use half precision floating point or integers? (if it is integers, more points for floating point support?)
+
+
