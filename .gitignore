@@ -31,3 +31,6 @@
 
 # track shell commands
 !*.sh
+
+# track timing analysis file
+!mp3.out.sdc
