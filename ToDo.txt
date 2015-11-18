@@ -1,19 +1,16 @@
-Note about modules:
--muxes and sext vary in length based on width
--zext is fixed length on 8 bits
+EXTRA DESIGN OPTION ELABORATION
 
-Note about Cache Design:
+Performance counters (up to 5):
+I was thinking of implementing cache miss rates and branch mispredict rates/bubble insertion rates in hardware, and have them be accessible to the software. Use the opcode left over by RTI (if unused by Erik's LC3X) to make our own instruction to move into probably R7. Just add more hardware to do this, it shouldn't be terribly difficult to do.
 
-This text is more me thinking about it, than important information.
 
--We need to think about the case where L2 is servicing Instruction, but then Data makes a request and interrupts it. Is it possible for Data to recieve the wrong information in that case? Listing the cases below:
+Hardware Prefetch (up to 15):
+Depending on prefetching complexity, up to 15 points. Could latch the arbiter outputs as long as a prefetch is happening. Could also generate the dummy prefetch requests from the same module. Burst-read all invalid cache lines at the beginning of the program. For a small program, this should be good enough. Though mid-runtime prefetch could be difficult to do. Perhaps just group sets of two reads? It's difficult to come up with a method of control prediction.
 
-Case 1: Instruction is reading and Data interrupts with a read. In this case, even if it recieved the incorrect data (because it recieved the instruction's read, not it's own), the Data Cache's control will naturally do another tag check before navigating to a hit. This means that overall, the cache system will void any currently running read process and do what it should do. THIS IS GOOD.
 
-Case 2: Instruction is reading and Data interrupts with a write. This has the undefined behavior we need to be concerned about. However this is much more reliant on the specific implementation of the L2 cache's control, since it is not designed yet, we won't know how the control works.
+Branch Prediction Suite (up to 21 points, depending on extent)
+This is Jon's job. Godspeed to him. This involves a 4-way set associative branch table buffer (13) that support all control influences, meaning JSR, JSRR, TRAP and BRANCH (8). Technically speaking, they don't say it has to be good, but having the hardware influence things should be enough to get a decent amount of the points.
 
-Conclusion: If we ensure that the control resets whenever the instruction for the L2 cache goes from read to write, all problems should be eliminated.
 
-Notes on Debugging: write comprehensive test and test cc
--stb doesn't write to high byte on cpu side
-
+LC3X (up to 10):
+Implement SUB, MULT, DIV, XOR, and OR. We're thinking these could be encoded into the RTI instruction in control. Unfortunately you need to prove performance improvement over software algorithms to achieve each of these instructions, which could prove to not be that much fun, especially considering that you need to modify the compiler (or add your own) that correctly understands the instructions in assembly. Potentially not TERRIBLE, but we'll see.
