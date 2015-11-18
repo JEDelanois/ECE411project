@@ -21,7 +21,7 @@ lc3b_word pc_out, IF_IR, IF_EX_PC;
 // ID/EX wires
 lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, SR2_MEM;
 // EX/MEM wires
-lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU;
+lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU,ex_sr2_out;
 // MEM/WB wires
 lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,ALUin;
 logic branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP,inject_NOP_out;
@@ -121,6 +121,13 @@ execution_module EX_module
 	.sr2_out(SR2_EX),
 	.curr_pc_in(PC_EX),
 	.control_word_in(CW_EX),
+	
+	.EX_MEM_dest(MEM_IR[11:9]),
+	.EX_MEM_val(MEM_ALU),
+	.MEM_WB_dest(WB_IR[11:9]),
+	.MEM_WB_val(WB_ALU),
+	
+	.ex_sr2_out(ex_sr2_out),
 	.alu_out(EX_ALU),
 	.curr_ir_out(EX_IR),
 	.curr_pc_out(EX_PC),
@@ -134,7 +141,7 @@ latch_ex_mem EX_MEM_Latch
 		.IR_in(EX_IR),
 		.PC_in(EX_PC),
 		.ALU_in(EX_ALU),
-		.sr2_in(SR2_EX),
+		.sr2_in(ex_sr2_out),
 		.CW_in(EX_CW),
 		.IR_out(MEM_IR),
 		.PC_out(MEM_PC),
