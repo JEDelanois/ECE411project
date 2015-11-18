@@ -37,6 +37,8 @@ lc3b_aluop aluop;
 
 logic [2:0] alumux_sel;
 lc3b_word alumux_out,sr1mux_out, sr2mux_out,sr1LatchMmux_out, sr2LatchMmux_out, storeDataLatchMmux_out;
+logic sr1mux_sel, sr2mux_sel, sr1_forwardLatchMux_sel, sr2_forwardLatchMux_sel,storeDataMux_sel,storeDataLatchMux_sel;
+
 
 assign imm4 = curr_ir_in [3:0];
 assign imm5 = curr_ir_in [4:0];
@@ -96,9 +98,26 @@ mux8 #(16) alumuux
 	.z(alumux_out)
 );
 
+forwardingLogic
+(
+	.ir(curr_ir_in),
+	.EX_MEM_dest(EX_MEM_dest),
+	.EX_MEM_val(EX_MEM_val),
+	.MEM_WB_dest(MEM_WB_dest),
+	.MEM_WB_val(MEM_WB_val),
+	
+	.sr1mux_sel(sr1mux_sel),
+	.sr2mux_sel(sr2mux_sel),
+	.sr1_forwardLatchMux_sel(sr1_forwardLatchMux_sel),
+	.sr2_forwardLatchMux_sel(sr2_forwardLatchMux_sel),
+	.storeDataMux_sel(storeDataMux_sel),  //used for the 3 store functions
+	.storeDataLatchMux_sel(storeDataLatchMux_sel)
+
+);
+
 mux2 #(16) sr1mux
 (
-	.sel(),
+	.sel(sr1mux_sel),
 	.a(sr1_out),
 	.b(sr1LatchMmux_out),
 	.f(sr1mux_out)
@@ -106,7 +125,7 @@ mux2 #(16) sr1mux
 
 mux2 #(16) sr1LatchMmux
 (
-	.sel(),
+	.sel(sr1_forwardLatchMux_sel),
 	.a(EX_MEM_val),
 	.b(MEM_WB_val),
 	.f(sr1LatchMmux_out)
@@ -114,7 +133,7 @@ mux2 #(16) sr1LatchMmux
 
 mux2 #(16) sr2mux
 (
-	.sel(),
+	.sel(sr2mux_sel),
 	.a(alumux_out),
 	.b(sr2LatchMmux_out),
 	.f(sr2mux_out)
@@ -122,7 +141,7 @@ mux2 #(16) sr2mux
 
 mux2 #(16) sr2LatchMmux
 (
-	.sel(),
+	.sel(sr2_forwardLatchMux_sel),
 	.a(EX_MEM_val),
 	.b(MEM_WB_val),
 	.f(sr2LatchMmux_out)
@@ -130,7 +149,7 @@ mux2 #(16) sr2LatchMmux
 
 mux2 #(16) storeDatamux
 (
-	.sel(),
+	.sel(storeDataMux_sel),
 	.a(sr2_out),
 	.b(storeDataLatchMmux_out),
 	.f(ex_sr2_out)
@@ -138,7 +157,7 @@ mux2 #(16) storeDatamux
 
 mux2 #(16) storeDataLatchMmux
 (
-	.sel(),
+	.sel(storeDataLatchMux_sel),
 	.a(EX_MEM_val),
 	.b(MEM_WB_val),
 	.f(storeDataLatchMmux_out)
