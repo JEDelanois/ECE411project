@@ -98,7 +98,7 @@ mux8 #(16) alumuux
 	.z(alumux_out)
 );
 
-forwardingLogic
+forwardingLogic forwardingLogic
 (
 	.ir(curr_ir_in),
 	.EX_MEM_dest(EX_MEM_dest),
