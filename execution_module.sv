@@ -7,9 +7,9 @@ module execution_module
 	input lc3b_word sr2_out,
 	input lc3b_word curr_pc_in,
 	input lc3b_control control_word_in,
-	input [2:0] EX_MEM_dest,
+	input [15:0] EX_MEM_ir,
 	input [15:0] EX_MEM_val,
-	input [2:0] MEM_WB_dest,
+	input [15:0] MEM_WB_ir,
 	input [15:0] MEM_WB_val,
 	
 	
@@ -101,9 +101,9 @@ mux8 #(16) alumuux
 forwardingLogic forwardingLogic
 (
 	.ir(curr_ir_in),
-	.EX_MEM_dest(EX_MEM_dest),
+	.EX_MEM_ir(EX_MEM_ir),
 	.EX_MEM_val(EX_MEM_val),
-	.MEM_WB_dest(MEM_WB_dest),
+	.MEM_WB_ir(MEM_WB_ir),
 	.MEM_WB_val(MEM_WB_val),
 	
 	.sr1mux_sel(sr1mux_sel),

@@ -4,6 +4,7 @@ module flow_control
 	input mem_indirect_stall,
 	input stall_fetch,
 	input stall_cache2_miss,
+	input gen_bubble,
 	
 	output logic flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB
 );
@@ -20,6 +21,14 @@ always_comb
 		end
 		
 	else if(stall_fetch == 1'b1) // if you should stall the fetch stage
+		begin
+		flow_IFID  = 1'b0;		//stall only the fetxh stage
+		flow_IDEX  = 1'b1;
+		flow_EXMEM = 1'b1;
+		flow_MEMWB = 1'b1;
+		end
+	
+	else if(gen_bubble == 1'b1) // if you should stall the fetch stage
 		begin
 		flow_IFID  = 1'b0;		//stall only the fetxh stage
 		flow_IDEX  = 1'b1;
