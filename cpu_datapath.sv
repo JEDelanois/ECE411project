@@ -125,7 +125,7 @@ execution_module EX_module
 	.EX_MEM_dest(MEM_IR[11:9]),
 	.EX_MEM_val(MEM_ALU),
 	.MEM_WB_dest(WB_IR[11:9]),
-	.MEM_WB_val(WB_ALU),
+	.MEM_WB_val(genCC_WB),
 	
 	.ex_sr2_out(ex_sr2_out),
 	.alu_out(EX_ALU),
