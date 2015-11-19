@@ -13,7 +13,7 @@ module bubbler
 logic [2:0] branch_counter_out, counter_set,counter_minus1,branch_countermux_out;
 logic IF_ID_dr, IF_ID_sr1, IF_ID_sr2, IF_ID_Hsr, ID_EX_dr, ID_EX_sr1, ID_EX_sr2, ID_EX_Hsr, branch_counter_load, branch_countermux_sel;
 
-assign counter_minus1 = branch_counter_out - 3'b001;
+assign counter_minus1 = branch_counter_out - 1;
 
 dependencyCalc ifidDEPS
 (
@@ -47,7 +47,7 @@ register #(.width(3)) branch_counter
     .out(branch_counter_out)
 );
 
-mux2 branch_countermux
+mux2 #(.width(3)) branch_countermux
 (
 	/* port declaration */
 	.sel(branch_countermux_sel),
@@ -99,7 +99,7 @@ begin
 		//logic for creating bubbles after a branch
 			//setting signals to set up the counter
 		
-		if( (IF_ID_ir[15:12] == op_br) || (IF_ID_ir[15:12] == op_jmp) ||(IF_ID_ir[15:12] == op_jsr) ||(IF_ID_ir[15:12] == op_trap) ) // if there is a branch or instruction that moves the pc
+		if( (IF_ID_ir != 16'b0000000000000000) && ((IF_ID_ir[15:12] == op_br) || (IF_ID_ir[15:12] == op_jmp) ||(IF_ID_ir[15:12] == op_jsr) ||(IF_ID_ir[15:12] == op_trap)) ) // if there is a branch or instruction that moves the pc
 		begin 
 			//load counter
 			branch_counter_load = 1'b1;
