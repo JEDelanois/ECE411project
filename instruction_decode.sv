@@ -11,6 +11,7 @@ module instruction_decode
 		input logic [2:0] mem_select,
 		input logic wb_dest_sel,
 		input gen_bubble,
+		input squash_ID,
 		
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
 		output lc3b_word sr1, sr2,
@@ -35,7 +36,7 @@ gen_control Control_Generator
 
 mux2 controlBubbleMux
 (
-	.sel(gen_bubble),
+	.sel(gen_bubble || squash_ID),
 	.a(IR), 
 	.b(16'b0000000000000000),
 	.f(controlBubbleMux_out)
@@ -44,7 +45,7 @@ mux2 controlBubbleMux
 
 mux2 IRBubbleMux
 (
-	.sel(gen_bubble),
+	.sel(gen_bubble || squash_ID),
 	.a(IR), 
 	.b(16'b0000000000000000),
 	.f(IR_post)
