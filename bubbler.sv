@@ -107,7 +107,7 @@ begin
 		//logic for creating bubbles after a branch
 			//setting signals to set up the counter
 		
-		if( (IF_ID_ir != 16'b0000000000000000) && ((IF_ID_ir[15:12] == op_br) || (IF_ID_ir[15:12] == op_jmp) ||(IF_ID_ir[15:12] == op_jsr) ||(IF_ID_ir[15:12] == op_trap)) ) // if there is a branch or instruction that moves the pc
+		if( (branch_counter_out == 3'b000) && (IF_ID_ir != 16'b0000000000000000) && ((IF_ID_ir[15:12] == op_br) || (IF_ID_ir[15:12] == op_jmp) ||(IF_ID_ir[15:12] == op_jsr) ||(IF_ID_ir[15:12] == op_trap)) ) // if there is a branch or instruction that moves the pc
 		begin 
 			//load counter
 			branch_counter_load = 1'b1;
