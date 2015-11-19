@@ -125,7 +125,12 @@ begin
 			//if counter is not zero then count down and make counter zero
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b1;
-			if(branch_enable_latch_out == 1'b1) //if branch is taken then squash the current instruction  
+			if(IF_ID_ir[15:12] == op_br)
+			begin
+				if(branch_enable_latch_out == 1'b1) //if branch is taken then squash the current instruction  
+					squash_ID = 1'b1;  //squash id
+			end
+			else
 				squash_ID = 1'b1;  //squash id
 		end
 		
