@@ -1,12 +1,12 @@
 ORIGIN 0
 
 	ADD R1, R0, 1
-NOP
-NOP
+	NOP
+	NOP
 	ADD R2, R1, R1
-	;STR R2, R0, 20
-	;LDR R3, R0 , 20
-	;ADD R4, R3, R3
+	STR R2, R0, 20
+	LDR R3, R0 , 20
+	ADD R4, R3, R3
 	NOP
 	NOP
 	NOP
