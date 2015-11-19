@@ -54,7 +54,7 @@ bubbler bubbler
 	.clk(clk),
 	.IF_ID_ir(IF_IR),
 	.ID_EX_ir(IR_EX),
-	
+	.branch_enable(branch_enable),
 	
 	.gen_bubble(gen_bubble),
 	.squash_ID(squash_ID)

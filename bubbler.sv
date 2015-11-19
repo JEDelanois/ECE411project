@@ -5,6 +5,7 @@ module bubbler
 	input clk,
 	input [15:0] IF_ID_ir,
 	input [15:0] ID_EX_ir,
+	input branch_enable,
 	
 	
 	output logic gen_bubble,
@@ -12,7 +13,7 @@ module bubbler
 );
 
 logic [2:0] branch_counter_out, counter_set,counter_minus1,branch_countermux_out;
-logic IF_ID_dr, IF_ID_sr1, IF_ID_sr2, IF_ID_Hsr, ID_EX_dr, ID_EX_sr1, ID_EX_sr2, ID_EX_Hsr, branch_counter_load, branch_countermux_sel;
+logic IF_ID_dr, IF_ID_sr1, IF_ID_sr2, IF_ID_Hsr, ID_EX_dr, ID_EX_sr1, ID_EX_sr2, ID_EX_Hsr, branch_counter_load, branch_countermux_sel,branch_enable_latch_out;
 
 assign counter_minus1 = branch_counter_out - 1;
 
@@ -57,7 +58,13 @@ mux2 #(.width(3)) branch_countermux
 	.f(branch_countermux_out)
 );
 
-
+register #(.width(1)) branch_enable_latch //this holds the branch enable from the cycle before. this is used to decide if we need to squash instructions
+(
+    .clk(clk),
+    .load(1'b1),
+    .in(branch_enable),
+    .out(branch_enable_latch_out)
+);
 
 
 always_comb
@@ -118,7 +125,8 @@ begin
 			//if counter is not zero then count down and make counter zero
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b1;
-			squash_ID = 1'b1;  //squash id
+			if(branch_enable_latch_out == 1'b1) //if branch is taken then squash the current instruction  
+				squash_ID = 1'b1;  //squash id
 		end
 		
 		
