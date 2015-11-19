@@ -2,6 +2,7 @@ import lc3b_types::*;
 
 module bubbler 
 (
+	input clk,
 	input [15:0] IF_ID_ir,
 	input [15:0] ID_EX_ir,
 	
@@ -104,7 +105,6 @@ begin
 			//load counter
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b0;
-			gen_bubble = 1'b1;
 		end
 		else if(branch_counter_out > 3'b001)// if counting down
 		begin 

@@ -51,6 +51,7 @@ flow_control flow_control
 
 bubbler bubbler
 (
+	.clk(clk),
 	.IF_ID_ir(IF_IR),
 	.ID_EX_ir(IR_EX),
 	
