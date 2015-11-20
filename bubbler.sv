@@ -159,6 +159,8 @@ begin
 		begin
 				branch_counter_load = 1'b1;
 				branch_countermux_sel = 1'b0;	
+				gen_bubble = 1'b1;  //and insert a bubble
+				lastIR_load = 1'b0;
 		
 		end
 
