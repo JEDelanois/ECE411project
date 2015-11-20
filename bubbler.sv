@@ -74,7 +74,7 @@ register #(.width(1)) branch_enable_latch //this holds the branch enable from th
 register lastIR
 (
     .clk(clk),
-    .load(lastIR_load && flow_ID_EX),
+    .load(!gen_bubble),
     .in(IF_ID_ir),
     .out(lastIR_out)
 );
@@ -100,20 +100,29 @@ begin
 			if(IF_ID_Hsr == 1'b1) // if instruction is a store check sotre registers
 			begin
 				if( (IF_ID_ir[11:9] == ID_EX_ir[11:9] ) || (IF_ID_ir[8:6] ==  ID_EX_ir[11:9]) ) // if the dest of the latter matches a source or the previouse
+				begin
 						gen_bubble = 1'b1;// create a bubble
+						lastIR_load = 1'b0;
+				end
 			end
 			
 			if(IF_ID_sr1 == 1'b1)
 			begin
 				if( IF_ID_ir[8:6] ==  ID_EX_ir[11:9]) // if the dest of the latter matches a source or the previouse
+				begin
 						gen_bubble = 1'b1;// create a bubble
+						lastIR_load = 1'b0;
+				end
 			end
 			
 			
 			if(IF_ID_sr2 == 1'b1)
 			begin
 				if( IF_ID_ir[2:0] ==  ID_EX_ir[11:9]) // if the dest of the latter matches a source or the previouse
+				begin
 						gen_bubble = 1'b1;// create a bubble
+						lastIR_load = 1'b0;
+				end
 			end
 			
 			
@@ -122,6 +131,9 @@ begin
 		
 		//logic for creating bubbles after a branch
 			//setting signals to set up the counter
+		if(lastIR_out != op_lea)
+		begin
+		
 		
 		if( (branch_counter_out == 3'b000) && (IF_ID_ir != 16'b0000000000000000) && ((IF_ID_ir[15:12] == op_br) || (IF_ID_ir[15:12] == op_jmp) ||(IF_ID_ir[15:12] == op_jsr) ||(IF_ID_ir[15:12] == op_trap)) ) // if there is a branch or instruction that moves the pc
 		begin 
@@ -152,10 +164,11 @@ begin
 				squash_ID = 1'b1;  //squash id
 		end
 		
+		end
 		
 		
 		//bubble insertion for lea
-		if( (branch_counter_out == 3'b000) && (lastIR_out[15:12] == op_lea) ) // if lea then save to see if there are dependencies later
+		if( (branch_counter_out == 3'b000) && (ID_EX_ir[15:12] == op_lea) ) // if lea then save to see if there are dependencies later
 		begin
 				branch_counter_load = 1'b1;
 				branch_countermux_sel = 1'b0;	
@@ -165,10 +178,17 @@ begin
 		end
 
 		
-		if( (lastIR_out[15:12] == op_lea) && (branch_counter_out > 3'b000) )
+		if( (lastIR_out[15:12] == op_lea) && (branch_counter_out > 3'b001) )
 		begin 
 				gen_bubble = 1'b1;  //and insert a bubble
 				lastIR_load = 1'b0;
+				branch_counter_load = 1'b1; // decrement counter
+				branch_countermux_sel = 1'b1;		
+		end
+		else if( (lastIR_out[15:12] == op_lea) && (branch_counter_out == 3'b001) )
+		begin 
+				
+				gen_bubble = 1'b1;  //and insert a bubble
 				branch_counter_load = 1'b1; // decrement counter
 				branch_countermux_sel = 1'b1;		
 		end
