@@ -1,0 +1,34 @@
+Checkpoint 3 Report:
+Group: Elec E Money Gang
+NetID: delanos2, thomasn2, pandoh2
+
+In Checkpoint 3, we implemented our unified L2 Cache that services the arbiter, which
+in turn services the requests made by the Icache and Dcache. Implementing the L2 cache
+was quite straightforward as we planned on simply widening the cache lines for the L2,
+but maintain the same exact design as the L1 caches. We will save further modification
+for extra features. We also implemented hazard management systems into our pipelined
+design. This was done by forwarding dependcies back into the datapath at several junctures,
+as well as implementing a bubble insertion unit to manage specific events, such as cache misses.
+
+Our testing strategy for the L2 cache was straightforward. Due to the system verilog files being
+identical other than bus widths, the functionality was very likely to be correct. As such,
+corner cases have already been eliminated in the L1 design, so it was a matter of ensure all of the
+data was being transferred correctly. After testing on several programs including the CP2 ISA test,
+we determined that the L2 cache was functioning properly. The testing of the forwarding was
+accomplished with homebrewed code that thuroughly tested many dependencies. While we haven't
+tested every single dependency possible, we are confident that there no longer remain any
+edge cases that are incorrectly dealt with.
+
+In terms of workflow, we split the work up into and L2 cache developer and tester, and
+the remaining two would develop the data forwarding changes. Specifically, one would modify
+the datapath to implement the correct forwarding and the other would test unit functionality
+as it was added. Once the datapath editing was finished, they would both test for unhandled
+dependencies and correct the design.
+
+For the extended features portion of the MP, we were planning on splitting up into 3 git
+branches on 3 separate projects. One will work on implementing branch prediction and BTB,
+another will look into either hardware prefetching for the cache or implementing a victim
+cache, and the third will modify the datapath to support LC3X, as well as develop a simple
+frontend tool to compile the specific instructions. These changes should for the most part
+be exclusive, meaning they can be added together once individually functional, and then 
+final verification can begin on the combined design.
