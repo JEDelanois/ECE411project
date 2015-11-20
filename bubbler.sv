@@ -123,7 +123,7 @@ begin
 		//logic for creating bubbles after a branch
 			//setting signals to set up the counter
 		
-		if( (branch_counter_out == 3'b000) && (IF_ID_ir != 16'b0000000000000000) && ((IF_ID_ir[15:12] == op_br) || (IF_ID_ir[15:12] == op_jmp) ||(IF_ID_ir[15:12] == op_jsr) ||(IF_ID_ir[15:12] == op_trap)) ) // if there is a branch or instruction that moves the pc
+		if( (branch_counter_out == 3'b000) && (IF_ID_ir != 16'b0000000000000000) && ((IF_ID_ir[15:12] == op_br) || (IF_ID_ir[15:12] == op_jmp) ||(IF_ID_ir[15:12] == op_jsr) ||(IF_ID_ir[15:12] == op_trap) ||(IF_ID_ir[15:12] == op_lea)) ) // if there is a branch or instruction that moves the pc
 		begin 
 			//load counter
 			branch_counter_load = 1'b1;
@@ -147,6 +147,8 @@ begin
 				if(branch_enable_latch_out == 1'b1) //if branch is taken then squash the current instruction  
 					squash_ID = 1'b1;  //squash id
 			end
+			else if ((counterIR_out[15:12] == op_lea))
+				squash_ID = 1'b0;
 			else // else its an unconditional jump so squash the instruction
 				squash_ID = 1'b1;  //squash id
 		end

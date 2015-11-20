@@ -35,6 +35,8 @@ register PC
     .out(PC_out)
 );
 
+assign inject_NOP_out = inject_NOP;
+/*
 register #(1) NOP
 (
     .clk(clk),
@@ -42,6 +44,6 @@ register #(1) NOP
     .in(inject_NOP),
     .out(inject_NOP_out)
 );
-
+*/
 
 endmodule : latch_if_id
