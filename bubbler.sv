@@ -128,7 +128,7 @@ begin
 			//load counter
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b0;
-			lastIR_load = 1'b1; // load the ir for the current counter
+			
 		end
 		else if(branch_counter_out > 3'b001)// if counting down
 		begin 
@@ -157,21 +157,8 @@ begin
 		//bubble insertion for lea
 		if( (branch_counter_out == 3'b000) && (lastIR_out[15:12] == op_lea) ) // if lea then save to see if there are dependencies later
 		begin
-			if( (IF_ID_sr1 == 1'b1) && (lastIR_out[11:9] == IF_ID_ir[8:6]))
-			begin
 				branch_counter_load = 1'b1;
 				branch_countermux_sel = 1'b0;	
-			end
-			else if( (IF_ID_sr2 == 1'b1) && (lastIR_out[11:9] == IF_ID_ir[2:0]))
-			begin
-				branch_counter_load = 1'b1;
-				branch_countermux_sel = 1'b0;	
-			end
-			else if( (IF_ID_Hsr == 1'b1) && (lastIR_out[11:9] == IF_ID_ir[11:9]))
-			begin
-				branch_counter_load = 1'b1;
-				branch_countermux_sel = 1'b0;	
-			end
 		
 		end
 
