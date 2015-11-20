@@ -176,7 +176,7 @@ begin
 		end
 
 		
-		if( (lastIR_out[15:12] == op_lea) && (branch_countermux_out > 3'b000) )
+		if( (lastIR_out[15:12] == op_lea) && (branch_counter_out > 3'b000) )
 		begin 
 				gen_bubble = 1'b1;  //and insert a bubble
 				lastIR_load = 1'b0;
