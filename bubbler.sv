@@ -154,6 +154,7 @@ begin
 		
 		
 		
+		//bubble insertion for lea
 		if( (branch_counter_out == 3'b000) && (lastIR_out[15:12] == op_lea) ) // if lea then save to see if there are dependencies later
 		begin
 			if( (IF_ID_sr1 == 1'b1) && (lastIR_out[11:9] == IF_ID_ir[8:6]))
@@ -175,11 +176,11 @@ begin
 		end
 
 		
-		if(lastIR_out[15:12] == op_lea)
+		if( (lastIR_out[15:12] == op_lea) && (branch_countermux_out > 3'b000) )
 		begin 
 				gen_bubble = 1'b1;  //and insert a bubble
 				lastIR_load = 1'b0;
-				branch_counter_load = 1'b1;
+				branch_counter_load = 1'b1; // decrement counter
 				branch_countermux_sel = 1'b1;		
 		end
 
