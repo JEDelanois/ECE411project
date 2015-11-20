@@ -7,6 +7,9 @@ I was thinking of implementing cache miss rates and branch mispredict rates/bubb
 Hardware Prefetch (up to 15):
 Depending on prefetching complexity, up to 15 points. Could latch the arbiter outputs as long as a prefetch is happening. Could also generate the dummy prefetch requests from the same module. Burst-read all invalid cache lines at the beginning of the program. For a small program, this should be good enough. Though mid-runtime prefetch could be difficult to do. Perhaps just group sets of two reads? It's difficult to come up with a method of control prediction.
 
+Victim Cache (if attempted -- nuisance to implement)
+Have a cache that holds items that need to be written back to the physical memory. Reads are done in priority over writebacks. This would be a marginal performance improvement, and only for very large programs, as our L2 cache is 16KB, which holds a whole lot of code.
+
 
 Branch Prediction Suite (up to 21 points, depending on extent)
 This is Jon's job. Godspeed to him. This involves a 4-way set associative branch table buffer (13) that support all control influences, meaning JSR, JSRR, TRAP and BRANCH (8). Technically speaking, they don't say it has to be good, but having the hardware influence things should be enough to get a decent amount of the points.
@@ -15,6 +18,7 @@ This is Jon's job. Godspeed to him. This involves a 4-way set associative branch
 LC3X (up to 10):
 Implement SUB, MULT, DIV, XOR, and OR. We're thinking these could be encoded into the RTI instruction in control. Unfortunately you need to prove performance improvement over software algorithms to achieve each of these instructions, which could prove to not be that much fun, especially considering that you need to modify the compiler (or add your own) that correctly understands the instructions in assembly. Potentially not TERRIBLE, but we'll see.
 
+Having fancy features like divide by zero detection, overflow, etc may convince them to give us an extra point possibly.
 
 
 
