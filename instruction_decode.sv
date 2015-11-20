@@ -10,6 +10,9 @@ module instruction_decode
 		input logic mem_control,
 		input logic [2:0] mem_select,
 		input logic wb_dest_sel,
+		input gen_bubble,
+		input squash_ID,
+		
 		/* input lc3b_word pc, adj_pc, alu_out,*/ //Used for complex instructions loading into regfile
 		output lc3b_word sr1, sr2,
 		output lc3b_word IR_post,
@@ -18,16 +21,34 @@ module instruction_decode
 );
 
 lc3b_reg src_a,src_b, dest;
-lc3b_word regfile_mux_out;
+lc3b_word regfile_mux_out, controlBubbleMux_out;
 
-assign IR_post = IR;
+
 assign genCC_WB = regfile_mux_out;
 
 gen_control Control_Generator
 (
-	.opcode(IR[15:12]),
-	.IRbits(IR[11:0]),
+	.opcode(controlBubbleMux_out[15:12]),
+	.IRbits(controlBubbleMux_out[11:0]),
 	.ctrl(control_word)
+);
+
+
+mux2 controlBubbleMux
+(
+	.sel(gen_bubble || squash_ID),
+	.a(IR), 
+	.b(16'b0000000000000000),
+	.f(controlBubbleMux_out)
+);
+
+
+mux2 IRBubbleMux
+(
+	.sel(gen_bubble || squash_ID),
+	.a(IR), 
+	.b(16'b0000000000000000),
+	.f(IR_post)
 );
 
 /* Register File and corresponding muxes */

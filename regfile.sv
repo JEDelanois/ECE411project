@@ -22,12 +22,10 @@ begin
     end
 end
 
-always_ff @(posedge clk)
+always_ff @(negedge (clk) )
 begin
-    if (load == 1)
-    begin
-        data[dest] = in;
-    end
+		if(load == 1'b1)
+        data[dest] = in;   
 end
 
 always_comb
