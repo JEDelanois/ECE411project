@@ -14,8 +14,8 @@ module bubbler
 );
 
 logic [2:0] branch_counter_out, counter_set,counter_minus1,branch_countermux_out;
-logic IF_ID_dr, IF_ID_sr1, IF_ID_sr2, IF_ID_Hsr, ID_EX_dr, ID_EX_sr1, ID_EX_sr2, ID_EX_Hsr, branch_counter_load, branch_countermux_sel,branch_enable_latch_out,counterIR_load;
-logic [15:0] counterIR_out;
+logic IF_ID_dr, IF_ID_sr1, IF_ID_sr2, IF_ID_Hsr, ID_EX_dr, ID_EX_sr1, ID_EX_sr2, ID_EX_Hsr, branch_counter_load, branch_countermux_sel,branch_enable_latch_out,lastIR_load;
+logic [15:0] lastIR_out;
 assign counter_minus1 = branch_counter_out - 1;
 
 dependencyCalc ifidDEPS
@@ -45,7 +45,7 @@ dependencyCalc idexDEPS
 register #(.width(3)) branch_counter
 (
     .clk(clk),
-    .load(branch_counter_load),
+    .load(branch_counter_load && flow_ID_EX),
     .in(branch_countermux_out),
     .out(branch_counter_out)
 );
@@ -71,12 +71,12 @@ register #(.width(1)) branch_enable_latch //this holds the branch enable from th
 
 
 
-register counterIR
+register lastIR
 (
     .clk(clk),
-    .load(counterIR_load),
+    .load(lastIR_load && flow_ID_EX),
     .in(IF_ID_ir),
-    .out(counterIR_out)
+    .out(lastIR_out)
 );
 
 
@@ -90,7 +90,7 @@ begin
 		branch_counter_load = 1'b0;
 		branch_countermux_sel = 1'b0;
 		counter_set = 3'b101;
-		counterIR_load = 1'b0;
+		lastIR_load = 1'b1;
 		
 		//logic for inserting bubbles when there is a load followed by a read for the same register
 		if( (ID_EX_ir[15:12] == op_ldb) || (ID_EX_ir[15:12] == op_ldi) || (ID_EX_ir[15:12] == op_ldr) ) // if the latter is a load instruction (dont need a counter since only need 1 bubble)
@@ -128,7 +128,7 @@ begin
 			//load counter
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b0;
-			counterIR_load = 1'b1;
+			lastIR_load = 1'b1; // load the ir for the current counter
 		end
 		else if(branch_counter_out > 3'b001)// if counting down
 		begin 
@@ -136,13 +136,14 @@ begin
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b1;
 			gen_bubble = 1'b1;  //and insert a bubble
+			lastIR_load = 1'b0;
 		end
 		else if(branch_counter_out == 3'b001)// at one
 		begin 
 			//if counter is not zero then count down and make counter zero
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b1;
-			if(counterIR_out[15:12] == op_br)//for branch
+			if(lastIR_out[15:12] == op_br)//for branch
 			begin
 				if(branch_enable_latch_out == 1'b1) //if branch is taken then squash the current instruction  
 					squash_ID = 1'b1;  //squash id
@@ -153,6 +154,35 @@ begin
 		
 		
 		
+		if( (branch_counter_out == 3'b000) && (lastIR_out[15:12] == op_lea) ) // if lea then save to see if there are dependencies later
+		begin
+			if( (IF_ID_sr1 == 1'b1) && (lastIR_out[11:9] == IF_ID_ir[8:6]))
+			begin
+				branch_counter_load = 1'b1;
+				branch_countermux_sel = 1'b0;	
+			end
+			else if( (IF_ID_sr2 == 1'b1) && (lastIR_out[11:9] == IF_ID_ir[2:0]))
+			begin
+				branch_counter_load = 1'b1;
+				branch_countermux_sel = 1'b0;	
+			end
+			else if( (IF_ID_Hsr == 1'b1) && (lastIR_out[11:9] == IF_ID_ir[11:9]))
+			begin
+				branch_counter_load = 1'b1;
+				branch_countermux_sel = 1'b0;	
+			end
+		
+		end
+
+		
+		if(lastIR_out[15:12] == op_lea)
+		begin 
+				gen_bubble = 1'b1;  //and insert a bubble
+				lastIR_load = 1'b0;
+				branch_counter_load = 1'b1;
+				branch_countermux_sel = 1'b1;		
+		end
+
 		
 
 		
