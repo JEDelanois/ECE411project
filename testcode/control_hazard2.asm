@@ -8,6 +8,7 @@ SEGMENT  CodeSegment:
    JSRR R3
    BRz BAD
    TRAP indirection
+NOP
    BRn BAD
    BRp BAD
    BRz DONE
@@ -16,10 +17,10 @@ SEGMENT  CodeSegment:
    JMP R6
 
 
-A:    DATA2 4x0003
+A:    DATA2 4x0006
 B:    DATA2 4xFFFF
 C:    DATA2 4xBADD
-D:    DATA2 4xG00D
+D:    DATA2 4x600D
 indirection: DATA2 LOOP3
 
 BAD:
@@ -36,8 +37,11 @@ LOOP1:
 
 LOOP2:
    ADD R1, R1, R2
+   ADD R1, R1, R2
    RET
 
 LOOP3:
+   ADD R1, R1, R2
+   ADD R1, R1, R2
    ADD R1, R1, R2
    RET
