@@ -6,6 +6,7 @@ module bubbler
 	input [15:0] IF_ID_ir,
 	input [15:0] ID_EX_ir,
 	input branch_enable,
+	input flow_ID_EX,
 	
 	
 	output logic gen_bubble,
@@ -61,7 +62,7 @@ mux2 #(.width(3)) branch_countermux
 register #(.width(1)) branch_enable_latch //this holds the branch enable from the cycle before. this is used to decide if we need to squash instructions
 (
     .clk(clk),
-    .load(1'b1),
+    .load(flow_ID_EX),
     .in(branch_enable),
     .out(branch_enable_latch_out)
 );
@@ -125,12 +126,12 @@ begin
 			//if counter is not zero then count down and make counter zero
 			branch_counter_load = 1'b1;
 			branch_countermux_sel = 1'b1;
-			if(IF_ID_ir[15:12] == op_br)
+			if(IF_ID_ir[15:12] == op_br)//for branch
 			begin
 				if(branch_enable_latch_out == 1'b1) //if branch is taken then squash the current instruction  
 					squash_ID = 1'b1;  //squash id
 			end
-			else
+			else // else its an unconditional jump so squash the instruction
 				squash_ID = 1'b1;  //squash id
 		end
 		

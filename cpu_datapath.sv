@@ -55,7 +55,7 @@ bubbler bubbler
 	.IF_ID_ir(IF_IR),
 	.ID_EX_ir(IR_EX),
 	.branch_enable(branch_enable),
-	
+	.flow_ID_EX(flow_IDEX),
 	.gen_bubble(gen_bubble),
 	.squash_ID(squash_ID)
 );
