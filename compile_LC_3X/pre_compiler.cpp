@@ -3,6 +3,10 @@
 #include <string> 
 
 using namespace std; 
+/*
+Form of the LC_3X added instructions
+
+*/
 
 int main(int argc, char * argv[])
 {
