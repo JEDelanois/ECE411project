@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string> 
+#include <sstream>
 
 using namespace std; 
 /*
@@ -28,6 +29,11 @@ public:
 
 private:
 	const static unsigned int opcode = 0x8000;
+	const static int div_sel = 0x0000;
+	const static int mult_sel = 0x0008;
+	const static int sub_sel = 0x0010;
+	const static int xor_sel = 0x0018;
+	const static int or_sel = 0x0020;
 	const static int dr_shift = 9; 
 	const static int sr1_shift = 6;
 	const static int sr2_shift = 0;
@@ -155,13 +161,48 @@ bool LC_3X::replaceInstruction(string & curr, ifstream & infile)
 		return false;
 	}
 
+	//if here then input is valid and substiture the current string
+	//first build instruction
 
+	//add opcode
+	instruction |= opcode;
 
+	//add sel bits
+	if(curr == "DIV")
+	{
+		instruction |= div_sel;
+	}
+	else if(curr == "MULT")
+	{
+		instruction |= mult_sel;
+	}
+	else if(curr == "SUB")
+	{
+		instruction |= sub_sel;
+	}
+	else if(curr == "XOR")
+	{
+		instruction |= xor_sel;
+	}
+	else if(curr == "OR")
+	{
+		instruction |= or_sel;
+	}
 
+	//add dr
+	instruction |= (dr_val << dr_shift);
 
-	cout << endl << curr << " " << dr << " " << sr1 << " " << sr2 << endl;
-	cout << dr.size() << " " << sr1.size() << " " << sr2.size() << endl;
-	cout << dr_val << " " << sr1_val << " " << sr2_val << endl;
+	//add sr1
+	instruction |= (sr1_val << sr1_shift);
+
+	//add sr2
+	instruction |= (sr2_val << sr2_shift);
+
+	stringstream ss;
+	ss << hex << instruction;
+	
+	curr = "DATA2 4x";
+	curr += ss.str();
 
 	return true;
 }
