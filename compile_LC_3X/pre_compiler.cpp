@@ -3,6 +3,7 @@
 #include <string> 
 #include <sstream>
 #include <algorithm> 
+#include <bitset>
 
 using namespace std; 
 /*
@@ -201,10 +202,13 @@ bool LC_3X::replaceInstruction(string & curr, ifstream & infile)
 
 	stringstream ss;
 	ss << hex << instruction;
+	// add comment with the bit representation of the instruction
+	ss << "    ;";
+	ss << std::bitset<16>(instruction);
 	
 	curr = "DATA2 4x";
 	curr += ss.str();
-
+	
 	return true;
 }
 
