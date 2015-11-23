@@ -18,6 +18,7 @@ OR	|1  0  0  0 |       |     |1 0 0|
         
 */
 
+
 class LC_3X
 {
 public:
@@ -38,7 +39,7 @@ int main(int argc, char * argv[])
 	ifstream infile;
 	ofstream outfile ("temp.asm");
 	
-
+    string test = argv[1];
 	// open the file provided by the user
 	infile.open( argv[1] ) ; 
 
@@ -97,9 +98,10 @@ bool LC_3X::isNewInstruction(string s)
 {	
 	bool temp;
 	if( (s == "DIV") || (s == "MULT") || (s == "SUB") || (s == "XOR") || (s == "OR") )
-		temp == true;
+		temp = true;
 	else
-		temp == false;
+		temp = false;
+    return temp;
 }
 
 
@@ -114,12 +116,52 @@ bool LC_3X::replaceInstruction(string & curr, ifstream & infile)
 	string dr, sr1, sr2;
 	
 	//get the parameters
-	getline( infile, dr, ',' );
+	getline( infile, dr, ',' ); //get instruction 
+	std::string::iterator end_pos = std::remove(dr.begin(), dr.end(), ' '); // remove white space
+	dr.erase(end_pos, dr.end());
+
 	getline( infile, sr1, ',' );
-	infile >> sr2;
+	end_pos = std::remove(sr1.begin(), sr1.end(), ' '); // remove white space
+	sr1.erase(end_pos, sr1.end());
 
-	cout << dr << " " << sr1 << " " << sr2 << endl;
+	infile >> sr2; // get sr2 assumes space between next thing or comment!!!
 
+
+	//error checking
+	if( ((int)dr.size() != 2 ) || ((int)sr1.size() != 2 ) || ((int)sr2.size() != 2 ))
+	{
+		curr = "Error with parameters in LC-3X instruction";
+		return false;
+	}
+
+	if( (dr[0] != 'R') || (sr1[0] != 'R') || (sr2[0] != 'R') )
+	{
+		curr = "Error with parameters in LC-3X instruction";
+		return false;
+	}
+	dr_val = dr[1] - '0';
+	sr1_val = sr1[1] - '0';
+	sr2_val = sr2[1] - '0';
+
+	if( (dr_val < 0) || (sr1_val < 0) || (sr2_val < 0) )
+	{
+		curr = "Error with parameters in LC-3X instruction";
+		return false;
+	}
+
+	if( (dr_val > 7) || (sr1_val > 7) || (sr2_val > 7) )
+	{
+		curr = "Error with parameters in LC-3X instruction";
+		return false;
+	}
+
+
+
+
+
+	cout << endl << curr << " " << dr << " " << sr1 << " " << sr2 << endl;
+	cout << dr.size() << " " << sr1.size() << " " << sr2.size() << endl;
+	cout << dr_val << " " << sr1_val << " " << sr2_val << endl;
 
 	return true;
 }

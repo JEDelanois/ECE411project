@@ -1,4 +1,5 @@
 #compile the LC_3X precompiler
+clear
 cd compile_LC_3X
 
 #remove the previously existing file

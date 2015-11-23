@@ -1,7 +1,7 @@
 ORIGIN 0
 
 	LDI R0, R1, LOC
-	MULT R0, R1, R2
+	MULT R0,R1,  R7
 	NOP
 	NOP
 	NOP
