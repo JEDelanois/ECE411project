@@ -1,6 +1,8 @@
 #compile the LC_3X precompiler
 cd compile_LC_3X
 
+#remove the previously existing file
+rm temp.asm
 rm a.out
 g++ pre_compiler.cpp
 
@@ -12,16 +14,13 @@ if [ "$#" -eq 0 ]; then
 fi
 
 if [ "$#" -eq 1 ]; then
-	
-	#remove the previously existing file
-	rm temp.asm
  
 	#run the program on the assebly located at the path provied 
 	./a.out ../$1
 	cd ..
 
 	#call the given pre_compiler
-	#sh load_memory.sh compile_LC_3X/temp.asm
+	sh load_memory.sh compile_LC_3X/temp.asm
 
 fi
 
