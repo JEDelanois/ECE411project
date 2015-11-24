@@ -64,7 +64,7 @@ mux4 sr2mux
 	.a(sr2signflip_out), 
 	.b(sr2reg_out - 16'b0000000000000001), 
 	.c(), 
-	.d(16'b0000000000000000),
+	.d(16'b0000000000000000 ),
 	.f(sr2mux_out)
 );
 register sr2reg
@@ -167,8 +167,8 @@ begin
 			begin
 				sr2_load = 1'b1;
 				sol_load = 1'b1;
-				sr2mux_sel = 2'b01; // load in initial register val
-				solmux_sel = 2'b00; // set the solution equal to zero
+				sr2mux_sel = 2'b01; // load in sr2 minus 1 
+				solmux_sel = 2'b00; // load the current total
 				bmux_sel = 2'b00;
 				mini_aluop = alu_add;
 			end
@@ -195,8 +195,59 @@ begin
 		
 		
 	end
+	
+	
+	
+	
 	else if(aluop == alu_div)
 	begin
+	if( state_out == 2'b00) //first iteration so load all registers
+		begin
+			sr1_load = 1'b1;
+			sr2_load = 1'b1;
+			sol_load = 1'b1;
+			sr1mux_sel = 2'b00; // load in initial register val
+			sr2mux_sel = 2'b00; // load in initial register val
+			solmux_sel = 2'b11; // set the solution equal to zero
+			state = 2'b01; // go to the next state
+			state_load = 1'b1;
+		end
+		else if (state_out == 2'b01)// do division
+		begin
+			if(sr1reg_out < sr2reg_out) // if done dividing move to the next state
+			begin
+				state = 2'b10;
+				state_load = 1'b1;
+			end
+				
+			else// else keep dividing
+			begin
+				sr1_load = 1'b1;
+				sol_load = 1'b1;
+				sr1mux_sel = 2'b01; // load in the new subtracted  value 
+				solmux_sel = 2'b01; // increment the number of  subtractions that occured
+				bmux_sel = 2'b01;
+				mini_aluop = alu_sub;
+			end
+		end
+		else if (state_out == 2'b10)
+		begin
+			if(flow == 1'b1) // if the stalling unit says that  DivMult is the only unit stalling the pipeline then unfreeze the pipleine and continue
+			begin
+			calc_done = 1'b1; // the calculation is done so allow pipeline to flow (cant inject no ops yet)
+			//reset registers
+			sr1_load = 1'b1;
+			sr2_load = 1'b1;
+			sol_load = 1'b1;
+			sr1mux_sel = 2'b11; // fill with zero
+			sr2mux_sel = 2'b11; // fill with zero
+			solmux_sel = 2'b11; // fill with zero
+			state = 2'b00; // go to the first state
+			state_load = 1'b1;
+			end
+			
+
+		end
 	
 	end
 
