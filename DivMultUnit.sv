@@ -14,17 +14,26 @@ output logic stall_X
 logic calc_done, sr1_load, sr2_load, sol_load, state_load;
 logic[1:0] state, sr1mux_sel, sr2mux_sel, solmux_sel, bmux_sel, state_out;
 lc3b_aluop mini_aluop;
-logic [15:0] sr1reg_out, sr2reg_out, solreg_out, sr1mux_out, sr2mux_out, solmux_out, bmux_out, mini_alu_out;
+logic [15:0] sr1reg_out, sr2reg_out, solreg_out, sr1mux_out, sr2mux_out, solmux_out, bmux_out, mini_alu_out, sr1signflip_out, sr2signflip_out, solsignflip_out ; 
 
-assign solution = solreg_out;
+assign solution = solsignflip_out;
 assign stall_X = (((aluop == alu_mult)||(aluop == alu_div)) && (calc_done == 1'b0));
+
+
+NeedFlipSign sr1signflip
+(
+   .flip(sr1[15]), // if sr1 is ngegative then flip it
+   .in(sr1),
+
+   .out(sr1signflip_out)
+);
 
 
 mux4 sr1mux
 (
 	/* port declaration */
 	.sel(sr1mux_sel),
-	.a(sr1), 
+	.a(sr1signflip_out), 
 	.b(mini_alu_out), 
 	.c(), 
 	.d(16'b0000000000000000),
@@ -38,11 +47,21 @@ register sr1reg
     .out(sr1reg_out)
 );
 
+
+NeedFlipSign sr2signflip
+(
+   .flip(sr2[15]), // if sr2 is negative then  flip it
+   .in(sr2),
+
+   .out(sr2signflip_out)
+);
+
+
 mux4 sr2mux
 (
 	/* port declaration */
 	.sel(sr2mux_sel),
-	.a(sr2), 
+	.a(sr2signflip_out), 
 	.b(sr2reg_out - 16'b0000000000000001), 
 	.c(), 
 	.d(16'b0000000000000000),
@@ -73,6 +92,14 @@ register solreg
     .load(sol_load),
     .in(solmux_out),
     .out(solreg_out)
+);
+
+NeedFlipSign solsignflip
+(
+   .flip( ((sr1[15] == 1'b1) && (sr2[15] == 1'b0)) || ((sr1[15] == 1'b0) && (sr2[15] == 1'b1))  ), // the result of sol will always be posive so pass on the negative version of the answer only if one of the inputs was origionaly negative
+   .in(solreg_out),
+
+   .out(solsignflip_out)
 );
 
 mux4 bmux

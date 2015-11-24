@@ -1,7 +1,7 @@
 ORIGIN 0
 
-ADD R1, R0, 3
-ADD R2, R0, 4
+ADD R1, R0, 5
+ADD R2, R0, 0
 MULT R3, R1, R2
 ADD R7, R7, 7
 
