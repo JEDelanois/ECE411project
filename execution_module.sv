@@ -11,7 +11,7 @@ module execution_module
 	input [15:0] EX_MEM_val,
 	input [15:0] MEM_WB_ir,
 	input [15:0] MEM_WB_val,
-	
+	input flow_ex,	
 	
 	
 	output lc3b_word ex_sr2_out,
@@ -179,13 +179,13 @@ alu ALU
 
 
 //multiplication unit
-DivMultUnit 
+DivMultUnit divmultuinit
 (
 	.clk(clk),
 	.sr1(sr1mux_out), 
 	.sr2(sr2mux_out),
 	.aluop(control_word_in.aluop),
-
+	.flow(flow_ex),
 
 	.solution(divmult_out),
 	.stall_X(stall_X)

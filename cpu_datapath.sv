@@ -139,7 +139,8 @@ execution_module EX_module
 	.sr2_out(SR2_EX),
 	.curr_pc_in(PC_EX),
 	.control_word_in(CW_EX),
-	
+	.flow_ex(flow_IDEX),	
+
 	.EX_MEM_ir(MEM_IR),
 	.EX_MEM_val(MEM_ALU),
 	.MEM_WB_ir(WB_IR),

@@ -5,7 +5,7 @@ module DivMultUnit
 input clk,
 input [15:0] sr1, sr2,
 input lc3b_aluop aluop,
-
+input flow,
 
 output logic [15:0] solution,
 output logic stall_X
@@ -131,12 +131,15 @@ begin
 				sol_load = 1'b1;
 				sr2mux_sel = 2'b01; // load in initial register val
 				solmux_sel = 2'b00; // set the solution equal to zero
+				bmux_sel = 2'b00;
 				state = 2'b01; // stay in same state
 				mini_aluop = alu_add;
 			end
 		end
 		else if (state == 2'b10)
 		begin
+			if(flow == 1'b1)
+			begin
 			calc_done = 1'b1; // the calculation is done so allow pipeline to flow (cant inject no ops yet)
 			//reset registers
 			sr1_load = 1'b1;
@@ -146,7 +149,11 @@ begin
 			sr2mux_sel = 2'b11; // load in initial register val
 			solmux_sel = 2'b11; // set the solution equal to zero
 			state = 2'b00; // go to the first state
-			
+			end
+			else
+			begin
+				state = 2'b10;
+			end
 		end
 		
 		
