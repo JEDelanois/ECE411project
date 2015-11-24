@@ -24,7 +24,7 @@ lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, SR2_MEM;
 lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU,ex_sr2_out;
 // MEM/WB wires
 lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,ALUin;
-logic branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP,inject_NOP_out, gen_bubble,squash_ID;
+logic stall_X, branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP,inject_NOP_out, gen_bubble,squash_ID;
 lc3b_word br_adder_out;
 //Control Word typing for register wires
 lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
@@ -45,7 +45,8 @@ flow_control flow_control
 	 .flow_IDEX(flow_IDEX), 
 	 .flow_EXMEM(flow_EXMEM), 
 	 .flow_MEMWB(flow_MEMWB),
-	 .stall_cache2_miss( (mem_read2 || mem_write2) && (!resp_b) ) // stall when you are reading or writing and there is a cache miss 
+	 .stall_cache2_miss( (mem_read2 || mem_write2) && (!resp_b) ),
+	 .stall_X(stall_X)// stall when you are reading or writing and there is a cache miss 
 );
 
 
@@ -148,7 +149,8 @@ execution_module EX_module
 	.alu_out(EX_ALU),
 	.curr_ir_out(EX_IR),
 	.curr_pc_out(EX_PC),
-	.control_word_out(EX_CW)
+	.control_word_out(EX_CW),
+	.stall_X(stall_X)
 );
 
 latch_ex_mem EX_MEM_Latch

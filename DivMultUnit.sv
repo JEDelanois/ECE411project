@@ -118,19 +118,35 @@ begin
 			solmux_sel = 2'b11; // set the solution equal to zero
 			state = 2'b01; // go to the next state
 		end
-		else if (state == 2'b01)
+		else if (state == 2'b01)// do multiplication
 		begin
-			if(sr2_out == 16'b)
+			if(sr2reg_out == 16'b0000000000000000) // if done multiplying move to the next state
+			begin
+				state = 2'b10;
+			end
 				
 			else// else keep multiplying
 			begin
 				sr2_load = 1'b1;
 				sol_load = 1'b1;
-				sr2mux_sel = 2'b00; // load in initial register val
-				solmux_sel = 2'b11; // set the solution equal to zero
-				state = 2'b01; // go to the next state
+				sr2mux_sel = 2'b01; // load in initial register val
+				solmux_sel = 2'b00; // set the solution equal to zero
+				state = 2'b01; // stay in same state
 				mini_aluop = alu_add;
 			end
+		end
+		else if (state == 2'b10)
+		begin
+			calc_done = 1'b1; // the calculation is done so allow pipeline to flow (cant inject no ops yet)
+			//reset registers
+			sr1_load = 1'b1;
+			sr2_load = 1'b1;
+			sol_load = 1'b1;
+			sr1mux_sel = 2'b11; // load in initial register val
+			sr2mux_sel = 2'b11; // load in initial register val
+			solmux_sel = 2'b11; // set the solution equal to zero
+			state = 2'b00; // go to the first state
+			
 		end
 		
 		
