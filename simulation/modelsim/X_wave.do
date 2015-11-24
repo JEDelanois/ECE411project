@@ -10,14 +10,14 @@ add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/bubbler/gen_bubble
 add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/bubbler/squash_ID
 add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/bubbler/branch_enable
 add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/bubbler/branch_enable_latch/data
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/IF_ID_Latch/IR_out
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/ID_EX_Latch/IR_out
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/EX_MEM_Latch/IR_out
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/MEM_WB_latch/IR_out
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/IF_ID_Latch/PC_out
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/ID_EX_Latch/PC_out
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/EX_MEM_Latch/PC_out
-add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/MEM_WB_latch/PC_out
+add wave -noupdate -label IFID_IRout /mp3_tb_phys/dut/LC3b_CPU/IF_ID_Latch/IR_out
+add wave -noupdate -label IDEX_IRout /mp3_tb_phys/dut/LC3b_CPU/ID_EX_Latch/IR_out
+add wave -noupdate -label EXMEM_IRout /mp3_tb_phys/dut/LC3b_CPU/EX_MEM_Latch/IR_out
+add wave -noupdate -label MEMWB_IRout /mp3_tb_phys/dut/LC3b_CPU/MEM_WB_latch/IR_out
+add wave -noupdate -label IFID_PCout /mp3_tb_phys/dut/LC3b_CPU/IF_ID_Latch/PC_out
+add wave -noupdate -label IDEX_PCout /mp3_tb_phys/dut/LC3b_CPU/ID_EX_Latch/PC_out
+add wave -noupdate -label EXMEM_PCout /mp3_tb_phys/dut/LC3b_CPU/EX_MEM_Latch/PC_out
+add wave -noupdate -label MEMWB_PCout /mp3_tb_phys/dut/LC3b_CPU/MEM_WB_latch/PC_out
 add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/EX_module/ALU/aluop
 add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/EX_module/ALU/a
 add wave -noupdate /mp3_tb_phys/dut/LC3b_CPU/EX_module/ALU/b
@@ -69,9 +69,9 @@ add wave -noupdate -label miniALU_a /mp3_tb_phys/dut/LC3b_CPU/EX_module/divmultu
 add wave -noupdate -label miniALU_b /mp3_tb_phys/dut/LC3b_CPU/EX_module/divmultuinit/mini_alu/b
 add wave -noupdate -label miniALU_f /mp3_tb_phys/dut/LC3b_CPU/EX_module/divmultuinit/mini_alu/f
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {663320 ps} 0}
+WaveRestoreCursors {{Cursor 1} {405000 ps} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 157
+configure wave -namecolwidth 477
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 0
@@ -85,4 +85,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {67542 ps} {687938 ps}
+WaveRestoreZoom {289679 ps} {605795 ps}

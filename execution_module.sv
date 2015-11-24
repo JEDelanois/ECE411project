@@ -12,7 +12,7 @@ module execution_module
 	input [15:0] EX_MEM_val,
 	input [15:0] MEM_WB_ir,
 	input [15:0] MEM_WB_val,
-	input flow_ex,	
+	input flow_X,	
 	
 	
 	output lc3b_word ex_sr2_out,
@@ -186,7 +186,7 @@ DivMultUnit divmultuinit
 	.sr1(sr1mux_out), 
 	.sr2(sr2mux_out),
 	.aluop(control_word_in.aluop),
-	.flow(flow_ex),
+	.flow(flow_X),
 
 	.solution(divmult_out),
 	.stall_X(stall_X)

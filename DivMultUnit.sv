@@ -148,7 +148,7 @@ begin
 		end
 		else if (state_out == 2'b10)
 		begin
-			if(flow == 1'b1)
+			if(flow == 1'b1) // if the stalling unit says that  DivMult is the only unit stalling the pipeline then unfreeze the pipleine and continue
 			begin
 			calc_done = 1'b1; // the calculation is done so allow pipeline to flow (cant inject no ops yet)
 			//reset registers
@@ -161,10 +161,8 @@ begin
 			state = 2'b00; // go to the first state
 			state_load = 1'b1;
 			end
-			else
-			begin
-				// do nothing and wait in the same state
-			end
+			
+
 		end
 		
 		
