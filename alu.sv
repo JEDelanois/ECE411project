@@ -19,7 +19,7 @@ begin
         alu_sra: f = $signed(a) >>> b;
 		  alu_div: f = 0;
 		  alu_mult: f = 0;
-		  alu_sub: f = a + ((~b) + 1);
+		  alu_sub: f = a + ((~b) + 16'b0000000000000001 );
 		  alu_xor: f = a^b;
 		  alu_or: f = a|b;
         default: $display("Unknown aluop");

@@ -11,8 +11,8 @@ output logic [15:0] solution,
 output logic stall_X
 );
 
-logic calc_done, sr1_load, sr2_load, sol_load;
-logic[1:0] state, sr1mux_sel, sr2mux_sel, solmux_sel, bmux_sel;
+logic calc_done, sr1_load, sr2_load, sol_load, state_load;
+logic[1:0] state, sr1mux_sel, sr2mux_sel, solmux_sel, bmux_sel, state_out;
 lc3b_aluop mini_aluop;
 logic [15:0] sr1reg_out, sr2reg_out, solreg_out, sr1mux_out, sr2mux_out, solmux_out, bmux_out, mini_alu_out;
 
@@ -61,17 +61,17 @@ mux4 solmux
 	/* port declaration */
 	.sel(solmux_sel),
 	.a(mini_alu_out), 
-	.b(solreg_out + 16'b0000000000000001), 
+	.b(solreg_out + 16'b0000000000000001 ), 
 	.c(), 
-	.d(16'b0000000000000000),
-	.f(solmux_out_out)
+	.d(16'b0000000000000000 ),
+	.f(solmux_out)
 );
 
 register solreg
 (
     .clk(clk),
     .load(sol_load),
-    .in(solmux_out_out),
+    .in(solmux_out),
     .out(solreg_out)
 );
 
@@ -93,6 +93,14 @@ alu mini_alu
    .f(mini_alu_out)
 );
 
+register #(2) statereg
+(
+    .clk(clk),
+    .load(state_load),
+    .in(state),
+    .out(state_out)
+);
+
 always_comb
 begin
 	calc_done = 1'b0;  // when cacl_done and state are both 1 reset
@@ -101,6 +109,7 @@ begin
 	sr2mux_sel = 2'b00;
 	solmux_sel = 2'b00;
 	bmux_sel = 2'b00;
+	state_load = 1'b0;
 	sr1_load = 1'b0;
 	sr2_load = 1'b0;
 	sol_load = 1'b0;
@@ -108,7 +117,7 @@ begin
 	
 	if(aluop == alu_mult)
 	begin 
-		if( state == 2'b00) //first iteration so load all registers
+		if( state_out == 2'b00) //first iteration so load all registers
 		begin
 			sr1_load = 1'b1;
 			sr2_load = 1'b1;
@@ -117,12 +126,14 @@ begin
 			sr2mux_sel = 2'b00; // load in initial register val
 			solmux_sel = 2'b11; // set the solution equal to zero
 			state = 2'b01; // go to the next state
+			state_load = 1'b1;
 		end
-		else if (state == 2'b01)// do multiplication
+		else if (state_out == 2'b01)// do multiplication
 		begin
-			if(sr2reg_out == 16'b0000000000000000) // if done multiplying move to the next state
+			if(sr2reg_out == 16'b0000000000000000 ) // if done multiplying move to the next state
 			begin
 				state = 2'b10;
+				state_load = 1'b1;
 			end
 				
 			else// else keep multiplying
@@ -132,11 +143,10 @@ begin
 				sr2mux_sel = 2'b01; // load in initial register val
 				solmux_sel = 2'b00; // set the solution equal to zero
 				bmux_sel = 2'b00;
-				state = 2'b01; // stay in same state
 				mini_aluop = alu_add;
 			end
 		end
-		else if (state == 2'b10)
+		else if (state_out == 2'b10)
 		begin
 			if(flow == 1'b1)
 			begin
@@ -149,10 +159,11 @@ begin
 			sr2mux_sel = 2'b11; // load in initial register val
 			solmux_sel = 2'b11; // set the solution equal to zero
 			state = 2'b00; // go to the first state
+			state_load = 1'b1;
 			end
 			else
 			begin
-				state = 2'b10;
+				// do nothing and wait in the same state
 			end
 		end
 		

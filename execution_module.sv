@@ -2,6 +2,7 @@ import lc3b_types::*;
 
 module execution_module
 (
+	input clk,
 	input lc3b_word curr_ir_in,
 	input lc3b_word sr1_out,
 	input lc3b_word sr2_out,

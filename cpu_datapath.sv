@@ -134,6 +134,7 @@ latch_id_ex ID_EX_Latch
 
 execution_module EX_module
 (
+	.clk(clk),
 	.curr_ir_in(IR_EX),
 	.sr1_out(SR1_EX),
 	.sr2_out(SR2_EX),
