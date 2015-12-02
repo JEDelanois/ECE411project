@@ -42,7 +42,12 @@ typedef enum bit [3:0] {
     alu_pass,
     alu_sll,
     alu_srl,
-    alu_sra
+    alu_sra,
+	 alu_div,
+	 alu_mult,
+	 alu_sub,
+	 alu_xor,
+	 alu_or
 } lc3b_aluop;
 
 

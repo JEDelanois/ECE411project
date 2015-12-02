@@ -2,6 +2,7 @@ import lc3b_types::*;
 
 module execution_module
 (
+	input clk,
 	input lc3b_word curr_ir_in,
 	input lc3b_word sr1_out,
 	input lc3b_word sr2_out,
@@ -11,14 +12,15 @@ module execution_module
 	input [15:0] EX_MEM_val,
 	input [15:0] MEM_WB_ir,
 	input [15:0] MEM_WB_val,
-	
+	input flow_X,	
 	
 	
 	output lc3b_word ex_sr2_out,
 	output lc3b_word alu_out,
 	output lc3b_word curr_ir_out,
 	output lc3b_word curr_pc_out,
-	output lc3b_control control_word_out
+	output lc3b_control control_word_out,
+	output logic stall_X
 );
 
 /* NOTE: aluop and alumux_sel are undefined. need to define control word first */
@@ -36,7 +38,7 @@ lc3b_word sext6_out;
 lc3b_aluop aluop;
 
 logic [2:0] alumux_sel;
-lc3b_word alumux_out,sr1mux_out, sr2mux_out,sr1LatchMmux_out, sr2LatchMmux_out, storeDataLatchMmux_out;
+lc3b_word alumux_out,sr1mux_out, sr2mux_out,sr1LatchMmux_out, sr2LatchMmux_out, storeDataLatchMmux_out, divmult_out, reg_alu_out;
 logic sr1mux_sel, sr2mux_sel, sr1_forwardLatchMux_sel, sr2_forwardLatchMux_sel,storeDataMux_sel,storeDataLatchMux_sel;
 
 
@@ -47,6 +49,8 @@ assign offset6 = curr_ir_in [5:0];
 assign curr_ir_out = curr_ir_in;
 assign curr_pc_out = curr_pc_in;
 assign control_word_out = control_word_in;
+
+
 
 /*
  * Sign extend imm4
@@ -171,8 +175,29 @@ alu ALU
 	.aluop(control_word_in.aluop),
 	.a(sr1mux_out),
 	.b(sr2mux_out),
-	.f(alu_out)
+	.f(reg_alu_out)
 );
 
+
+//multiplication unit
+DivMultUnit divmultuinit
+(
+	.clk(clk),
+	.sr1(sr1mux_out), 
+	.sr2(sr2mux_out),
+	.aluop(control_word_in.aluop),
+	.flow(flow_X),
+
+	.solution(divmult_out),
+	.stall_X(stall_X)
+);
+
+mux2 #(16) aluselector
+(
+	.sel((control_word_in.aluop == alu_mult) || (control_word_in.aluop == alu_div)),
+	.a(reg_alu_out),
+	.b(divmult_out),
+	.f(alu_out)
+);
 
 endmodule : execution_module

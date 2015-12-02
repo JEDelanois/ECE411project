@@ -106,8 +106,21 @@ always_comb
 				ctrl.regFile_load = 1'b1;
 				ctrl.cc_load = 1'b1;
 			end
-			op_rti: begin
-				//We're assuming this does not need to get done for the checkpoint; or even at all
+			op_rti: begin // opcode for the LC_3X instructions
+				ctrl.regFile_load = 1'b1;
+				ctrl.cc_load = 1'b1;
+				ctrl.alumux_sel = 3'b100; //always take the  sr2 as an input		
+				
+				//choose correct aluop
+				case(IRbits[5:3])
+					3'b000: ctrl.aluop = alu_div;
+					3'b001: ctrl.aluop = alu_mult;
+					3'b010: ctrl.aluop = alu_sub;
+					3'b011: ctrl.aluop = alu_xor;
+					3'b100: ctrl.aluop = alu_or;
+					default: ctrl.aluop = alu_add;
+					endcase
+			
 			end
 			op_shf: begin
 				ctrl.cc_load = 1'b1;
