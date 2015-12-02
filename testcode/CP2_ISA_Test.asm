@@ -523,7 +523,7 @@ portland:
     NOP
     NOP
     LEA R1, DataSegment2
-    ;the following STB instructions store to mem[RES17]
+    ;the following stb instructions store to mem[RES17]
     NOP
     NOP
     NOP
@@ -676,7 +676,7 @@ SEGMENT CodeSegment2:
     NOP
     ; To test self-modifying code, uncomment
     ; the following lines and use the first 'Indy'
-    ; STR R2, R4, Indy
+    ; str R2, R4, Indy
     ; NOP
     ; NOP
     ; NOP
@@ -684,8 +684,8 @@ SEGMENT CodeSegment2:
     ; NOP
     ; NOP
 SEGMENT DataSegment4:
-; Indy:
-;     ADD R1, R1, 9
+; Indy
+;     add R1, R1, 9
 Indy:
     ADD R1, R1, 12
     NOP

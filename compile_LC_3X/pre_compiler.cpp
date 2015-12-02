@@ -18,6 +18,18 @@ XOR	|1  0  0  0 |       |     |0 1 1|
 OR	|1  0  0  0 |       |     |1 0 0|
 
 
+inc	|1  0  0  0 |       |     |1 0 1| *
+dec	|1  0  0  0 |       |     |1 1 0| *
+save for performace	|1  0  0  0 |       |     |1 1 1|
+
+
+
+
+
+//compiler handled
+NAND	
+NOR	
+XNOR	
         
 */
 
@@ -105,7 +117,7 @@ bool LC_3X::isKeyWord(string s)
 bool LC_3X::isNewInstruction(string s)
 {	
 	bool temp;
-	if( (s == "DIV") || (s == "MULT") || (s == "SUB") || (s == "XOR") || (s == "OR") )
+	if( (s == "DIV") || (s == "MULT") || (s == "SUB") || (s == "XOR") || (s == "OR") ||           (s == "NOR") || (s == "XNOR") || (s == "NAND") )
 		temp = true;
 	else
 		temp = false;
@@ -166,6 +178,21 @@ bool LC_3X::replaceInstruction(string & curr, ifstream & infile)
 	//if here then input is valid and substiture the current string
 	//first build instruction
 
+	//if opcode is NAND or other instruction that doesnt use new X commands do and return here
+	if(curr == "NAND")
+	{
+		stringstream ts;
+		ts << "AND R" << dr_val << ", R" << sr1_val << ", R" << sr2_val;
+		ts << "\t; X added for nand" << endl;
+		ts << "NOT R" << dr_val << ", R" << dr_val << "\t; X added for nand" ;
+		curr = ts.str();
+		return true;
+	}
+
+
+
+
+	//for instructions that need X commands
 	//add opcode
 	instruction |= opcode;
 
@@ -182,11 +209,11 @@ bool LC_3X::replaceInstruction(string & curr, ifstream & infile)
 	{
 		instruction |= sub_sel;
 	}
-	else if(curr == "XOR")
+	else if((curr == "XOR") || (curr == "XNOR"))
 	{
 		instruction |= xor_sel;
 	}
-	else if(curr == "OR")
+	else if((curr == "OR") || (curr == "NOR"))
 	{
 		instruction |= or_sel;
 	}
@@ -206,8 +233,17 @@ bool LC_3X::replaceInstruction(string & curr, ifstream & infile)
 	ss << "    ;";
 	ss << std::bitset<16>(instruction);
 	
+	if( (curr == "NOR") || (curr == "XNOR"))
+	{
+		//add inversion to destination register
+		ss << endl;
+		ss << "NOT R" << dr_val << ", R" << dr_val << "\t;this inversion was added to by X" ;
+	}
+
 	curr = "DATA2 4x";
 	curr += ss.str();
+
+
 	
 	return true;
 }
