@@ -24,7 +24,7 @@ lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, SR2_MEM;
 lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU,ex_sr2_out;
 // MEM/WB wires
 lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,ALUin;
-logic flow_X, stall_X, branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP,inject_NOP_out, gen_bubble,squash_ID;
+logic flow_X, stall_X, branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP,inject_NOP_out, gen_bubble,squash_instruction;
 lc3b_word br_adder_out;
 //Control Word typing for register wires
 lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
@@ -58,8 +58,7 @@ bubbler bubbler
 	.ID_EX_ir(IR_EX),
 	.branch_enable(branch_enable),
 	.flow_ID_EX(flow_IDEX),
-	.gen_bubble(gen_bubble),
-	.squash_ID(squash_ID)
+	.gen_bubble(gen_bubble)
 );
 
 
@@ -89,6 +88,7 @@ latch_if_id IF_ID_Latch
 		.IR_in(mem_rdata1),
 		.PC_in(pc_out + 4'h2),
 		.inject_NOP(inject_NOP),
+		.squash_instruction(squash_instruction),
 		.IR_out(IF_IR),
 		.PC_out(IF_EX_PC)
 );
@@ -106,7 +106,7 @@ instruction_decode ID_Logic
 		.mem_select(WB_CW.regFilemux_sel),
 		.wb_dest_sel(WB_CW.destmux_sel),
 		.gen_bubble(gen_bubble),
-		.squash_ID(squash_ID),
+		.squash_ID(1'b0),
 		
 		
 		.sr1(ID_SR1),
@@ -123,6 +123,7 @@ latch_id_ex ID_EX_Latch
 		.IR_in(ID_IR),
 		.PC_in(IF_EX_PC),
 		.CW_in(ID_CW),
+		.squash_instruction(squash_instruction),
 		.SR1_in(ID_SR1),
 		.SR2_in(ID_SR2),
 		.IR_out(IR_EX),
@@ -165,6 +166,7 @@ latch_ex_mem EX_MEM_Latch
 		.ALU_in(EX_ALU),
 		.sr2_in(ex_sr2_out),
 		.CW_in(EX_CW),
+		.squash_instruction(squash_instruction),
 		.IR_out(MEM_IR),
 		.PC_out(MEM_PC),
 		.ALU_out(MEM_ALU),
@@ -204,6 +206,7 @@ latch_wb MEM_WB_latch
 		.ALU_in(ALU_MEM),
 		.MDR_in(MDR_MEM),
 		.CW_in(CW_MEM),
+		.squash_instruction(squash_instruction),
 		.IR_out(WB_IR),
 		.PC_out(WB_PC),
 		.ALU_out(WB_ALU),
@@ -224,7 +227,8 @@ writeback_module WB_Module
 		.currALUout(ALUin),
 		.MDRout(final_MDR),
 		.br_adder_out(br_adder_out),
-		.branch_enable(branch_enable)
+		.branch_enable(branch_enable),
+		.squash_instruction(squash_instruction)
 );
 
 endmodule : cpu_datapath

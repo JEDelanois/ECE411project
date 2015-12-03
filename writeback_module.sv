@@ -13,7 +13,8 @@ module writeback_module
 	output logic [15:0] currALUout,
 	output logic [15:0] MDRout,
 	output logic [15:0] br_adder_out,
-	output logic branch_enable
+	output logic branch_enable,
+	output logic squash_instruction
 
 );
 
@@ -22,6 +23,7 @@ logic compare;
 assign currALUout = currALU;
 assign MDRout = MDR;
 assign branch_enable = compare&&(currIR[15:12] == 4'b0000);
+assign squash_instruction = branch_enable;
 
 lc3b_word adj9out;
 lc3b_word adj11out;

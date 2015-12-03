@@ -5,15 +5,33 @@ module latch_wb
 	input logic clk, load_latch,
 	input lc3b_word IR_in, PC_in, ALU_in, MDR_in,
     input lc3b_control CW_in,
+    input logic squash_instruction,
 	output lc3b_word IR_out, PC_out, ALU_out, MDR_out,
     output lc3b_control CW_out
 );
+
+lc3b_word IR_reg_in;
+lc3b_control CW_reg_in;
+
+always_comb
+    begin
+        if(squash_instruction == 1'b1)
+        begin
+            IR_reg_in = 16'b0;
+            CW_reg_in = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 11'b0};
+        end
+        else
+        begin
+            IR_reg_in = IR_in;
+            CW_reg_in = CW_in;
+        end
+    end
 
 register IR
 (
     .clk(clk),
     .load(load_latch),
-    .in(IR_in),
+    .in(IR_reg_in),
     .out(IR_out)
 );
 
@@ -30,7 +48,7 @@ register #(CONTROL_WIDTH) CW
 (
     .clk(clk),
     .load(load_latch),
-    .in(CW_in),
+    .in(CW_reg_in),
     .out(CW_out)
 );
 
