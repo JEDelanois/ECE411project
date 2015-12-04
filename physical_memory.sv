@@ -79,6 +79,7 @@ endmodule : physical_memory
 */
 
 //Uncomment above and delete below to restore L2 functionality. Must change addressiblity in load_memory.sh to 128 instead of 16
+// if you haven't already, see cache_system.sv and make the changes necessary there.
 
 module physical_memory
 (
