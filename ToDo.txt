@@ -9,7 +9,7 @@ Potentially going to pull a midterm 2 and just use two of the existing L2 caches
 
 
 Hardware Prefetch (up to 15):
-Would have to implement prefetching at the cache system level, as no new cache instructions may be taken during the prefetch. This would happen in the logic of the arbiter, as it would generate the needed address that would come after
+Would have to implement prefetching at the cache system level, as no new cache instructions may be taken during the prefetch. This would happen in the logic of the arbiter, as it would generate the needed address that would come after the L1 requests. Patch in branch predictions potentially? I.E. you hit a branch you've taken before and send to check if it's present in L2. That could be worth a point or two more depending on complexity.
 
 
 Branch Prediction Suite (up to 21 points, depending on extent)
