@@ -4,8 +4,12 @@ Performance counters (up to 5):
 I was thinking of implementing cache miss rates and branch mispredict rates/bubble insertion rates in hardware, and have them be accessible to the software. Use the opcode left over by RTI (if unused by Erik's LC3X) to make our own instruction to move into probably R7. Just add more hardware to do this, it shouldn't be terribly difficult to do.
 
 
+4-Way Set Associative Cache (up to 12)
+Potentially going to pull a midterm 2 and just use two of the existing L2 caches and connect them using some mediating logic. It should be fairly simple, though I think it'll end up adding a decent delay. Reference midterm 2 for design.
+
+
 Hardware Prefetch (up to 15):
-Depending on prefetching complexity, up to 15 points. Could latch the arbiter outputs as long as a prefetch is happening. Could also generate the dummy prefetch requests from the same module. Burst-read all invalid cache lines at the beginning of the program. For a small program, this should be good enough. Though mid-runtime prefetch could be difficult to do. Perhaps just group sets of two reads? It's difficult to come up with a method of control prediction.
+Would have to implement prefetching at the cache system level, as no new cache instructions may be taken during the prefetch. This would happen in the logic of the arbiter, as it would generate the needed address that would come after the L1 requests. Patch in branch predictions potentially? I.E. you hit a branch you've taken before and send to check if it's present in L2. That could be worth a point or two more depending on complexity.
 
 
 Branch Prediction Suite (up to 21 points, depending on extent)
