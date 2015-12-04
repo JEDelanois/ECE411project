@@ -1,12 +1,13 @@
 ORIGIN 0
 
-ADD R1, R0, 10
-ADD R2, R0, 2
+LDR R1, R0, num1
+LDR R2, R0, num2
 DIV R3, R1, R2
-MULT R5, R1, R2
+
+MULT R4, R1, R2
 ADD R7, R7, 7
 
-NAND R3, R5, R4
+
 
 HALT:
 	BRnzp HALT
@@ -17,5 +18,5 @@ HALT:
 	NOP
 	NOP
 
-num1: DATA2 4x001C
-num2: DATA2 4x001C   
+num1: DATA2 4x000A
+num2: DATA2 4x0002   
