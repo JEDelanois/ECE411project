@@ -4,7 +4,7 @@ Performance counters (up to 5):
 I was thinking of implementing cache miss rates and branch mispredict rates/bubble insertion rates in hardware, and have them be accessible to the software. Use the opcode left over by RTI (if unused by Erik's LC3X) to make our own instruction to move into probably R7. Just add more hardware to do this, it shouldn't be terribly difficult to do.
 
 
-4-Way Set Associative Cache (up to 12)
+4-Way Set Associative Cache (up to 7) -- Complete!!
 Potentially going to pull a midterm 2 and just use two of the existing L2 caches and connect them using some mediating logic. It should be fairly simple, though I think it'll end up adding a decent delay. Reference midterm 2 for design.
 
 
@@ -16,7 +16,7 @@ Branch Prediction Suite (up to 21 points, depending on extent)
 This is Jon's job. Godspeed to him. This involves a 4-way set associative branch table buffer (13) that support all control influences, meaning JSR, JSRR, TRAP and BRANCH (8). Technically speaking, they don't say it has to be good, but having the hardware influence things should be enough to get a decent amount of the points.
 
 
-LC3X (up to 12):
+LC3X (up to 12): -- Currently debugging
 Implement SUB, MULT, DIV, XOR, and OR. We're thinking these could be encoded into the RTI instruction in control. Unfortunately you need to prove performance improvement over software algorithms to achieve each of these instructions, which could prove to not be that much fun, especially considering that you need to modify the compiler (or add your own) that correctly understands the instructions in assembly. Potentially not TERRIBLE, but we'll see.
 
 

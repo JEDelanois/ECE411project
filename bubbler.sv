@@ -16,7 +16,7 @@ module bubbler
 logic [2:0] branch_counter_out, counter_set,counter_minus1,branch_countermux_out;
 logic IF_ID_dr, IF_ID_sr1, IF_ID_sr2, IF_ID_Hsr, ID_EX_dr, ID_EX_sr1, ID_EX_sr2, ID_EX_Hsr, branch_counter_load, branch_countermux_sel,branch_enable_latch_out,counterIR_load;
 logic [15:0] counterIR_out;
-assign counter_minus1 = branch_counter_out - 1;
+assign counter_minus1 = branch_counter_out - 3'b001;
 
 dependencyCalc ifidDEPS
 (

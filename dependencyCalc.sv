@@ -20,7 +20,7 @@ begin
 	
 	case(ir[15:12])
 	
-	op_add: 
+	default:   //op_add 
 		begin
 				produces_dr = 1'b1;
 				need_sr1 = 1'b1;
