@@ -6,10 +6,11 @@ module latch_ex_mem
 	input lc3b_word IR_in, PC_in, ALU_in, sr2_in,
     input lc3b_control CW_in,
     input logic squash_instruction,
-
+    input logic branch_predict_status_in,
 	 
 	output lc3b_word IR_out, PC_out, ALU_out, sr2_out,
-    output lc3b_control CW_out
+    output lc3b_control CW_out,
+    output logic branch_predict_status_out
 );
 
 lc3b_word IR_reg_in;
@@ -69,6 +70,14 @@ register sr2
     .load(load_latch),
     .in(sr2_in),
     .out(sr2_out)
+);
+
+register branch_predict_reg
+(
+    .clk(clk),
+    .load(load_latch),
+    .in(branch_predict_status_in),
+    .out(branch_predict_status_out)
 );
 
 endmodule : latch_ex_mem

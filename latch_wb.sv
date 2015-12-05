@@ -9,14 +9,16 @@ module latch_wb
     input logic stall_fetch,
     input logic stall_cache2_miss,
     input logic resp_b,
+    input logic branch_predict_status_in,
 	output lc3b_word IR_out, PC_out, ALU_out, MDR_out,
-    output lc3b_control CW_out
+    output lc3b_control CW_out,
+    output logic branch_predict_status_out,
+    output logic stall_cache2_miss_delay
 );
 
 lc3b_word IR_reg_in, IR_result;
 lc3b_control CW_reg_in, CW_result;
 logic load_wb_nop;
-logic stall_cache2_miss_delay;
 
 assign load_wb_nop = stall_cache2_miss_delay & (!stall_fetch);
 
@@ -91,6 +93,14 @@ register ALU
     .load(load_latch),
     .in(ALU_in),
     .out(ALU_out)
+);
+
+register branch_predict_reg
+(
+    .clk(clk),
+    .load(load_latch),
+    .in(branch_predict_status_in),
+    .out(branch_predict_status_out)
 );
 
 endmodule : latch_wb

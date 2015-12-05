@@ -4,8 +4,10 @@ module latch_if_id
 (
 	input logic clk, load_latch, inject_NOP, squash_instruction,
 	input lc3b_word IR_in, PC_in,
+    input logic branch_predict_status_in,
 	output lc3b_word IR_out, PC_out,
-    output logic squash_IF_ID
+    output logic squash_IF_ID,
+    output logic branch_predict_status_out
 );
 
 logic inject_NOP_out;
@@ -50,6 +52,14 @@ register PC
     .load(load_latch),
     .in(PC_in),
     .out(PC_out)
+);
+
+register branch_predict_reg
+(
+    .clk(clk),
+    .load(load_latch),
+    .in(branch_predict_status_in),
+    .out(branch_predict_status_out)
 );
 
 assign inject_NOP_out = inject_NOP;

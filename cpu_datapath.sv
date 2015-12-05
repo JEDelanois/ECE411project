@@ -28,6 +28,10 @@ logic flow_X, stall_X, branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, f
 lc3b_word br_adder_out;
 logic squash_IF_ID;
 logic stall_cache2_miss;
+logic btb_pc_load;
+lc3b_word predicted_pc;
+logic stall_cache2_miss_delay;
+logic IF_ID_branch_predict_status, ID_EX_branch_predict_status, EX_MEM_branch_predict_status, MEM_WB_branch_predict_status;
 //Control Word typing for register wires
 lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 
@@ -36,6 +40,18 @@ assign mem_wdata2 = SR2_MEM;
 assign mem_byte_enable2 = MEM_CW.mem_byte_enable;
 assign stall_cache2_miss = (mem_read2 || mem_write2) && (!resp_b);
 
+btb btb
+(
+	.clk,
+	.curr_pc(pc_out),
+	.loaded_pc(WB_PC),
+	.loaded_predict_pc(br_adder_out),
+	.loaded_predict(1'b0),
+	.load_line(WB_IR[15:12] == 4'b0 && WB_IR != 16'b0 && !(stall_cache2_miss_delay & resp_b)),
+	.new_predict_val(squash_instruction),
+	.btb_pc_load(btb_pc_load),
+	.predicted_pc(predicted_pc)
+);
 
 flow_control flow_control
 (
@@ -58,7 +74,7 @@ bubbler bubbler
 	.clk(clk),
 	.IF_ID_ir(IF_IR),
 	.ID_EX_ir(IR_EX),
-	.branch_enable(branch_enable),
+	.branch_enable(branch_enable | squash_instruction),
 	.flow_ID_EX(flow_IDEX),
 	.gen_bubble(gen_bubble)
 );
@@ -77,6 +93,8 @@ instruction_fetch IF_Logic
 		.final_MDR(final_MDR),
 		.mem_rdata(mem_rdata2),
 		.branch_enable(branch_enable),
+		.btb_pc_load(btb_pc_load),
+		.predicted_pc(predicted_pc),
 		.pc_out(pc_out),
 		.mem_read1(mem_read1),
 		.stall_fetch(stall_fetch),
@@ -91,9 +109,11 @@ latch_if_id IF_ID_Latch
 		.PC_in(pc_out + 4'h2),
 		.inject_NOP(inject_NOP),
 		.squash_instruction(squash_instruction),
+		.branch_predict_status_in(branch_enable),
 		.IR_out(IF_IR),
 		.PC_out(IF_EX_PC),
-		.squash_IF_ID(squash_IF_ID)
+		.squash_IF_ID(squash_IF_ID),
+		.branch_predict_status_out(IF_ID_branch_predict_status)
 );
 
 
@@ -127,13 +147,15 @@ latch_id_ex ID_EX_Latch
 		.PC_in(IF_EX_PC),
 		.CW_in(ID_CW),
 		.squash_instruction(squash_instruction),
+		.branch_predict_status_in(IF_ID_branch_predict_status),
 		.SR1_in(ID_SR1),
 		.SR2_in(ID_SR2),
 		.IR_out(IR_EX),
 		.PC_out(PC_EX),
 		.CW_out(CW_EX),
 		.SR1_out(SR1_EX),
-		.SR2_out(SR2_EX)
+		.SR2_out(SR2_EX),
+		.branch_predict_status_out(ID_EX_branch_predict_status)
 );
 
 
@@ -170,11 +192,13 @@ latch_ex_mem EX_MEM_Latch
 		.sr2_in(ex_sr2_out),
 		.CW_in(EX_CW),
 		.squash_instruction(squash_instruction),
+		.branch_predict_status_in(ID_EX_branch_predict_status),
 		.IR_out(MEM_IR),
 		.PC_out(MEM_PC),
 		.ALU_out(MEM_ALU),
 		.sr2_out(SR2_MEM),
-		.CW_out(MEM_CW)
+		.CW_out(MEM_CW),
+		.branch_predict_status_out(EX_MEM_branch_predict_status)
 );
 
 
@@ -213,11 +237,14 @@ latch_wb MEM_WB_latch
 		.stall_fetch(stall_fetch),
 		.stall_cache2_miss(stall_cache2_miss),
 		.resp_b(resp_b),
+		.branch_predict_status_in(EX_MEM_branch_predict_status),
 		.IR_out(WB_IR),
 		.PC_out(WB_PC),
 		.ALU_out(WB_ALU),
 		.MDR_out(WB_MDR),
-		.CW_out(WB_CW)
+		.CW_out(WB_CW),
+		.branch_predict_status_out(MEM_WB_branch_predict_status),
+		.stall_cache2_miss_delay(stall_cache2_miss_delay)
 );
 
 writeback_module WB_Module
@@ -229,6 +256,7 @@ writeback_module WB_Module
 		.currPC(WB_PC),
 		.controlWord(WB_CW),
 		.genCC_WB(genCC_WB),
+		.branch_predict_status(MEM_WB_branch_predict_status),
 
 		.currALUout(ALUin),
 		.MDRout(final_MDR),

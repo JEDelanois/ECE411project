@@ -13,7 +13,8 @@ module instruction_fetch
 	input lc3b_word final_MDR,
 	input lc3b_word mem_rdata,
 	input branch_enable,
-	
+	input btb_pc_load,
+	input lc3b_word predicted_pc,
 	
 	output lc3b_word pc_out,
 	output logic mem_read1,
@@ -23,7 +24,7 @@ module instruction_fetch
 
 lc3b_word pcmux_out, branchmux_out;
 lc3b_word pc_plus2_out;
-
+logic [2:0] pcmux_sel_input;
 
 Cache1_cont cache1_cont
 (
@@ -35,7 +36,13 @@ Cache1_cont cache1_cont
 	 .inject_NOP(inject_NOP)
 );
 
-
+always_comb
+begin
+	if (btb_pc_load & !branch_enable)
+		pcmux_sel_input = 3'b110;
+	else
+		pcmux_sel_input = pcmux_sel;
+end
 
 /*
  * PC
@@ -43,7 +50,7 @@ Cache1_cont cache1_cont
 register pc
 (
     .clk,
-    .load(force_pc_load||((load_pc && flow_IFID)||branch_enable)),
+    .load(force_pc_load||((load_pc && flow_IFID)||branch_enable || btb_pc_load)),
     .in(pcmux_out),
     .out(pc_out)
 );
@@ -62,14 +69,14 @@ plus2 pc_plus2
  */
 mux8 #(.width(16)) pcmux
 (
-    .sel(pcmux_sel),
+    .sel(pcmux_sel_input),
     .a(pc_plus2_out),
     .b(branchmux_out),
 	.c(sr1_out),
 	.d(mem_rdata),
 	.e(br_add_out),
 	.f(final_MDR),
-	.g(),
+	.g(predicted_pc),
 	.h(),
    .z(pcmux_out)
 );
