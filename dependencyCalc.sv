@@ -20,7 +20,7 @@ begin
 	
 	case(ir[15:12])
 	
-	op_add: 
+	op_add:
 		begin
 				produces_dr = 1'b1;
 				need_sr1 = 1'b1;
@@ -86,6 +86,12 @@ begin
 		begin
 				need_Hsr = 1'b1;
 				need_sr1 = 1'b1;
+		end
+	op_rti: 
+		begin
+				produces_dr = 1'b1;
+				need_sr1 = 1'b1;
+				need_sr2 = 1'b1;
 		end
 	
 	endcase

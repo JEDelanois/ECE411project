@@ -60,6 +60,30 @@ L1_cache Data_Cache_L1
 		.arb_wdata(data_wdata)
 );
 
+
+//Delete this and uncomment the block below to restore L2 -- Also follow instructions in physical_memory.sv
+arbiter L1_Arbiter
+(		.instr_read(instr_read), .instr_write(instr_write),
+		.instr_addr(instr_addr),
+		.instr_wdata(instr_wdata),
+		.instr_rdata(instr_rdata),
+		.instr_resp(instr_resp),
+		
+		.data_read(data_read), .data_write(data_write),
+		.data_addr(data_addr),
+		.data_wdata(data_wdata),
+		.data_rdata(data_rdata),
+		.data_resp(data_resp),
+		
+		.L2_read(pmem_read), .L2_write(pmem_write),
+		.L2_addr(pmem_addr),
+		.L2_wdata(pmem_wdata),
+		.L2_rdata(pmem_rdata),
+		.L2_resp(pmem_resp)
+);
+
+
+/*
 arbiter L1_Arbiter
 (		.instr_read(instr_read), .instr_write(instr_write),
 		.instr_addr(instr_addr),
@@ -98,4 +122,6 @@ L2_cache L2_Cache
 		.pmem_address(pmem_addr),
 		.pmem_wdata
 );
+
+*/
 endmodule : cache_system
