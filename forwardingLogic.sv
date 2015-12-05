@@ -23,9 +23,49 @@ the EX_MEM mux comes after the MEM_WBmux so that it can "write over it"
 
 logic [2:0] EX_MEM_dest;
 logic [2:0] MEM_WB_dest;
+logic need_sr1, need_sr2, need_Hsr, produces_drEXMEM, produces_drMEMWB;
 
 assign EX_MEM_dest = EX_MEM_ir[11:9];
 assign MEM_WB_dest =  MEM_WB_ir[11:9];
+
+/*
+dependencyCalc exdeps
+(
+  .ir(ir),
+ 
+  .produces_dr(),
+  .need_sr1(need_sr1),
+  .need_sr2(need_sr2),
+  .need_Hsr(need_Hsr)			
+);
+
+
+dependencyCalc EXMEMdeps
+(
+  .ir(EX_MEM_ir),
+ 
+  .produces_dr(produces_drEXMEM),
+  .need_sr1(),
+  .need_sr2(),
+  .need_Hsr()			
+);
+
+
+
+dependencyCalc MEMWBdeps
+(
+  .ir(MEM_WB_ir),
+ 
+  .produces_dr(produces_drMEMWB),
+  .need_sr1(),
+  .need_sr2(),
+  .need_Hsr()			
+);
+
+*/
+
+
+
 
 always_comb
 begin
