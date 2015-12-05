@@ -39,7 +39,7 @@ begin
 	gen_bubble = 1'b0;
 		
 	//logic for inserting bubbles when there is a load followed by a read for the same register
-	if( (ID_EX_ir[15:12] == op_ldb) || (ID_EX_ir[15:12] == op_ldi) || (ID_EX_ir[15:12] == op_ldr) ) // if the latter is a load instruction (dont need a counter since only need 1 bubble)
+	if( (ID_EX_ir[15:12] == op_ldb) || (ID_EX_ir[15:12] == op_ldi) || (ID_EX_ir[15:12] == op_ldr) || (ID_EX_ir[15:12] == op_lea)) // if the latter is a load instruction (dont need a counter since only need 1 bubble)
 	begin
 	
 	//check for previouse dependencies

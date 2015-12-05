@@ -24,15 +24,17 @@ lc3b_word ID_SR1, ID_SR2, ID_IR, IR_EX, PC_EX, SR1_EX, SR2_EX, SR2_MEM;
 lc3b_word EX_IR, EX_PC, EX_ALU, MEM_IR, MEM_PC, MEM_ALU,ex_sr2_out;
 // MEM/WB wires
 lc3b_word IR_MEM, PC_MEM, ALU_MEM, MDR_MEM, WB_IR, WB_PC, WB_ALU, WB_MDR, final_MDR, genCC_WB,ALUin;
-logic flow_X, stall_X, branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP,inject_NOP_out, gen_bubble,squash_instruction;
+logic flow_X, stall_X, branch_enable, mem_indirect_stall,flow_IFID, flow_IDEX, flow_EXMEM, flow_MEMWB, stall_fetch, inject_NOP, gen_bubble,squash_instruction;
 lc3b_word br_adder_out;
+logic squash_IF_ID;
+logic stall_cache2_miss;
 //Control Word typing for register wires
 lc3b_control CW_EX, MEM_CW, ID_CW, EX_CW, CW_MEM, WB_CW;
 
 assign mem_addr1 = pc_out;
 assign mem_wdata2 = SR2_MEM;
 assign mem_byte_enable2 = MEM_CW.mem_byte_enable;
-
+assign stall_cache2_miss = (mem_read2 || mem_write2) && (!resp_b);
 
 
 flow_control flow_control
@@ -46,7 +48,7 @@ flow_control flow_control
 	 .flow_EXMEM(flow_EXMEM), 
 	 .flow_MEMWB(flow_MEMWB),
 	 .flow_X(flow_X),
-	 .stall_cache2_miss( (mem_read2 || mem_write2) && (!resp_b) ),
+	 .stall_cache2_miss(stall_cache2_miss),
 	 .stall_X(stall_X)// stall when you are reading or writing and there is a cache miss 
 );
 
@@ -90,7 +92,8 @@ latch_if_id IF_ID_Latch
 		.inject_NOP(inject_NOP),
 		.squash_instruction(squash_instruction),
 		.IR_out(IF_IR),
-		.PC_out(IF_EX_PC)
+		.PC_out(IF_EX_PC),
+		.squash_IF_ID(squash_IF_ID)
 );
 
 
@@ -106,7 +109,7 @@ instruction_decode ID_Logic
 		.mem_select(WB_CW.regFilemux_sel),
 		.wb_dest_sel(WB_CW.destmux_sel),
 		.gen_bubble(gen_bubble),
-		.squash_ID(1'b0),
+		.squash_ID(squash_IF_ID & !inject_NOP),
 		
 		
 		.sr1(ID_SR1),
@@ -207,6 +210,9 @@ latch_wb MEM_WB_latch
 		.MDR_in(MDR_MEM),
 		.CW_in(CW_MEM),
 		.squash_instruction(squash_instruction),
+		.stall_fetch(stall_fetch),
+		.stall_cache2_miss(stall_cache2_miss),
+		.resp_b(resp_b),
 		.IR_out(WB_IR),
 		.PC_out(WB_PC),
 		.ALU_out(WB_ALU),
@@ -223,7 +229,7 @@ writeback_module WB_Module
 		.currPC(WB_PC),
 		.controlWord(WB_CW),
 		.genCC_WB(genCC_WB),
-		
+
 		.currALUout(ALUin),
 		.MDRout(final_MDR),
 		.br_adder_out(br_adder_out),

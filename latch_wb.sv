@@ -6,12 +6,25 @@ module latch_wb
 	input lc3b_word IR_in, PC_in, ALU_in, MDR_in,
     input lc3b_control CW_in,
     input logic squash_instruction,
+    input logic stall_fetch,
+    input logic stall_cache2_miss,
+    input logic resp_b,
 	output lc3b_word IR_out, PC_out, ALU_out, MDR_out,
     output lc3b_control CW_out
 );
 
-lc3b_word IR_reg_in;
-lc3b_control CW_reg_in;
+lc3b_word IR_reg_in, IR_result;
+lc3b_control CW_reg_in, CW_result;
+logic load_wb_nop;
+logic stall_cache2_miss_delay;
+
+assign load_wb_nop = stall_cache2_miss_delay & (!stall_fetch);
+
+always_ff @ (posedge clk)
+begin
+    stall_cache2_miss_delay = stall_cache2_miss;
+end
+
 
 always_comb
     begin
@@ -25,14 +38,26 @@ always_comb
             IR_reg_in = IR_in;
             CW_reg_in = CW_in;
         end
+
+        if (load_wb_nop & !resp_b)
+        begin
+            IR_out = 16'b0;
+            CW_out = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 11'b0};
+        end
+        else
+        begin
+            IR_out = IR_result;
+            CW_out = CW_result;
+        end
     end
+
 
 register IR
 (
     .clk(clk),
     .load(load_latch),
     .in(IR_reg_in),
-    .out(IR_out)
+    .out(IR_result)
 );
 
 
@@ -49,7 +74,7 @@ register #(CONTROL_WIDTH) CW
     .clk(clk),
     .load(load_latch),
     .in(CW_reg_in),
-    .out(CW_out)
+    .out(CW_result)
 );
 
 register MDR

@@ -23,7 +23,7 @@ logic compare;
 assign currALUout = currALU;
 assign MDRout = MDR;
 assign branch_enable = compare&&(currIR[15:12] == 4'b0000);
-assign squash_instruction = branch_enable;
+assign squash_instruction = branch_enable || (controlWord.opcode == op_jmp) || (controlWord.opcode == op_jsr) || (controlWord.opcode == op_jmp) || (controlWord.opcode == op_trap);
 
 lc3b_word adj9out;
 lc3b_word adj11out;
