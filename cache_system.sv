@@ -7,7 +7,7 @@ module cache_system
 		input [1:0] CPU_data_byte_enable,
 		input [15:0] CPU_data_addr, CPU_data_wdata,
 		input pmem_resp,
-	   input [1023:0] pmem_rdata,
+	   input [127:0] pmem_rdata, //input [1023:0] pmem_rdata,
 		
 		output CPU_instr_resp,
 		output [15:0] CPU_instr_rdata,
@@ -15,12 +15,13 @@ module cache_system
 		output [15:0] CPU_data_rdata,
 		output pmem_read, pmem_write,
 		output [15:0] pmem_addr,
-		output [1023:0] pmem_wdata
+		output [127:0] pmem_wdata //output [1023:0] pmem_wdata
 );
 
-logic data_resp, data_read, data_write, instr_resp, instr_read, instr_write, L2_resp, L2_read, L2_write;
-logic [15:0] data_addr, instr_addr, L2_address;
-logic [127:0] data_rdata, data_wdata, instr_rdata, instr_wdata, L2_wdata, L2_rdata;
+logic data_resp, data_read, data_write, instr_resp, instr_read, instr_write, L2_resp, L2_read, L2_write, ev_resp, ev_read, ev_write;
+logic [15:0] data_addr, instr_addr, L2_address, ev_addr;
+logic [127:0] data_rdata, data_wdata, instr_rdata, instr_wdata, L2_wdata, L2_rdata,
+					ev_rdata, ev_wdata;
 
 L1_cache	Instruction_Cache_L1
 (
@@ -62,6 +63,7 @@ L1_cache Data_Cache_L1
 
 
 //Delete this and uncomment the block below to restore L2 -- Also follow instructions in physical_memory.sv
+//Also change the port bits on mp3.sv as well as cache_system.sv (top of this page)
 arbiter L1_Arbiter
 (		.instr_read(instr_read), .instr_write(instr_write),
 		.instr_addr(instr_addr),
@@ -80,6 +82,27 @@ arbiter L1_Arbiter
 		.L2_wdata(pmem_wdata),
 		.L2_rdata(pmem_rdata),
 		.L2_resp(pmem_resp)
+		
+		/*
+		.L2_read(ev_read), .L2_write(ev_write),
+		.L2_addr(ev_addr),
+		.L2_wdata(ev_wdata),
+		.L2_rdata(ev_rdata),
+		.L2_resp(ev_resp)
+		*/
+);
+
+/*
+eviction_buffer
+(
+		.clk(clk), .ev_write(ev_write), .ev_read(ev_read), .pmem_resp(pmem_resp),
+		.ev_addr(ev_addr),
+		.ev_wdata(ev_wdata), .pmem_rdata(pmem_rdata),
+		
+		
+		.ev_resp(ev_resp),	.pmem_write(pmem_write), .pmem_read,
+		.pmem_addr,
+		.pmem_wdata, .ev_rdata(ev_resp)
 );
 
 

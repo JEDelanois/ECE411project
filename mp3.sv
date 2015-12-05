@@ -2,11 +2,11 @@ module mp3
 (
 		input clk,
 		input pmem_resp,
-		input [1023:0] pmem_rdata,
+		input [127:0] pmem_rdata, //input [1023:0] pmem_rdata,
 		
 		output pmem_read, pmem_write,
 		output [15:0] pmem_address,
-		output [1023:0] pmem_wdata
+		output [127:0] pmem_wdata //output [1023:0] pmem_wdata
 );
 
 
