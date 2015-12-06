@@ -66,6 +66,7 @@ btb_cache_way btb_way_two
 	.new_predict_val(),
 	
 	.valid_out(),
+	.predict_out(),
 	.tag_out(),
 	.data_out()
 );
