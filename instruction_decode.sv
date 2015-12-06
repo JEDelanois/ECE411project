@@ -8,7 +8,7 @@ module instruction_decode
 		input lc3b_word WB_pcin,
 		input lc3b_word WB_br_adder_out,
 		input logic mem_control,
-		input logic [2:0] mem_select,
+		input logic [1:0] mem_select,
 		input logic wb_dest_sel,
 		input gen_bubble,
 		input squash_ID,
@@ -89,17 +89,13 @@ mux2 #(3) dest_mux
 		.f(dest)
 );
 
-mux8 regfile_load_mux
+mux4 regfile_load_mux
 (
 		.sel(mem_select),
 		.a(data_in),
 		.b(WB_pcin),
 		.c(WB_br_adder_out),
 		.d(),
-		.e(),
-		.f(),
-		.g(),
-		.h(),
-		.z(regfile_mux_out)
+		.f(regfile_mux_out)
 );
 endmodule : instruction_decode

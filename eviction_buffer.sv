@@ -1,13 +1,13 @@
 module eviction_buffer
 (
-		input clk, ev_write, ev_read, pmem_resp,
-		input [15:0] ev_addr,
-		input [1023:0] ev_wdata, pmem_rdata,
+		input logic clk, ev_write, ev_read, pmem_resp,
+		input logic [15:0] ev_addr,
+		output logic [127:0] ev_wdata, pmem_rdata, //input logic [1023:0] ev_wdata, pmem_rdata,
 		
 		
-		output ev_resp, pmem_write, pmem_read,
-		output [15:0] pmem_addr,
-		output [1023:0] pmem_wdata, ev_rdata
+		output logic ev_resp, pmem_write, pmem_read,
+		output logic [15:0] pmem_addr,
+		output logic [127:0] pmem_wdata, ev_rdata //output logic [1023:0] pmem_wdata, ev_rdata
 );
 
 //Check for case that L1 reads something that is in the writeback buffer! check pmem_read and address

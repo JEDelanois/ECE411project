@@ -100,9 +100,9 @@ eviction_buffer
 		.ev_wdata(ev_wdata), .pmem_rdata(pmem_rdata),
 		
 		
-		.ev_resp(ev_resp),	.pmem_write(pmem_write), .pmem_read,
-		.pmem_addr,
-		.pmem_wdata, .ev_rdata(ev_resp)
+		.ev_resp(ev_resp),	.pmem_write(pmem_write), .pmem_read(pmem_read),
+		.pmem_addr(pmem_addr),
+		.pmem_wdata(pmem_wdata), .ev_rdata(ev_rdata)
 );
 
 

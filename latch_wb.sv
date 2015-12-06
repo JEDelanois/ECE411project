@@ -31,7 +31,7 @@ always_comb
         if(squash_instruction == 1'b1)
         begin
             IR_reg_in = 16'b0;
-            CW_reg_in = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 11'b0};
+            CW_reg_in = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 10'b0};
         end
         else
         begin
@@ -42,7 +42,7 @@ always_comb
         if (load_wb_nop & !resp_b)
         begin
             IR_out = 16'b0;
-            CW_out = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 11'b0};
+            CW_out = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 10'b0};
         end
         else
         begin

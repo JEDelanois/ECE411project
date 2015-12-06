@@ -29,7 +29,7 @@ always_comb
 		ctrl.mem_byte_enable = 2'b11;
 		ctrl.adjmux_sel = 1'b0;
 		ctrl.cc_load = 1'b0;
-		ctrl.regFilemux_sel = 3'b000;
+		ctrl.regFilemux_sel = 2'b00;
 		ctrl.regFile_load = 1'b0;
 		ctrl.force_pc_load = 1'b0;
 		
@@ -64,7 +64,7 @@ always_comb
 			op_jsr: begin
 				//Store PC into R7
 				ctrl.destmux_sel = 1'b1;
-				ctrl.regFilemux_sel = 3'b001;
+				ctrl.regFilemux_sel = 2'b01;
 				ctrl.regFile_load = 1'b1;
 				ctrl.force_pc_load = 1'b1;
 				if(IRbits[11] == 1)	//The case for JSR
@@ -98,7 +98,7 @@ always_comb
 			end
 			op_lea: begin
 				ctrl.cc_load = 1'b1;
-				ctrl.regFilemux_sel = 3'b010;
+				ctrl.regFilemux_sel = 2'b10;
 				ctrl.regFile_load = 1'b1;
 			end
 			op_not: begin
@@ -159,7 +159,7 @@ always_comb
 				ctrl.force_pc_load = 1'b1;
 				ctrl.mem2_read = 1'b1;
 				ctrl.destmux_sel = 1'b1;
-				ctrl.regFilemux_sel = 3'b001;
+				ctrl.regFilemux_sel = 2'b01;
 				ctrl.regFile_load = 1'b1;
 				ctrl.PCmux_sel = 3'b101;
 				ctrl.memAdd2mux_sel = 1'b1;

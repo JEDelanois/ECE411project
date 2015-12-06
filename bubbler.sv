@@ -2,11 +2,8 @@ import lc3b_types::*;
 
 module bubbler 
 (
-	input clk,
 	input [15:0] IF_ID_ir,
 	input [15:0] ID_EX_ir,
-	input branch_enable,
-	input flow_ID_EX,
 	
 	
 	output logic gen_bubble
@@ -22,16 +19,6 @@ dependencyCalc ifidDEPS
   .need_sr1(IF_ID_sr1),
   .need_sr2(IF_ID_sr2),
   .need_Hsr(IF_ID_Hsr)			
-);
-
-dependencyCalc idexDEPS
-(
-  .ir(ID_EX_ir),
- 
-  .produces_dr(ID_EX_dr),
-  .need_sr1(ID_EX_sr1),
-  .need_sr2(ID_EX_sr2),
-  .need_Hsr(ID_EX_Hsr)			
 );
 
 always_comb
