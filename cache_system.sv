@@ -49,7 +49,7 @@ L1_cache	Instruction_Cache_L1
 
 
 
-register #(16) rdata_in_reg
+register #(128) rdata_in_reg
 (
 	.clk(clk),
 	.load(clk),
