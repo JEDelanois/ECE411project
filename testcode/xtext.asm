@@ -12,7 +12,7 @@ AND R2, R0, 0
 AND R3, R0, 0
 
 
-;div loop result i R3
+;div loop result i R3  doesnt work for negatives cannot hadle dive by zero
 LDR R1, R0, div1
 LDR R2, R0, div2
 AND R3, R0, 0
@@ -35,12 +35,12 @@ AND R3, R0, 0
 AND R4, R0, 0
 BRnzp multInstruction
 ;				div DATA
-div1: DATA2 10
-div2: DATA2 2
+div1: DATA2 100
+div2: DATA2 5
 
 ;       			multDATA
 mult1: DATA2 1
-mult2: DATA2 -6550
+mult2: DATA2 7
 
 multInstruction:
 AND R6, R0, 0
@@ -57,7 +57,7 @@ AND R3, R0, 0
 
 
 ;mult loop
-;mult loop result in R3
+;mult loop result in R3 works with negative but super slow
 AND R3, R0, 0
 ADD R4, R0, 1
 AND R6, R0, 0
@@ -79,32 +79,41 @@ AND R2, R0, 0
 AND R3, R0, 0
 
 
+LEA R0, bits1
+LDR R1, R0, 0
+LEA R0, bits2
+LDR R2, R0, 0
+AND R0, R0,0
 
-BRnzp HALT
+ADD R6, R0, 6
+SUB R6, R6, R4
+AND R6, R0, 0
+
+XOR R0, R1, R2
+AND R0, R0, 0
 
 
+OR R0, R1, R2
+AND R0, R0, 0
 
+NAND R0, R1, R2
+AND R0, R0, 0
 
+NOR R0, R1, R2
+AND R0, R0, 0
 
-
-
-
+XNOR R0, R1, R2
+AND R0, R0, 0
 
 
 
 HALT:
 	BRnzp HALT
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-
-
 
 
 bits1: DATA2 4x1010
 bits2: DATA2 4x1100
+
+
 
 
