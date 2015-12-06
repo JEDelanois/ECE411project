@@ -19,10 +19,10 @@
 ## PROGRAM "Quartus II"
 ## VERSION "Version 13.1.4 Build 182 03/12/2014 SJ Full Version"
 
-## DATE    "Sat Dec  5 18:37:53 2015"
+## DATE    "Sat Dec  5 21:27:02 2015"
 
 ##
-## DEVICE  "EP3SE50F484C2"
+## DEVICE  "EP3SE80F1152C2"
 ##
 
 
