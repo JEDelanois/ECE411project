@@ -18,8 +18,8 @@ XOR	|1  0  0  0 |       |     |0 1 1|
 OR	|1  0  0  0 |       |     |1 0 0|
 
 
-inc	|1  0  0  0 |       |     |1 0 1| *
-dec	|1  0  0  0 |       |     |1 1 0| *
+	|1  0  0  0 |       |     |1 0 1| *
+	|1  0  0  0 |       |     |1 1 0| *
 save for performace	|1  0  0  0 |       |     |1 1 1|
 
 
@@ -104,10 +104,17 @@ bool LC_3X::isKeyWord(string s)
 {
 	bool temp;
 		// label
-	if( (s[(int)s.length() - 1] == ':') || (s == "ADD" ) || (s =="AND" ) || (s == "BR" ) || (s =="JMP" ) || (s == "JSR" ) || (s =="JSRR" ) || (s == "LDB" ) || (s =="LDI" ) || (s == "LDR" ) || (s =="LEA" ) || (s == "NOT" ) || (s =="RET" ) || (s =="SHF" ) || (s == "STB" ) || (s =="STI" ) || (s == "STR" ) || (s =="TRAP" ) || (s =="DATA2" ) || (s =="NOP" ) || (s =="nop" ) )
+	if( (s[(int)s.length() - 1] == ':') || (s == "ADD" ) || (s =="AND" ) || (s =="JMP" ) || (s == "JSR" ) || (s =="JSRR" ) || (s == "LDB" ) || (s =="LDI" ) || (s == "LDR" ) || (s =="LEA" ) || (s == "NOT" ) || (s =="RET" ) || (s =="SHF" ) || (s == "STB" ) || (s =="STI" ) || (s == "STR" ) || (s =="TRAP" ) || (s =="DATA2" ) || (s =="NOP" ) || (s =="nop" ) )
 		temp = true;
 	else 
 		temp = false;
+
+	//special case for branch
+	if((int)s.length() > 2)
+	{
+		if((s[0] == 'B') && (s[1] == 'R') )
+			temp = true;
+	}
 	
 
 	return temp;
