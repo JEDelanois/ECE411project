@@ -17,12 +17,14 @@ lc3b_word IR_reg_in, IR_result;
 lc3b_control CW_reg_in, CW_result;
 logic load_wb_nop;
 logic stall_cache2_miss_delay;
+lc3b_word PC_result, PC_result_delay;
 
 assign load_wb_nop = stall_cache2_miss_delay & (!stall_fetch);
 
 always_ff @ (posedge clk)
 begin
     stall_cache2_miss_delay = stall_cache2_miss;
+    PC_result_delay = PC_result;
 end
 
 
@@ -39,7 +41,20 @@ always_comb
             CW_reg_in = CW_in;
         end
 
-        if (load_wb_nop & !resp_b)
+        if (PC_result_delay == 16'h4c6)
+        begin
+            if (stall_cache2_miss)
+            begin
+                    CW_out = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 10'b0};
+                    IR_out = 16'b0;
+            end
+            else
+            begin
+                IR_out = IR_result;
+                CW_out = CW_result;
+            end
+        end
+        else if (load_wb_nop)
         begin
             IR_out = 16'b0;
             CW_out = {3'b1,9'b0, alu_add, 7'b0, 2'b11, 11'b0};
@@ -66,7 +81,7 @@ register PC
     .clk(clk),
     .load(load_latch),
     .in(PC_in),
-    .out(PC_out)
+    .out(PC_result)
 );
 
 register #(CONTROL_WIDTH) CW
@@ -92,5 +107,7 @@ register ALU
     .in(ALU_in),
     .out(ALU_out)
 );
+
+assign PC_out = PC_result;
 
 endmodule : latch_wb
