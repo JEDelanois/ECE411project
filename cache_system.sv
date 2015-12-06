@@ -7,7 +7,7 @@ module cache_system
 		input [1:0] CPU_data_byte_enable,
 		input [15:0] CPU_data_addr, CPU_data_wdata,
 		input pmem_resp,
-	   input [127:0] pmem_rdata, //input [1023:0] pmem_rdata,
+	   input [1023:0] pmem_rdata,
 		
 		output CPU_instr_resp,
 		output [15:0] CPU_instr_rdata,
@@ -15,7 +15,7 @@ module cache_system
 		output [15:0] CPU_data_rdata,
 		output pmem_read, pmem_write,
 		output [15:0] pmem_addr,
-		output [127:0] pmem_wdata //output [1023:0] pmem_wdata
+		output [1023:0] pmem_wdata
 );
 
 logic data_resp, data_read, data_write, instr_resp, instr_read, instr_write, L2_resp, L2_read, L2_write, ev_resp, ev_read, ev_write;
@@ -23,6 +23,10 @@ logic [15:0] data_addr, instr_addr, L2_address, ev_addr;
 logic [127:0] data_rdata, data_wdata, instr_rdata, instr_wdata, L2_wdata, L2_rdata,
 					ev_rdata, ev_wdata;
 
+logic in_read, in_write, in_resp;
+logic [1:0] in_byte_enable;
+logic [15:0] in_addr, in_rdata, in_wdata;
+					
 L1_cache	Instruction_Cache_L1
 (
 		.clk(clk),
@@ -42,16 +46,78 @@ L1_cache	Instruction_Cache_L1
 		.arb_wdata(instr_wdata)
 );
 
+
+
+
+register #(16) rdata_in_reg
+(
+	.clk(clk),
+	.load(clk),
+	.in(data_rdata),
+	.out(in_rdata)
+);
+
+register #(16) wdata_in_reg
+(
+	.clk(clk),
+	.load(clk),
+	.in(CPU_data_wdata),
+	.out(in_wdata)
+);
+
+register #(16) addr_in_reg
+(
+	.clk(clk),
+	.load(clk),
+	.in(CPU_data_addr),
+	.out(in_addr)
+);
+
+register #(1) read_in_reg
+(
+	.clk(clk),
+	.load(clk),
+	.in(CPU_data_read),
+	.out(in_read)
+);
+
+register #(1) write_in_reg
+(
+	.clk(clk),
+	.load(clk),
+	.in(CPU_data_write),
+	.out(in_write)
+);
+
+register #(1) resp_in_reg
+(
+	.clk(clk),
+	.load(clk),
+	.in(data_resp),
+	.out(in_resp)
+);
+
+register #(2) byte_in_reg
+(
+	.clk(clk),
+	.load(clk),
+	.in(CPU_data_byte_enable),
+	.out(in_byte_enable)
+);
+
+
+
+
 L1_cache Data_Cache_L1
 (
 		.clk(clk),
-		.arb_resp(data_resp),
-		.arb_rdata(data_rdata),
-		.mem_read(CPU_data_read),
-		.mem_write(CPU_data_write),
-		.mem_byte_enable(CPU_data_byte_enable),
-		.mem_address(CPU_data_addr),
-		.mem_wdata(CPU_data_wdata),
+		.arb_resp(in_resp),
+		.arb_rdata(in_rdata),
+		.mem_read(in_read),
+		.mem_write(in_write),
+		.mem_byte_enable(in_byte_enable),
+		.mem_address(in_addr),
+		.mem_wdata(in_wdata),
 	 
 		.mem_resp(CPU_data_resp),
 		.arb_read(data_read),
@@ -59,37 +125,6 @@ L1_cache Data_Cache_L1
 		.mem_rdata(CPU_data_rdata),
 		.arb_address(data_addr),
 		.arb_wdata(data_wdata)
-);
-
-
-//Delete this and uncomment the block below to restore L2 -- Also follow instructions in physical_memory.sv
-//Also change the port bits on mp3.sv as well as cache_system.sv (top of this page)
-arbiter L1_Arbiter
-(		.instr_read(instr_read), .instr_write(instr_write),
-		.instr_addr(instr_addr),
-		.instr_wdata(instr_wdata),
-		.instr_rdata(instr_rdata),
-		.instr_resp(instr_resp),
-		
-		.data_read(data_read), .data_write(data_write),
-		.data_addr(data_addr),
-		.data_wdata(data_wdata),
-		.data_rdata(data_rdata),
-		.data_resp(data_resp),
-		
-		.L2_read(pmem_read), .L2_write(pmem_write),
-		.L2_addr(pmem_addr),
-		.L2_wdata(pmem_wdata),
-		.L2_rdata(pmem_rdata),
-		.L2_resp(pmem_resp)
-		
-		/*
-		.L2_read(ev_read), .L2_write(ev_write),
-		.L2_addr(ev_addr),
-		.L2_wdata(ev_wdata),
-		.L2_rdata(ev_rdata),
-		.L2_resp(ev_resp)
-		*/
 );
 
 /*
@@ -104,9 +139,9 @@ eviction_buffer
 		.pmem_addr(pmem_addr),
 		.pmem_wdata(pmem_wdata), .ev_rdata(ev_rdata)
 );
+*/
 
 
-/*
 arbiter L1_Arbiter
 (		.instr_read(instr_read), .instr_write(instr_write),
 		.instr_addr(instr_addr),
@@ -146,5 +181,5 @@ L2_cache L2_Cache
 		.pmem_wdata
 );
 
-*/
+
 endmodule : cache_system
