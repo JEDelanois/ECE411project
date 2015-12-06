@@ -20,6 +20,7 @@ module writeback_module
 );
 
 logic compare;
+lc3b_word br_adder_result;
 
 assign currALUout = currALU;
 assign MDRout = MDR;
@@ -63,7 +64,7 @@ adder branchAdder
 	/* port declarations */
 	.a(adjMUXout), 
 	.b(currPC),
-	.sum(br_adder_out)
+	.sum(br_adder_result)
 );
 
 
@@ -92,5 +93,12 @@ cccomp CCcomp
 	.branch_enable(compare)
 );
 
+always_comb
+begin
+	if (branch_predict_status & !branch_enable)
+		br_adder_out = currPC;
+	else
+		br_adder_out = br_adder_result;
+end
 
 endmodule : writeback_module

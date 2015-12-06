@@ -19,6 +19,7 @@ module latch_wb
 lc3b_word IR_reg_in, IR_result;
 lc3b_control CW_reg_in, CW_result;
 logic load_wb_nop;
+logic branch_predict_reg_in;
 
 assign load_wb_nop = stall_cache2_miss_delay & (!stall_fetch);
 
@@ -51,6 +52,11 @@ always_comb
             IR_out = IR_result;
             CW_out = CW_result;
         end
+
+        if (squash_instruction)
+            branch_predict_reg_in = 1'b0;
+        else
+            branch_predict_reg_in = branch_predict_status_in;
     end
 
 
@@ -98,8 +104,8 @@ register ALU
 register branch_predict_reg
 (
     .clk(clk),
-    .load(load_latch),
-    .in(branch_predict_status_in),
+    .load(load_latch | squash_instruction),
+    .in(branch_predict_reg_in),
     .out(branch_predict_status_out)
 );
 
